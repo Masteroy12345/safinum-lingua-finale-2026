@@ -1,0 +1,6914 @@
+{
+  "sources": [
+    "OlameMend/soreva (31 langs / 150 aligned rows)",
+    "FredMike23/french-FULFULDE-ADAMAOUA (42768 rows filtered)",
+    "BATBAINA/fulfulde-dataset-asr-agri",
+    "michsethowusu/english-cameroon-pidgin_sentence-pairs_mt560 (28159 rows filtered)"
+  ],
+  "soreva_parallel": [
+    {
+      "ewo": {
+        "aglc": "mbəmbə kídí",
+        "ascii": "mbembe kidi"
+      },
+      "bbj": {
+        "aglc": "ǒ tí a?",
+        "ascii": "o ti a"
+      },
+      "bas": {
+        "aglc": "me yéga",
+        "ascii": "me yega"
+      },
+      "dua": {
+        "aglc": "idiba  a bwam",
+        "ascii": "idiba a bwam"
+      },
+      "fub": {
+        "aglc": "aweti jam naa?",
+        "ascii": "aweti jam naa"
+      },
+      "wes": {
+        "aglc": "wuna morning oh",
+        "ascii": "wuna morning oh"
+      },
+      "byv": {
+        "aglc": "o zi ὰ?",
+        "ascii": "o zi a"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "masug",
+        "ascii": "masug"
+      },
+      "bbj": {
+        "aglc": "caʼtə",
+        "ascii": "ca'te"
+      },
+      "bas": {
+        "aglc": "me yéga",
+        "ascii": "me yega"
+      },
+      "dua": {
+        "aglc": "na nje",
+        "ascii": "na nje"
+      },
+      "fub": {
+        "aglc": "sannou",
+        "ascii": "sannou"
+      },
+      "wes": {
+        "aglc": "i salut oh",
+        "ascii": "i salut oh"
+      },
+      "byv": {
+        "aglc": "mə cà'tə̌",
+        "ascii": "me ca'te"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ndɔ miná yá?",
+        "ascii": "ndo mina ya"
+      },
+      "bbj": {
+        "aglc": "ǎ m gaə̂kə̀?",
+        "ascii": "a m gaeke"
+      },
+      "bas": {
+        "aglc": "i nkè lè la ?",
+        "ascii": "i nke le la"
+      },
+      "dua": {
+        "aglc": "e mala ne",
+        "ascii": "e mala ne"
+      },
+      "fub": {
+        "aglc": "noƴ on wai",
+        "ascii": "noy on wai"
+      },
+      "wes": {
+        "aglc": "na how wuna dey?",
+        "ascii": "na how wuna dey"
+      },
+      "byv": {
+        "aglc": "cɔ̀ bə α ndʉ̂kə?",
+        "ascii": "co be a nduke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "dzé é nə́ mkpámɛ́n?",
+        "ascii": "dze e ne mkpamen"
+      },
+      "bbj": {
+        "aglc": "ywə́ sə́ sí a?",
+        "ascii": "ywe se si a"
+      },
+      "bas": {
+        "aglc": "ki i ye nkeŋ",
+        "ascii": "ki i ye nkeng"
+      },
+      "dua": {
+        "aglc": "nje ye penya",
+        "ascii": "nje ye penya"
+      },
+      "fub": {
+        "aglc": "noƴ ton?",
+        "ascii": "noy ton"
+      },
+      "wes": {
+        "aglc": "some tin dey?",
+        "ascii": "some tin dey"
+      },
+      "byv": {
+        "aglc": "nù nswə nsi ke?",
+        "ascii": "nu nswe nsi ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mə nə dzoé nâ paulus",
+        "ascii": "me ne dzoe na paulus"
+      },
+      "bbj": {
+        "aglc": "tsó tsaə̌ bə pol",
+        "ascii": "tso tsae be pol"
+      },
+      "bas": {
+        "aglc": "jol jem lè paul",
+        "ascii": "jol jem le paul"
+      },
+      "dua": {
+        "aglc": "dina lam na paolo",
+        "ascii": "dina lam na paolo"
+      },
+      "fub": {
+        "aglc": "inde am paul",
+        "ascii": "inde am paul"
+      },
+      "wes": {
+        "aglc": "ma name na Paul",
+        "ascii": "ma name na paul"
+      },
+      "byv": {
+        "aglc": "lɛ̂n sαm bə α paul",
+        "ascii": "len sam be a paul"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "masɔ́ á ndzámɛ́n",
+        "ascii": "maso a ndzamen"
+      },
+      "bbj": {
+        "aglc": "gaə̂ bə yə bɛlin",
+        "ascii": "gae be ye belin"
+      },
+      "bas": {
+        "aglc": "mè ye man berlin",
+        "ascii": "me ye man berlin"
+      },
+      "dua": {
+        "aglc": "na e nde muna a berlin",
+        "ascii": "na e nde muna a berlin"
+      },
+      "fub": {
+        "aglc": "mi don haa berlin",
+        "ascii": "mi don haa berlin"
+      },
+      "wes": {
+        "aglc": "i be Berlin pikin",
+        "ascii": "i be berlin pikin"
+      },
+      "byv": {
+        "aglc": "mə̀ bə α zə berlin",
+        "ascii": "me be a ze berlin"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mə tɔ̌ á ŋ́góla ewondo",
+        "ascii": "me to a nggola ewondo"
+      },
+      "bbj": {
+        "aglc": "gaə̂ cwə́ yawùdè",
+        "ascii": "gae cwe yawude"
+      },
+      "bas": {
+        "aglc": "mè yihnè i yaonde",
+        "ascii": "me yihne i yaonde"
+      },
+      "dua": {
+        "aglc": "na maja ndé o yaonde",
+        "ascii": "na maja nde o yaonde"
+      },
+      "fub": {
+        "aglc": "mi woni haa yaounde",
+        "ascii": "mi woni haa yaounde"
+      },
+      "wes": {
+        "aglc": "i di stay for Yaoundé",
+        "ascii": "i di stay for yaounde"
+      },
+      "byv": {
+        "aglc": "mə̀ kə ntswə α yαùndè",
+        "ascii": "me ke ntswe a yaunde"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mə nə ǹyə́gələ",
+        "ascii": "me ne nyegele"
+      },
+      "bbj": {
+        "aglc": "gaə̂ bə́ gɛlaʼtə",
+        "ascii": "gae be gela'te"
+      },
+      "bas": {
+        "aglc": "mè yé malet sukulu",
+        "ascii": "me ye malet sukulu"
+      },
+      "dua": {
+        "aglc": "na e ndé muleedi",
+        "ascii": "na e nde muleedi"
+      },
+      "fub": {
+        "aglc": "mi do djanguina",
+        "ascii": "mi do djanguina"
+      },
+      "wes": {
+        "aglc": "ma work na teacher",
+        "ascii": "ma work na teacher"
+      },
+      "byv": {
+        "aglc": "mə̀ bə α ngàtswìtə̀",
+        "ascii": "me be a ngatswite"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "masié á goethe institut",
+        "ascii": "masie a goethe institut"
+      },
+      "bbj": {
+        "aglc": "gaə̂ faʼ goətə institʉt",
+        "ascii": "gae fa' goete institut"
+      },
+      "bas": {
+        "aglc": "mè selel i goethe-institut",
+        "ascii": "me selel i goethe-institut"
+      },
+      "dua": {
+        "aglc": "na e ndé muboledi o goethe institu",
+        "ascii": "na e nde muboledi o goethe institu"
+      },
+      "fub": {
+        "aglc": "mi do houwa haa institut goethe",
+        "ascii": "mi do houwa haa institut goethe"
+      },
+      "wes": {
+        "aglc": "i di work for Goethe institut",
+        "ascii": "i di work for goethe institut"
+      },
+      "byv": {
+        "aglc": "mə̀ kə mfa' α goethe institut",
+        "ascii": "me ke mfa' a goethe institut"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mə nə mintag ai nâ bî wa bǐ yə̀mə̀nə̀",
+        "ascii": "me ne mintag ai na bi wa bi yemene"
+      },
+      "bbj": {
+        "aglc": "â púŋ a paʼ gaə́ zhyə́ ó a",
+        "ascii": "a pung a pa' gae zhye o a"
+      },
+      "bas": {
+        "aglc": "mè nkoŋ  masé lè di yina",
+        "ascii": "me nkong mase le di yina"
+      },
+      "dua": {
+        "aglc": "na e munyenge o bia  wa",
+        "ascii": "na e munyenge o bia wa"
+      },
+      "fub": {
+        "aglc": "andougou ma waylini'am",
+        "ascii": "andougou ma waylini'am"
+      },
+      "wes": {
+        "aglc": "i glad for sabi you",
+        "ascii": "i glad for sabi you"
+      },
+      "byv": {
+        "aglc": "ntʉ αm tsiàŋtə̌ nə̀ lɛ̀n u.",
+        "ascii": "ntu am tsiangte ne len u"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bî bálá!",
+        "ascii": "bi bala"
+      },
+      "bbj": {
+        "aglc": "â lɔ̂ bə o",
+        "ascii": "a lo be o"
+      },
+      "bas": {
+        "aglc": "mè nke",
+        "ascii": "me nke"
+      },
+      "dua": {
+        "aglc": "na maala",
+        "ascii": "na maala"
+      },
+      "fub": {
+        "aglc": "se yende fere",
+        "ascii": "se yende fere"
+      },
+      "wes": {
+        "aglc": "we go see oh",
+        "ascii": "we go see oh"
+      },
+      "byv": {
+        "aglc": "ɔ̂hɔ mbὰ  / bə tʉ' lα mbὰ",
+        "ascii": "oho mba be tu' la mba"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "okídí",
+        "ascii": "okidi"
+      },
+      "bbj": {
+        "aglc": "tə fɔ̂kdzǔ",
+        "ascii": "te fokdzu"
+      },
+      "bas": {
+        "aglc": "yani",
+        "ascii": "yani"
+      },
+      "dua": {
+        "aglc": "kiele so",
+        "ascii": "kiele so"
+      },
+      "fub": {
+        "aglc": "se jango?",
+        "ascii": "se jango"
+      },
+      "wes": {
+        "aglc": "tomorrow noh",
+        "ascii": "tomorrow noh"
+      },
+      "byv": {
+        "aglc": "bə tʉ̂' ndǎmnjʉ  / ndǎmnjʉ",
+        "ascii": "be tu' ndamnju ndamnju"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "dzé é dzílí?",
+        "ascii": "dze e dzili"
+      },
+      "bbj": {
+        "aglc": "yə̌ŋ a kə?",
+        "ascii": "yeng a ke"
+      },
+      "bas": {
+        "aglc": "ki i ?",
+        "ascii": "ki i"
+      },
+      "dua": {
+        "aglc": "nje yen nan ?",
+        "ascii": "nje yen nan"
+      },
+      "fub": {
+        "aglc": "ɗoum ɗoumé?",
+        "ascii": "doum doume"
+      },
+      "wes": {
+        "aglc": "na weti dis?",
+        "ascii": "na weti dis"
+      },
+      "byv": {
+        "aglc": "à bə α kə?",
+        "ascii": "a be a ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "zə́ nyɔ́?",
+        "ascii": "ze nyo"
+      },
+      "bbj": {
+        "aglc": "â waə?",
+        "ascii": "a wae"
+      },
+      "bas": {
+        "aglc": "njè nù ?",
+        "ascii": "nje nu"
+      },
+      "dua": {
+        "aglc": "nja nun ?",
+        "ascii": "nja nun"
+      },
+      "fub": {
+        "aglc": "moƴ jo?",
+        "ascii": "moy jo"
+      },
+      "wes": {
+        "aglc": "na wu dat?",
+        "ascii": "na wu dat"
+      },
+      "byv": {
+        "aglc": "à bə α wə?",
+        "ascii": "a be a we"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "yi bi nə dzǎmá yênə ókídí ?",
+        "ascii": "yi bi ne dzama yene okidi"
+      },
+      "bbj": {
+        "aglc": "pə yɔ́tə́ bwâdzú / tə yó",
+        "ascii": "pe yote bwadzu te yo"
+      },
+      "bas": {
+        "aglc": "di bomna kokoa ?",
+        "ascii": "di bomna kokoa"
+      },
+      "dua": {
+        "aglc": "enene yen ebyamu",
+        "ascii": "enene yen ebyamu"
+      },
+      "fub": {
+        "aglc": "se djemma- se django",
+        "ascii": "se djemma- se django"
+      },
+      "wes": {
+        "aglc": "make we meet up time way sun dong go down or tomorrow sef",
+        "ascii": "make we meet up time way sun dong go down or tomorrow sef"
+      },
+      "byv": {
+        "aglc": "bə tʉ̂' mfə̌dnjʉ / ndǎmnjʉ",
+        "ascii": "be tu' mfednju ndamnju"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mayi nâ mabánda wa",
+        "ascii": "mayi na mabanda wa"
+      },
+      "bbj": {
+        "aglc": "gaə̂ wə́ cə́ŋ nə́ tə́m pú a wu",
+        "ascii": "gae we ceng ne tem pu a wu"
+      },
+      "bas": {
+        "aglc": "mè sombol naŋal wè",
+        "ascii": "me sombol nangal we"
+      },
+      "dua": {
+        "aglc": "na mapula kasa wa",
+        "ascii": "na mapula kasa wa"
+      },
+      "fub": {
+        "aglc": "miƴƴiɗi larougo ma",
+        "ascii": "miyyidi larougo ma"
+      },
+      "wes": {
+        "aglc": "i be want make you come",
+        "ascii": "i be want make you come"
+      },
+      "byv": {
+        "aglc": "mə kə nkɔ̂ nə̀ lǒ' nkà'nì bαgwʉ̀",
+        "ascii": "me ke nko ne lo' nka'ni bagwu"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mazu wa nɔ̀ŋ á záŋ àmòs",
+        "ascii": "mazu wa nong a zang amos"
+      },
+      "bbj": {
+        "aglc": "gaə̂ gɔ́ sɔʼ cəŋ ó mɔkcú",
+        "ascii": "gae go so' ceng o mokcu"
+      },
+      "bas": {
+        "aglc": "mè nlô i yeŋ wè i kosi",
+        "ascii": "me nlo i yeng we i kosi"
+      },
+      "dua": {
+        "aglc": "na mapo nongo wa kosi",
+        "ascii": "na mapo nongo wa kosi"
+      },
+      "fub": {
+        "aglc": "mi wara mi hotche ma bé midi",
+        "ascii": "mi wara mi hotche ma be midi"
+      },
+      "wes": {
+        "aglc": "i go come check you for sun time",
+        "ascii": "i go come check you for sun time"
+      },
+      "byv": {
+        "aglc": "mə̀ à' sə̌' diàg o njǎgnyàm",
+        "ascii": "me a' se' diag o njagnyam"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "zəzə",
+        "ascii": "zeze"
+      },
+      "bbj": {
+        "aglc": "ywə̂ně",
+        "ascii": "ywene"
+      },
+      "bas": {
+        "aglc": "jis li ŋkugi",
+        "ascii": "jis li ngkugi"
+      },
+      "dua": {
+        "aglc": "tete",
+        "ascii": "tete"
+      },
+      "fub": {
+        "aglc": "mere",
+        "ascii": "mere"
+      },
+      "wes": {
+        "aglc": "nought",
+        "ascii": "nought"
+      },
+      "byv": {
+        "aglc": "bα̌nbαn",
+        "ascii": "banban"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "fwá",
+        "ascii": "fwa"
+      },
+      "bbj": {
+        "aglc": "yaə̂ muʼ",
+        "ascii": "yae mu'"
+      },
+      "bas": {
+        "aglc": "yadӑ",
+        "ascii": "yada"
+      },
+      "dua": {
+        "aglc": "ewo",
+        "ascii": "ewo"
+      },
+      "fub": {
+        "aglc": "gotel",
+        "ascii": "gotel"
+      },
+      "wes": {
+        "aglc": "one",
+        "ascii": "one"
+      },
+      "byv": {
+        "aglc": "ncʉ'",
+        "ascii": "ncu'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bɛ",
+        "ascii": "be"
+      },
+      "bbj": {
+        "aglc": "yaə́ pʉə́ə́",
+        "ascii": "yae puee"
+      },
+      "bas": {
+        "aglc": "biba",
+        "ascii": "biba"
+      },
+      "dua": {
+        "aglc": "bebaa",
+        "ascii": "bebaa"
+      },
+      "fub": {
+        "aglc": "ɗiɗi",
+        "ascii": "didi"
+      },
+      "wes": {
+        "aglc": "two",
+        "ascii": "two"
+      },
+      "byv": {
+        "aglc": "bαhα",
+        "ascii": "baha"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "lɛ́",
+        "ascii": "le"
+      },
+      "bbj": {
+        "aglc": "yaə́ tá",
+        "ascii": "yae ta"
+      },
+      "bas": {
+        "aglc": "baa",
+        "ascii": "baa"
+      },
+      "dua": {
+        "aglc": "belalo",
+        "ascii": "belalo"
+      },
+      "fub": {
+        "aglc": "tati",
+        "ascii": "tati"
+      },
+      "wes": {
+        "aglc": "three",
+        "ascii": "three"
+      },
+      "byv": {
+        "aglc": "tad",
+        "ascii": "tad"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "nyi",
+        "ascii": "nyi"
+      },
+      "bbj": {
+        "aglc": "yá pfʉə́",
+        "ascii": "ya pfue"
+      },
+      "bas": {
+        "aglc": "bina",
+        "ascii": "bina"
+      },
+      "dua": {
+        "aglc": "benei",
+        "ascii": "benei"
+      },
+      "fub": {
+        "aglc": "naƴ",
+        "ascii": "nay"
+      },
+      "wes": {
+        "aglc": "four",
+        "ascii": "four"
+      },
+      "byv": {
+        "aglc": "kuὰ",
+        "ascii": "kua"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "tán",
+        "ascii": "tan"
+      },
+      "bbj": {
+        "aglc": "yaə́ tɔ̂",
+        "ascii": "yae to"
+      },
+      "bas": {
+        "aglc": "bitan",
+        "ascii": "bitan"
+      },
+      "dua": {
+        "aglc": "betanu",
+        "ascii": "betanu"
+      },
+      "fub": {
+        "aglc": "jow",
+        "ascii": "jow"
+      },
+      "wes": {
+        "aglc": "five",
+        "ascii": "five"
+      },
+      "byv": {
+        "aglc": "tα̂n",
+        "ascii": "tan"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "saman",
+        "ascii": "saman"
+      },
+      "bbj": {
+        "aglc": "ntɔkɔ́",
+        "ascii": "ntoko"
+      },
+      "bas": {
+        "aglc": "bisamal",
+        "ascii": "bisamal"
+      },
+      "dua": {
+        "aglc": "mutoba",
+        "ascii": "mutoba"
+      },
+      "fub": {
+        "aglc": "jiego",
+        "ascii": "jiego"
+      },
+      "wes": {
+        "aglc": "six",
+        "ascii": "six"
+      },
+      "byv": {
+        "aglc": "ntogə",
+        "ascii": "ntoge"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "zamgbál",
+        "ascii": "zamgbal"
+      },
+      "bbj": {
+        "aglc": "sɔmbʉə́ə́",
+        "ascii": "sombuee"
+      },
+      "bas": {
+        "aglc": "bisambog",
+        "ascii": "bisambog"
+      },
+      "dua": {
+        "aglc": "samba",
+        "ascii": "samba"
+      },
+      "fub": {
+        "aglc": "jeƴ ɗiɗi",
+        "ascii": "jey didi"
+      },
+      "wes": {
+        "aglc": "seven",
+        "ascii": "seven"
+      },
+      "byv": {
+        "aglc": "sὰmmbαhα",
+        "ascii": "sammbaha"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mwom",
+        "ascii": "mwom"
+      },
+      "bbj": {
+        "aglc": "hɔ̌m",
+        "ascii": "hom"
+      },
+      "bas": {
+        "aglc": "juem",
+        "ascii": "juem"
+      },
+      "dua": {
+        "aglc": "loombi",
+        "ascii": "loombi"
+      },
+      "fub": {
+        "aglc": "jeƴ tati",
+        "ascii": "jey tati"
+      },
+      "wes": {
+        "aglc": "eight",
+        "ascii": "eight"
+      },
+      "byv": {
+        "aglc": "fomə",
+        "ascii": "fome"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ebúl",
+        "ascii": "ebul"
+      },
+      "bbj": {
+        "aglc": "vʉʼʉ́",
+        "ascii": "vu'u"
+      },
+      "bas": {
+        "aglc": "boo",
+        "ascii": "boo"
+      },
+      "dua": {
+        "aglc": "dibua",
+        "ascii": "dibua"
+      },
+      "fub": {
+        "aglc": "jeƴ naƴ",
+        "ascii": "jey nay"
+      },
+      "wes": {
+        "aglc": "nine",
+        "ascii": "nine"
+      },
+      "byv": {
+        "aglc": "bwə̀'ə",
+        "ascii": "bwe'e"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm",
+        "ascii": "awom"
+      },
+      "bbj": {
+        "aglc": "ghǎm",
+        "ascii": "gham"
+      },
+      "bas": {
+        "aglc": "jom",
+        "ascii": "jom"
+      },
+      "dua": {
+        "aglc": "dom",
+        "ascii": "dom"
+      },
+      "fub": {
+        "aglc": "sappo",
+        "ascii": "sappo"
+      },
+      "wes": {
+        "aglc": "ten",
+        "ascii": "ten"
+      },
+      "byv": {
+        "aglc": "gham",
+        "ascii": "gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai dziá",
+        "ascii": "awom ai dzia"
+      },
+      "bbj": {
+        "aglc": "shwǎ muʼ",
+        "ascii": "shwa mu'"
+      },
+      "bas": {
+        "aglc": "jom ni yadӑ",
+        "ascii": "jom ni yada"
+      },
+      "dua": {
+        "aglc": "dom na ewo",
+        "ascii": "dom na ewo"
+      },
+      "fub": {
+        "aglc": "sappoƴ é go o",
+        "ascii": "sappoy e go o"
+      },
+      "wes": {
+        "aglc": "eleven",
+        "ascii": "eleven"
+      },
+      "byv": {
+        "aglc": "ncòbncʉ̀' gham",
+        "ascii": "ncobncu' gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai bə́bɛ́",
+        "ascii": "awom ai bebe"
+      },
+      "bbj": {
+        "aglc": "shwop pʉə́ m ghǎm",
+        "ascii": "shwop pue m gham"
+      },
+      "bas": {
+        "aglc": "jom ni biba",
+        "ascii": "jom ni biba"
+      },
+      "dua": {
+        "aglc": "dom na bebaa",
+        "ascii": "dom na bebaa"
+      },
+      "fub": {
+        "aglc": "sapppoƴ é ɗiɗi",
+        "ascii": "sapppoy e didi"
+      },
+      "wes": {
+        "aglc": "twelve",
+        "ascii": "twelve"
+      },
+      "byv": {
+        "aglc": "ncòbbαhα gham",
+        "ascii": "ncobbaha gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai bə́lɛ́",
+        "ascii": "awom ai bele"
+      },
+      "bbj": {
+        "aglc": "shwop tá m ghǎm",
+        "ascii": "shwop ta m gham"
+      },
+      "bas": {
+        "aglc": "jom ni baa",
+        "ascii": "jom ni baa"
+      },
+      "dua": {
+        "aglc": "dom na belalo",
+        "ascii": "dom na belalo"
+      },
+      "fub": {
+        "aglc": "sappoƴ é tati",
+        "ascii": "sappoy e tati"
+      },
+      "wes": {
+        "aglc": "thirteen",
+        "ascii": "thirteen"
+      },
+      "byv": {
+        "aglc": "ncòbtad gham",
+        "ascii": "ncobtad gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai bə́nyì",
+        "ascii": "awom ai benyi"
+      },
+      "bbj": {
+        "aglc": "shwop pfʉə́ m ghǎm",
+        "ascii": "shwop pfue m gham"
+      },
+      "bas": {
+        "aglc": "jom ni bina",
+        "ascii": "jom ni bina"
+      },
+      "dua": {
+        "aglc": "dom na benei",
+        "ascii": "dom na benei"
+      },
+      "fub": {
+        "aglc": "sappoƴ é naƴ",
+        "ascii": "sappoy e nay"
+      },
+      "wes": {
+        "aglc": "fourteen",
+        "ascii": "fourteen"
+      },
+      "byv": {
+        "aglc": "ncòbkuὰ gham",
+        "ascii": "ncobkua gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai bə́tán",
+        "ascii": "awom ai betan"
+      },
+      "bbj": {
+        "aglc": "shwop tɔ́ m ghǎm",
+        "ascii": "shwop to m gham"
+      },
+      "bas": {
+        "aglc": "jom ni bitaŋ",
+        "ascii": "jom ni bitang"
+      },
+      "dua": {
+        "aglc": "dom na betanu",
+        "ascii": "dom na betanu"
+      },
+      "fub": {
+        "aglc": "sappoƴ é joƴ",
+        "ascii": "sappoy e joy"
+      },
+      "wes": {
+        "aglc": "fifteen",
+        "ascii": "fifteen"
+      },
+      "byv": {
+        "aglc": "ncòbtα̂n gham",
+        "ascii": "ncobtan gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai bə́saman",
+        "ascii": "awom ai besaman"
+      },
+      "bbj": {
+        "aglc": "shwop ntɔkɔ́ m ghǎm",
+        "ascii": "shwop ntoko m gham"
+      },
+      "bas": {
+        "aglc": "jom ni bisamal",
+        "ascii": "jom ni bisamal"
+      },
+      "dua": {
+        "aglc": "dom na mutoba",
+        "ascii": "dom na mutoba"
+      },
+      "fub": {
+        "aglc": "sappoƴ é jiego",
+        "ascii": "sappoy e jiego"
+      },
+      "wes": {
+        "aglc": "sixteen",
+        "ascii": "sixteen"
+      },
+      "byv": {
+        "aglc": "ncòbntôg gham",
+        "ascii": "ncobntog gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai zamgbál",
+        "ascii": "awom ai zamgbal"
+      },
+      "bbj": {
+        "aglc": "shwop sɔmbʉə́ m ghǎm",
+        "ascii": "shwop sombue m gham"
+      },
+      "bas": {
+        "aglc": "jom ni bisambog",
+        "ascii": "jom ni bisambog"
+      },
+      "dua": {
+        "aglc": "dom na samba",
+        "ascii": "dom na samba"
+      },
+      "fub": {
+        "aglc": "sappoƴ é jeƴ ɗiɗi",
+        "ascii": "sappoy e jey didi"
+      },
+      "wes": {
+        "aglc": "seventeen",
+        "ascii": "seventeen"
+      },
+      "byv": {
+        "aglc": "ncòbsὰmmbαhα gham",
+        "ascii": "ncobsammbaha gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai mwom",
+        "ascii": "awom ai mwom"
+      },
+      "bbj": {
+        "aglc": "shwop hɔ̂m m ghǎm",
+        "ascii": "shwop hom m gham"
+      },
+      "bas": {
+        "aglc": "jom ni juem",
+        "ascii": "jom ni juem"
+      },
+      "dua": {
+        "aglc": "dom na loobi",
+        "ascii": "dom na loobi"
+      },
+      "fub": {
+        "aglc": "sappoƴ é jeƴ tati",
+        "ascii": "sappoy e jey tati"
+      },
+      "wes": {
+        "aglc": "eighteen",
+        "ascii": "eighteen"
+      },
+      "byv": {
+        "aglc": "ncòbfôm gham",
+        "ascii": "ncobfom gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awôm ai ebul",
+        "ascii": "awom ai ebul"
+      },
+      "bbj": {
+        "aglc": "shwop vʉ̂ʼ m ghǎm",
+        "ascii": "shwop vu' m gham"
+      },
+      "bas": {
+        "aglc": "jom ni boo",
+        "ascii": "jom ni boo"
+      },
+      "dua": {
+        "aglc": "dom na dibua",
+        "ascii": "dom na dibua"
+      },
+      "fub": {
+        "aglc": "sappoƴ é jeƴ naƴ",
+        "ascii": "sappoy e jey nay"
+      },
+      "wes": {
+        "aglc": "nineteen",
+        "ascii": "nineteen"
+      },
+      "byv": {
+        "aglc": "ncòbbwə̀'ə gham",
+        "ascii": "ncobbwe'e gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm bɛ́",
+        "ascii": "mewom be"
+      },
+      "bbj": {
+        "aglc": "mghǎm mə́bʉə́ə́",
+        "ascii": "mgham mebuee"
+      },
+      "bas": {
+        "aglc": "mom ma",
+        "ascii": "mom ma"
+      },
+      "dua": {
+        "aglc": "mwabaa",
+        "ascii": "mwabaa"
+      },
+      "fub": {
+        "aglc": "noggas",
+        "ascii": "noggas"
+      },
+      "wes": {
+        "aglc": "twenty",
+        "ascii": "twenty"
+      },
+      "byv": {
+        "aglc": "ŋammbαhα",
+        "ascii": "ngammbaha"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm bɛ́ ai mbɔ́",
+        "ascii": "mewom be ai mbo"
+      },
+      "bbj": {
+        "aglc": "shwâ muʼ m̌bʉə́ə́",
+        "ascii": "shwa mu' mbuee"
+      },
+      "bas": {
+        "aglc": "mom ma ni yadӑ",
+        "ascii": "mom ma ni yada"
+      },
+      "dua": {
+        "aglc": "mwabaa na ewo",
+        "ascii": "mwabaa na ewo"
+      },
+      "fub": {
+        "aglc": "noggas é go'o",
+        "ascii": "noggas e go'o"
+      },
+      "wes": {
+        "aglc": "twenty one",
+        "ascii": "twenty one"
+      },
+      "byv": {
+        "aglc": "ncòbncʉ̀' ŋammbαhα",
+        "ascii": "ncobncu' ngammbaha"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm lɛ́",
+        "ascii": "mewom le"
+      },
+      "bbj": {
+        "aglc": "mghǎm m̌ntá",
+        "ascii": "mgham mnta"
+      },
+      "bas": {
+        "aglc": "mom maa",
+        "ascii": "mom maa"
+      },
+      "dua": {
+        "aglc": "mwalalo",
+        "ascii": "mwalalo"
+      },
+      "fub": {
+        "aglc": "tchappan tati",
+        "ascii": "tchappan tati"
+      },
+      "wes": {
+        "aglc": "thirty",
+        "ascii": "thirty"
+      },
+      "byv": {
+        "aglc": "ŋamntad",
+        "ascii": "ngamntad"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm nyi",
+        "ascii": "mewom nyi"
+      },
+      "bbj": {
+        "aglc": "mghâp pfʉə́",
+        "ascii": "mghap pfue"
+      },
+      "bas": {
+        "aglc": "mom mana",
+        "ascii": "mom mana"
+      },
+      "dua": {
+        "aglc": "mwanei",
+        "ascii": "mwanei"
+      },
+      "fub": {
+        "aglc": "tchappan é naƴ",
+        "ascii": "tchappan e nay"
+      },
+      "wes": {
+        "aglc": "forty",
+        "ascii": "forty"
+      },
+      "byv": {
+        "aglc": "ŋâmnkuὰ",
+        "ascii": "ngamnkua"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm tán",
+        "ascii": "mewom tan"
+      },
+      "bbj": {
+        "aglc": "m̌ntɔ̂",
+        "ascii": "mnto"
+      },
+      "bas": {
+        "aglc": "mom mataŋ",
+        "ascii": "mom matang"
+      },
+      "dua": {
+        "aglc": "mwatanu",
+        "ascii": "mwatanu"
+      },
+      "fub": {
+        "aglc": "tchappan é joƴ",
+        "ascii": "tchappan e joy"
+      },
+      "wes": {
+        "aglc": "fifty",
+        "ascii": "fifty"
+      },
+      "byv": {
+        "aglc": "ŋamntα̂n",
+        "ascii": "ngamntan"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm sàmàn",
+        "ascii": "mewom saman"
+      },
+      "bbj": {
+        "aglc": "mghǎm ntɔkɔ́",
+        "ascii": "mgham ntoko"
+      },
+      "bas": {
+        "aglc": "mom masamal",
+        "ascii": "mom masamal"
+      },
+      "dua": {
+        "aglc": "mumutoba",
+        "ascii": "mumutoba"
+      },
+      "fub": {
+        "aglc": "tchappan é jiego",
+        "ascii": "tchappan e jiego"
+      },
+      "wes": {
+        "aglc": "sixty",
+        "ascii": "sixty"
+      },
+      "byv": {
+        "aglc": "ŋâmntogə",
+        "ascii": "ngamntoge"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm zamgbál",
+        "ascii": "mewom zamgbal"
+      },
+      "bbj": {
+        "aglc": "m̂sɔ̀m",
+        "ascii": "msom"
+      },
+      "bas": {
+        "aglc": "mom masambog",
+        "ascii": "mom masambog"
+      },
+      "dua": {
+        "aglc": "musamba",
+        "ascii": "musamba"
+      },
+      "fub": {
+        "aglc": "tchappan é jeƴ ɗiɗi",
+        "ascii": "tchappan e jey didi"
+      },
+      "wes": {
+        "aglc": "seventy",
+        "ascii": "seventy"
+      },
+      "byv": {
+        "aglc": "ŋâmsὰmmbαhα",
+        "ascii": "ngamsammbaha"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm mwom",
+        "ascii": "mewom mwom"
+      },
+      "bbj": {
+        "aglc": "mghâm hɔ̌m",
+        "ascii": "mgham hom"
+      },
+      "bas": {
+        "aglc": "mom juem",
+        "ascii": "mom juem"
+      },
+      "dua": {
+        "aglc": "muloombi",
+        "ascii": "muloombi"
+      },
+      "fub": {
+        "aglc": "tchappan é jeƴ tati",
+        "ascii": "tchappan e jey tati"
+      },
+      "wes": {
+        "aglc": "eighty",
+        "ascii": "eighty"
+      },
+      "byv": {
+        "aglc": "ŋâmfomə",
+        "ascii": "ngamfome"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məwóm ébul",
+        "ascii": "mewom ebul"
+      },
+      "bbj": {
+        "aglc": "mghâm vʉʼʉ́",
+        "ascii": "mgham vu'u"
+      },
+      "bas": {
+        "aglc": "mom boo",
+        "ascii": "mom boo"
+      },
+      "dua": {
+        "aglc": "mudibua",
+        "ascii": "mudibua"
+      },
+      "fub": {
+        "aglc": "tchappan é jeƴ naƴ",
+        "ascii": "tchappan e jey nay"
+      },
+      "wes": {
+        "aglc": "ninety",
+        "ascii": "ninety"
+      },
+      "byv": {
+        "aglc": "ŋâmbwə̀'ə",
+        "ascii": "ngambwe'e"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ǹtɛd",
+        "ascii": "nted"
+      },
+      "bbj": {
+        "aglc": "ŋkhə",
+        "ascii": "ngkhe"
+      },
+      "bas": {
+        "aglc": "bogol",
+        "ascii": "bogol"
+      },
+      "dua": {
+        "aglc": "ebwea",
+        "ascii": "ebwea"
+      },
+      "fub": {
+        "aglc": "téméré",
+        "ascii": "temere"
+      },
+      "wes": {
+        "aglc": "one  hundred",
+        "ascii": "one hundred"
+      },
+      "byv": {
+        "aglc": "nkʉ",
+        "ascii": "nku"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mintɛd míbɛ́",
+        "ascii": "minted mibe"
+      },
+      "bbj": {
+        "aglc": "ŋkhə pʉə́ə́",
+        "ascii": "ngkhe puee"
+      },
+      "bas": {
+        "aglc": "bogol i baa",
+        "ascii": "bogol i baa"
+      },
+      "dua": {
+        "aglc": "bebwea bebaa",
+        "ascii": "bebwea bebaa"
+      },
+      "fub": {
+        "aglc": "téméré ɗiɗi",
+        "ascii": "temere didi"
+      },
+      "wes": {
+        "aglc": "two hundred",
+        "ascii": "two hundred"
+      },
+      "byv": {
+        "aglc": "nkʉbαhα",
+        "ascii": "nkubaha"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "akúda",
+        "ascii": "akuda"
+      },
+      "bbj": {
+        "aglc": "shaʼá",
+        "ascii": "sha'a"
+      },
+      "bas": {
+        "aglc": "i koo",
+        "ascii": "i koo"
+      },
+      "dua": {
+        "aglc": "ikoli",
+        "ascii": "ikoli"
+      },
+      "fub": {
+        "aglc": "boro",
+        "ascii": "boro"
+      },
+      "wes": {
+        "aglc": "one thousand",
+        "ascii": "one thousand"
+      },
+      "byv": {
+        "aglc": "nca'",
+        "ascii": "nca'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "akúda tɔ́sin",
+        "ascii": "akuda tosin"
+      },
+      "bbj": {
+        "aglc": "shǔʼ",
+        "ascii": "shu'"
+      },
+      "bas": {
+        "aglc": "idun",
+        "ascii": "idun"
+      },
+      "dua": {
+        "aglc": "idun",
+        "ascii": "idun"
+      },
+      "fub": {
+        "aglc": "millionré",
+        "ascii": "millionre"
+      },
+      "wes": {
+        "aglc": "one million",
+        "ascii": "one million"
+      },
+      "byv": {
+        "aglc": "ncu'",
+        "ascii": "ncu'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mɔ́ndi",
+        "ascii": "mondi"
+      },
+      "bbj": {
+        "aglc": "sɛ̂sǔ",
+        "ascii": "sesu"
+      },
+      "bas": {
+        "aglc": "ngwa njańgumba",
+        "ascii": "ngwa njangumba"
+      },
+      "dua": {
+        "aglc": "mosu",
+        "ascii": "mosu"
+      },
+      "fub": {
+        "aglc": "altiné",
+        "ascii": "altine"
+      },
+      "wes": {
+        "aglc": "monday",
+        "ascii": "monday"
+      },
+      "byv": {
+        "aglc": "njàmle'fitə̀",
+        "ascii": "njamle'fite"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "sɔ́ndɔ məlú mə́tán",
+        "ascii": "sondo melu metan"
+      },
+      "bbj": {
+        "aglc": "gɔ̂suɔ̌",
+        "ascii": "gosuo"
+      },
+      "bas": {
+        "aglc": "ngwa üm",
+        "ascii": "ngwa uem"
+      },
+      "dua": {
+        "aglc": "kwasu",
+        "ascii": "kwasu"
+      },
+      "fub": {
+        "aglc": "salassa",
+        "ascii": "salassa"
+      },
+      "wes": {
+        "aglc": "tuesday",
+        "ascii": "tuesday"
+      },
+      "byv": {
+        "aglc": "mfɛ̌nntα̂nnkə'ə",
+        "ascii": "mfenntannke'e"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "sɔ́ndɔ məlú mə́nyi",
+        "ascii": "sondo melu menyi"
+      },
+      "bbj": {
+        "aglc": "dzə̂mtɔ̌",
+        "ascii": "dzemto"
+      },
+      "bas": {
+        "aglc": "ngwa nge",
+        "ascii": "ngwa nge"
+      },
+      "dua": {
+        "aglc": "mukosu",
+        "ascii": "mukosu"
+      },
+      "fub": {
+        "aglc": "alarbah",
+        "ascii": "alarbah"
+      },
+      "wes": {
+        "aglc": "wednesday",
+        "ascii": "wednesday"
+      },
+      "byv": {
+        "aglc": "ntα̂nnkə'ə",
+        "ascii": "ntannke'e"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "sɔ́ndɔ məlú mə́lɛ́",
+        "ascii": "sondo melu mele"
+      },
+      "bbj": {
+        "aglc": "ntâmgǒ",
+        "ascii": "ntamgo"
+      },
+      "bas": {
+        "aglc": "ngwa mbock",
+        "ascii": "ngwa mbock"
+      },
+      "dua": {
+        "aglc": "ngisu",
+        "ascii": "ngisu"
+      },
+      "fub": {
+        "aglc": "alhamissah",
+        "ascii": "alhamissah"
+      },
+      "wes": {
+        "aglc": "thursday",
+        "ascii": "thursday"
+      },
+      "byv": {
+        "aglc": "njàmntα̂nnkə'ə",
+        "ascii": "njamntannke'e"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "fuladé",
+        "ascii": "fulade"
+      },
+      "bbj": {
+        "aglc": "tyə́ʼpfô",
+        "ascii": "tye'pfo"
+      },
+      "bas": {
+        "aglc": "ngwa kóó",
+        "ascii": "ngwa koo"
+      },
+      "dua": {
+        "aglc": "donesu",
+        "ascii": "donesu"
+      },
+      "fub": {
+        "aglc": "juma'aré",
+        "ascii": "juma'are"
+      },
+      "wes": {
+        "aglc": "friday",
+        "ascii": "friday"
+      },
+      "byv": {
+        "aglc": "mfɛ̌nntα̂nndʉb",
+        "ascii": "mfenntanndub"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "sə́səré",
+        "ascii": "sesere"
+      },
+      "bbj": {
+        "aglc": "shyə̂ŋkǔʼ",
+        "ascii": "shyengku'"
+      },
+      "bas": {
+        "aglc": "ngwa jon",
+        "ascii": "ngwa jon"
+      },
+      "dua": {
+        "aglc": "esabasu",
+        "ascii": "esabasu"
+      },
+      "fub": {
+        "aglc": "assawé",
+        "ascii": "assawe"
+      },
+      "wes": {
+        "aglc": "saturday",
+        "ascii": "saturday"
+      },
+      "byv": {
+        "aglc": "ntα̂nndʉb",
+        "ascii": "ntanndub"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "sɔ́ndɔ",
+        "ascii": "sondo"
+      },
+      "bbj": {
+        "aglc": "dzə̂dzə",
+        "ascii": "dzedze"
+      },
+      "bas": {
+        "aglc": "ngwa noi",
+        "ascii": "ngwa noi"
+      },
+      "dua": {
+        "aglc": "eti",
+        "ascii": "eti"
+      },
+      "fub": {
+        "aglc": "alatt",
+        "ascii": "alatt"
+      },
+      "wes": {
+        "aglc": "sunday",
+        "ascii": "sunday"
+      },
+      "byv": {
+        "aglc": "le'fitə̀",
+        "ascii": "le'fite"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn osú",
+        "ascii": "nggon osu"
+      },
+      "bbj": {
+        "aglc": "ŋkə̂mmghě",
+        "ascii": "ngkemmghe"
+      },
+      "bas": {
+        "aglc": "kondoń",
+        "ascii": "kondon"
+      },
+      "dua": {
+        "aglc": "dimodi",
+        "ascii": "dimodi"
+      },
+      "fub": {
+        "aglc": "haaram arandu",
+        "ascii": "haaram arandu"
+      },
+      "wes": {
+        "aglc": "january",
+        "ascii": "january"
+      },
+      "byv": {
+        "aglc": "mbwogngà",
+        "ascii": "mbwognga"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn bɛ̌",
+        "ascii": "nggon be"
+      },
+      "bbj": {
+        "aglc": "sɔ̂gwǐŋ",
+        "ascii": "sogwing"
+      },
+      "bas": {
+        "aglc": "macèl",
+        "ascii": "macel"
+      },
+      "dua": {
+        "aglc": "ngonde",
+        "ascii": "ngonde"
+      },
+      "fub": {
+        "aglc": "haaram sakitindu",
+        "ascii": "haaram sakitindu"
+      },
+      "wes": {
+        "aglc": "ferbruary",
+        "ascii": "ferbruary"
+      },
+      "byv": {
+        "aglc": "nkàgnὰ",
+        "ascii": "nkagna"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn lála",
+        "ascii": "nggon lala"
+      },
+      "bbj": {
+        "aglc": "dzə̂tsə́",
+        "ascii": "dzetse"
+      },
+      "bas": {
+        "aglc": "mätumb",
+        "ascii": "maetumb"
+      },
+      "dua": {
+        "aglc": "sone",
+        "ascii": "sone"
+      },
+      "fub": {
+        "aglc": "banjaaru arandu",
+        "ascii": "banjaaru arandu"
+      },
+      "wes": {
+        "aglc": "march",
+        "ascii": "march"
+      },
+      "byv": {
+        "aglc": "njwìdcu",
+        "ascii": "njwidcu"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn nyina",
+        "ascii": "nggon nyina"
+      },
+      "bbj": {
+        "aglc": "dzə̂biyɛ́",
+        "ascii": "dzebiye"
+      },
+      "bas": {
+        "aglc": "matob",
+        "ascii": "matob"
+      },
+      "dua": {
+        "aglc": "dibaba",
+        "ascii": "dibaba"
+      },
+      "fub": {
+        "aglc": "banjaaru tumbiidu",
+        "ascii": "banjaaru tumbiidu"
+      },
+      "wes": {
+        "aglc": "april",
+        "ascii": "april"
+      },
+      "byv": {
+        "aglc": "ntàŋmbwə",
+        "ascii": "ntangmbwe"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn tána",
+        "ascii": "nggon tana"
+      },
+      "bbj": {
+        "aglc": "sûnè",
+        "ascii": "sune"
+      },
+      "bas": {
+        "aglc": "mpuye",
+        "ascii": "mpuye"
+      },
+      "dua": {
+        "aglc": "emiqsele",
+        "ascii": "emiqsele"
+      },
+      "fub": {
+        "aglc": "bajaaru sakitindu",
+        "ascii": "bajaaru sakitindu"
+      },
+      "wes": {
+        "aglc": "may",
+        "ascii": "may"
+      },
+      "byv": {
+        "aglc": "nsônὰ",
+        "ascii": "nsona"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn saman",
+        "ascii": "nggon saman"
+      },
+      "bbj": {
+        "aglc": "dzûʼ bvù",
+        "ascii": "dzu' bvu"
+      },
+      "bas": {
+        "aglc": "hionde",
+        "ascii": "hionde"
+      },
+      "dua": {
+        "aglc": "esopesope",
+        "ascii": "esopesope"
+      },
+      "fub": {
+        "aglc": "suumeteendu waawɓe",
+        "ascii": "suumeteendu waawbe"
+      },
+      "wes": {
+        "aglc": "june",
+        "ascii": "june"
+      },
+      "byv": {
+        "aglc": "ŋwâgnkun",
+        "ascii": "ngwagnkun"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn zamgbála",
+        "ascii": "nggon zamgbala"
+      },
+      "bbj": {
+        "aglc": "fə̀fə̀",
+        "ascii": "fefe"
+      },
+      "bas": {
+        "aglc": "njeba",
+        "ascii": "njeba"
+      },
+      "dua": {
+        "aglc": "madibedibe",
+        "ascii": "madibedibe"
+      },
+      "fub": {
+        "aglc": "wayrordu suumaye",
+        "ascii": "wayrordu suumaye"
+      },
+      "wes": {
+        "aglc": "july",
+        "ascii": "july"
+      },
+      "byv": {
+        "aglc": "ntôngə̀fələ",
+        "ascii": "ntongefele"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn mwomo",
+        "ascii": "nggon mwomo"
+      },
+      "bbj": {
+        "aglc": "shwâgə̀fə̀",
+        "ascii": "shwagefe"
+      },
+      "bas": {
+        "aglc": "hikań",
+        "ascii": "hikan"
+      },
+      "dua": {
+        "aglc": "dingindi",
+        "ascii": "dingindi"
+      },
+      "fub": {
+        "aglc": "suumaye",
+        "ascii": "suumaye"
+      },
+      "wes": {
+        "aglc": "august",
+        "ascii": "august"
+      },
+      "byv": {
+        "aglc": "ncô'cu",
+        "ascii": "nco'cu"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn ebulû",
+        "ascii": "nggon ebulu"
+      },
+      "bbj": {
+        "aglc": "ŋkə̂mbiyɛ́",
+        "ascii": "ngkembiye"
+      },
+      "bas": {
+        "aglc": "dipos",
+        "ascii": "dipos"
+      },
+      "dua": {
+        "aglc": "nyeteki",
+        "ascii": "nyeteki"
+      },
+      "fub": {
+        "aglc": "juuldaandu",
+        "ascii": "juuldaandu"
+      },
+      "wes": {
+        "aglc": "september",
+        "ascii": "september"
+      },
+      "byv": {
+        "aglc": "njâgcu",
+        "ascii": "njagcu"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn awôm",
+        "ascii": "nggon awom"
+      },
+      "bbj": {
+        "aglc": "dzûʼ mkǒ",
+        "ascii": "dzu' mko"
+      },
+      "bas": {
+        "aglc": "biòòm",
+        "ascii": "bioom"
+      },
+      "dua": {
+        "aglc": "mayese",
+        "ascii": "mayese"
+      },
+      "fub": {
+        "aglc": "siwtoraandu",
+        "ascii": "siwtoraandu"
+      },
+      "wes": {
+        "aglc": "october",
+        "ascii": "october"
+      },
+      "byv": {
+        "aglc": "bə'nswə",
+        "ascii": "be'nswe"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn awôm ai dziá",
+        "ascii": "nggon awom ai dzia"
+      },
+      "bbj": {
+        "aglc": "fə̂nàm",
+        "ascii": "fenam"
+      },
+      "bas": {
+        "aglc": "maye ma sep",
+        "ascii": "maye ma sep"
+      },
+      "dua": {
+        "aglc": "titini",
+        "ascii": "titini"
+      },
+      "fub": {
+        "aglc": "layhaaru",
+        "ascii": "layhaaru"
+      },
+      "wes": {
+        "aglc": "november",
+        "ascii": "november"
+      },
+      "byv": {
+        "aglc": "nsônα̌ndɔ",
+        "ascii": "nsonando"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ŋgɔn awôm ai bɛ̌",
+        "ascii": "nggon awom ai be"
+      },
+      "bbj": {
+        "aglc": "fûʼ bvù",
+        "ascii": "fu' bvu"
+      },
+      "bas": {
+        "aglc": "libuy li nyee",
+        "ascii": "libuy li nyee"
+      },
+      "dua": {
+        "aglc": "elane",
+        "ascii": "elane"
+      },
+      "fub": {
+        "aglc": "haaram tumbiindu",
+        "ascii": "haaram tumbiindu"
+      },
+      "wes": {
+        "aglc": "december",
+        "ascii": "december"
+      },
+      "byv": {
+        "aglc": "ntòngǒdməsaŋə",
+        "ascii": "ntongodmesange"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "awola afé dílí?",
+        "ascii": "awola afe dili"
+      },
+      "bbj": {
+        "aglc": "â nam sʉ́ʉ́?",
+        "ascii": "a nam suu"
+      },
+      "bas": {
+        "aglc": "ngeŋ yaŋen ?",
+        "ascii": "ngeng yangen"
+      },
+      "dua": {
+        "aglc": "ngen ininga yi ?",
+        "ascii": "ngen ininga yi"
+      },
+      "fub": {
+        "aglc": "jamɗi noƴ amari?",
+        "ascii": "jamdi noy amari"
+      },
+      "wes": {
+        "aglc": "na weti be time eh?",
+        "ascii": "na weti be time eh"
+      },
+      "byv": {
+        "aglc": "à bə α nyàm sî'i?",
+        "ascii": "a be a nyam si'i"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bi bə́lə́ awola də́",
+        "ascii": "bi bele awola de"
+      },
+      "bbj": {
+        "aglc": "â taʼ nàm",
+        "ascii": "a ta' nam"
+      },
+      "bas": {
+        "aglc": "di gwé ngeŋ yadӑ",
+        "ascii": "di gwe ngeng yada"
+      },
+      "dua": {
+        "aglc": "di ben ngen po",
+        "ascii": "di ben ngen po"
+      },
+      "fub": {
+        "aglc": "jamɗi gotel",
+        "ascii": "jamdi gotel"
+      },
+      "wes": {
+        "aglc": "time na 1 o'clock",
+        "ascii": "time na o'clock"
+      },
+      "byv": {
+        "aglc": "à bə α tà' nyàm",
+        "ascii": "a be a ta' nyam"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bi bə́lə́ məwola mə́saman ai etun",
+        "ascii": "bi bele mewola mesaman ai etun"
+      },
+      "bbj": {
+        "aglc": "â nam ntɔkɔ́ ghap",
+        "ascii": "a nam ntoko ghap"
+      },
+      "bas": {
+        "aglc": "di gwé ngeŋ i samal ni pès",
+        "ascii": "di gwe ngeng i samal ni pes"
+      },
+      "dua": {
+        "aglc": "di ben ngen mutoba na epasi",
+        "ascii": "di ben ngen mutoba na epasi"
+      },
+      "fub": {
+        "aglc": "jamɗi jichappan jiego minti tchappan é tati",
+        "ascii": "jamdi jichappan jiego minti tchappan e tati"
+      },
+      "wes": {
+        "aglc": "time na half past six",
+        "ascii": "time na half past six"
+      },
+      "byv": {
+        "aglc": "à bə α nyàm ntog kàm",
+        "ascii": "a be a nyam ntog kam"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bi bə́lə́ məwola mə́tán alodogo binyutɛn awôm ai bítán",
+        "ascii": "bi bele mewola metan alodogo binyuten awom ai bitan"
+      },
+      "bbj": {
+        "aglc": "nam tɔ́ jáp shwop tɔ́ m ghǎm",
+        "ascii": "nam to jap shwop to m gham"
+      },
+      "bas": {
+        "aglc": "di gwé ngeŋ tan i tagbè jom ni mataŋ",
+        "ascii": "di gwe ngeng tan i tagbe jom ni matang"
+      },
+      "dua": {
+        "aglc": "di ben ngen itanu na dom na matanu",
+        "ascii": "di ben ngen itanu na dom na matanu"
+      },
+      "fub": {
+        "aglc": "jamɗi joƴ minti sappoƴ é joƴ",
+        "ascii": "jamdi joy minti sappoy e joy"
+      },
+      "wes": {
+        "aglc": "time na quarter past five",
+        "ascii": "time na quarter past five"
+      },
+      "byv": {
+        "aglc": "à bə α nyàm tα̂n ngʉ̂ mfěnyàm ncòbtα̂n gham",
+        "ascii": "a be a nyam tan ngu mfenyam ncobtan gham"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bi bə́lə́ məwola mə́nyina alodogo binyutɛn məwóm nyi ai bítán",
+        "ascii": "bi bele mewola menyina alodogo binyuten mewom nyi ai bitan"
+      },
+      "bbj": {
+        "aglc": "nam pfʉə́ jáp shwop tɔ́ m ghap pfʉə́",
+        "ascii": "nam pfue jap shwop to m ghap pfue"
+      },
+      "bas": {
+        "aglc": "di gwé ngeŋ tan i sombol jom ni mataŋ",
+        "ascii": "di gwe ngeng tan i sombol jom ni matang"
+      },
+      "dua": {
+        "aglc": "di ben ngen itanu a mapula dom na matanu",
+        "ascii": "di ben ngen itanu a mapula dom na matanu"
+      },
+      "fub": {
+        "aglc": "jamɗi naƴ minti tchappan é joƴ",
+        "ascii": "jamdi nay minti tchappan e joy"
+      },
+      "wes": {
+        "aglc": "time na three quarter past four",
+        "ascii": "time na three quarter past four"
+      },
+      "byv": {
+        "aglc": "à bə α nyàm kuὰ ngʉ̂ mfěnyàm ncòbtα̂n ŋâmnkuὰ",
+        "ascii": "a be a nyam kua ngu mfenyam ncobtan ngamnkua"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ódén?",
+        "ascii": "oden"
+      },
+      "bbj": {
+        "aglc": "sǒ?",
+        "ascii": "so"
+      },
+      "bas": {
+        "aglc": "kekii ?",
+        "ascii": "kekii"
+      },
+      "dua": {
+        "aglc": "njika ponda",
+        "ascii": "njika ponda"
+      },
+      "fub": {
+        "aglc": "ŋdeƴ?",
+        "ascii": "ngdey"
+      },
+      "wes": {
+        "aglc": "for which time",
+        "ascii": "for which time"
+      },
+      "byv": {
+        "aglc": "sə?",
+        "ascii": "se"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "étun áwola",
+        "ascii": "etun awola"
+      },
+      "bbj": {
+        "aglc": "nə́ ghâp tám",
+        "ascii": "ne ghap tam"
+      },
+      "bas": {
+        "aglc": "i pès ngeŋ",
+        "ascii": "i pes ngeng"
+      },
+      "dua": {
+        "aglc": "bebe na epasa awa",
+        "ascii": "bebe na epasa awa"
+      },
+      "fub": {
+        "aglc": "ɗo bé jamɗi reta",
+        "ascii": "do be jamdi reta"
+      },
+      "wes": {
+        "aglc": "small time",
+        "ascii": "small time"
+      },
+      "byv": {
+        "aglc": "ntʉ̂m mfěnyàm ŋamntad",
+        "ascii": "ntum mfenyam ngamntad"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ndúgudu é nə",
+        "ascii": "ndugudu e ne"
+      },
+      "bbj": {
+        "aglc": "tsʉ́ʉ́ wə́ hwé",
+        "ascii": "tsuu we hwe"
+      },
+      "bas": {
+        "aglc": "lék i yé",
+        "ascii": "lek i ye"
+      },
+      "dua": {
+        "aglc": "wea ye",
+        "ascii": "wea ye"
+      },
+      "fub": {
+        "aglc": "gʼouldoum ɗo wada",
+        "ascii": "g'ouldoum do wada"
+      },
+      "wes": {
+        "aglc": "place di hot",
+        "ascii": "place di hot"
+      },
+      "byv": {
+        "aglc": "dʉ̌' cwɛ̌d ndûmə",
+        "ascii": "du' cwed ndume"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ahə́b á nə",
+        "ascii": "aheb a ne"
+      },
+      "bbj": {
+        "aglc": "fɔk wə́ khú",
+        "ascii": "fok we khu"
+      },
+      "bas": {
+        "aglc": "lisuni li yé",
+        "ascii": "lisuni li ye"
+      },
+      "dua": {
+        "aglc": "muloloko mu e",
+        "ascii": "muloloko mu e"
+      },
+      "fub": {
+        "aglc": "jangol ɗo wada",
+        "ascii": "jangol do wada"
+      },
+      "wes": {
+        "aglc": "place di cold",
+        "ascii": "place di cold"
+      },
+      "byv": {
+        "aglc": "mfʉαg cwɛ̌d nko",
+        "ascii": "mfuag cwed nko"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "abɔ̌g dá bə́b",
+        "ascii": "abog da beb"
+      },
+      "bbj": {
+        "aglc": "tsʉ́ʉ́ wə́ dzaə́ə́",
+        "ascii": "tsuu we dzaee"
+      },
+      "bas": {
+        "aglc": "bèbi i yed",
+        "ascii": "bebi i yed"
+      },
+      "dua": {
+        "aglc": "ponda ni e bobe",
+        "ascii": "ponda ni e bobe"
+      },
+      "fub": {
+        "aglc": "wakati ɗo teɗɗa",
+        "ascii": "wakati do tedda"
+      },
+      "wes": {
+        "aglc": "place just dey",
+        "ascii": "place just dey"
+      },
+      "byv": {
+        "aglc": "njʉ kə̂' bwɔ̀",
+        "ascii": "nju ke' bwo"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mvəŋ ya nɔ́ŋ",
+        "ascii": "mveng ya nong"
+      },
+      "bbj": {
+        "aglc": "bəŋ wə́ dú",
+        "ascii": "beng we du"
+      },
+      "bas": {
+        "aglc": "nob a yé nó",
+        "ascii": "nob a ye no"
+      },
+      "dua": {
+        "aglc": "mbua e mayole",
+        "ascii": "mbua e mayole"
+      },
+      "fub": {
+        "aglc": "diam ɗon toɓa",
+        "ascii": "diam don toba"
+      },
+      "wes": {
+        "aglc": "rain di fall",
+        "ascii": "rain di fall"
+      },
+      "byv": {
+        "aglc": "mbǎŋ cwɛ̌d ndo",
+        "ascii": "mbang cwed ndo"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "vián wá fie",
+        "ascii": "vian wa fie"
+      },
+      "bbj": {
+        "aglc": "nam wə́ cyə́",
+        "ascii": "nam we cye"
+      },
+      "bas": {
+        "aglc": "hianga hi bai",
+        "ascii": "hianga hi bai"
+      },
+      "dua": {
+        "aglc": "wey i mapanya",
+        "ascii": "wey i mapanya"
+      },
+      "fub": {
+        "aglc": "nangué wourti",
+        "ascii": "nangue wourti"
+      },
+      "wes": {
+        "aglc": "sun dey up",
+        "ascii": "sun dey up"
+      },
+      "byv": {
+        "aglc": "nyǎm cwɛ̌d ntα",
+        "ascii": "nyam cwed nta"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "álúdá kú já",
+        "ascii": "aluda ku ja"
+      },
+      "bbj": {
+        "aglc": "dzǔ dó só",
+        "ascii": "dzu do so"
+      },
+      "bas": {
+        "aglc": "djibè li ŋkob",
+        "ascii": "djibe li ngkob"
+      },
+      "dua": {
+        "aglc": "bulu bo mawinda",
+        "ascii": "bulu bo mawinda"
+      },
+      "fub": {
+        "aglc": "magriba ɗo wara",
+        "ascii": "magriba do wara"
+      },
+      "wes": {
+        "aglc": "place dong already dark",
+        "ascii": "place dong already dark"
+      },
+      "byv": {
+        "aglc": "tɛ̀dtswə",
+        "ascii": "tedtswe"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "á ŋkɔgəlɛ́n",
+        "ascii": "a ngkogelen"
+      },
+      "bbj": {
+        "aglc": "sûsó",
+        "ascii": "suso"
+      },
+      "bas": {
+        "aglc": "mè nsohè wè",
+        "ascii": "me nsohe we"
+      },
+      "dua": {
+        "aglc": "son /  na lakisabe",
+        "ascii": "son na lakisabe"
+      },
+      "fub": {
+        "aglc": "oussénimon, oussénima",
+        "ascii": "oussenimon oussenima"
+      },
+      "wes": {
+        "aglc": "i beg ya",
+        "ascii": "i beg ya"
+      },
+      "byv": {
+        "aglc": "nə̀co'ò   /  mə lə̀'tə̀ o",
+        "ascii": "neco'o me le'te o"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "abui ŋgǎŋ",
+        "ascii": "abui nggang"
+      },
+      "bbj": {
+        "aglc": "gaə̂ piŋ",
+        "ascii": "gae ping"
+      },
+      "bas": {
+        "aglc": "mè ti mayega",
+        "ascii": "me ti mayega"
+      },
+      "dua": {
+        "aglc": "na som",
+        "ascii": "na som"
+      },
+      "fub": {
+        "aglc": "oussoko",
+        "ascii": "oussoko"
+      },
+      "wes": {
+        "aglc": "thank you ya",
+        "ascii": "thank you ya"
+      },
+      "byv": {
+        "aglc": "mə lὰbtə̌",
+        "ascii": "me labte"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mǎ ma hə́ fə wà ŋgǎŋ",
+        "ascii": "ma ma he fe wa nggang"
+      },
+      "bbj": {
+        "aglc": "gaə̂ piŋ ó",
+        "ascii": "gae ping o"
+      },
+      "bas": {
+        "aglc": "yag mè mèdé",
+        "ascii": "yag me mede"
+      },
+      "dua": {
+        "aglc": "mba pe na som",
+        "ascii": "mba pe na som"
+      },
+      "fub": {
+        "aglc": "oussoko ma bo",
+        "ascii": "oussoko ma bo"
+      },
+      "wes": {
+        "aglc": "thank you too",
+        "ascii": "thank you too"
+      },
+      "byv": {
+        "aglc": "mə lὰbtə̌ yὰm",
+        "ascii": "me labte yam"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "tɛgɛ, ma hə́ wa ŋgǎŋ.",
+        "ascii": "tege ma he wa nggang"
+      },
+      "bbj": {
+        "aglc": "gɛ̌; gaə̂ ghɔ́tə́ wɔ́",
+        "ascii": "ge gae ghote wo"
+      },
+      "bas": {
+        "aglc": "yag mè ti bée ma yéga",
+        "ascii": "yag me ti bee ma yega"
+      },
+      "dua": {
+        "aglc": "kem mba nde na som",
+        "ascii": "kem mba nde na som"
+      },
+      "fub": {
+        "aglc": "souƴ, mi yeti (ma)",
+        "ascii": "souy mi yeti ma"
+      },
+      "wes": {
+        "aglc": "no, na me i get for thank you sef",
+        "ascii": "no na me i get for thank you sef"
+      },
+      "byv": {
+        "aglc": "nga, mə lὰbtə̀ o",
+        "ascii": "nga me labte o"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bidzǔgá.",
+        "ascii": "bidzuga"
+      },
+      "bbj": {
+        "aglc": "cusí ǎ",
+        "ascii": "cusi a"
+      },
+      "bas": {
+        "aglc": "di nwéhlana",
+        "ascii": "di nwehlana"
+      },
+      "dua": {
+        "aglc": "lakise",
+        "ascii": "lakise"
+      },
+      "fub": {
+        "aglc": "haffa",
+        "ascii": "haffa"
+      },
+      "wes": {
+        "aglc": "ashia ya",
+        "ascii": "ashia ya"
+      },
+      "byv": {
+        "aglc": "bαm nα",
+        "ascii": "bam na"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ma dzaa bidzǔgá.",
+        "ascii": "ma dzaa bidzuga"
+      },
+      "bbj": {
+        "aglc": "gaə̂ o cusi a",
+        "ascii": "gae o cusi a"
+      },
+      "bas": {
+        "aglc": "mè bat nwéhél",
+        "ascii": "me bat nwehel"
+      },
+      "dua": {
+        "aglc": "na lakisabe",
+        "ascii": "na lakisabe"
+      },
+      "fub": {
+        "aglc": "haffam",
+        "ascii": "haffam"
+      },
+      "wes": {
+        "aglc": "choose me",
+        "ascii": "choose me"
+      },
+      "byv": {
+        "aglc": "nǔ cʉὰ αm",
+        "ascii": "nu cua am"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ndə́ e nə vé?",
+        "ascii": "nde e ne ve"
+      },
+      "bbj": {
+        "aglc": "paʼ bə́ m hə́?",
+        "ascii": "pa' be m he"
+      },
+      "bas": {
+        "aglc": "ndab i yé hèe",
+        "ascii": "ndab i ye hee"
+      },
+      "dua": {
+        "aglc": "mboa nie e nde o weni ?",
+        "ascii": "mboa nie e nde o weni"
+      },
+      "fub": {
+        "aglc": "toƴ saaré man?",
+        "ascii": "toy saare man"
+      },
+      "wes": {
+        "aglc": "wusai the house dey?",
+        "ascii": "wusai the house dey"
+      },
+      "byv": {
+        "aglc": "bà' bə α yα?",
+        "ascii": "ba' be a ya"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "é zěn yá kə́ á mékíd é nə yá?",
+        "ascii": "e zen ya ke a mekid e ne ya"
+      },
+      "bbj": {
+        "aglc": "bə́ ghə lǎ tə́ ŋwak sim?",
+        "ascii": "be ghe la te ngwak sim"
+      },
+      "bas": {
+        "aglc": "mè nkè lèla i bom",
+        "ascii": "me nke lela i bom"
+      },
+      "dua": {
+        "aglc": "neni po o don",
+        "ascii": "neni po o don"
+      },
+      "fub": {
+        "aglc": "noƴ mi wadata haa mi yotta loumo?",
+        "ascii": "noy mi wadata haa mi yotta loumo"
+      },
+      "wes": {
+        "aglc": "wusai road for go market?",
+        "ascii": "wusai road for go market"
+      },
+      "byv": {
+        "aglc": "mə̀ ghʉ̀ α ndʉ̂kə kα kǔm dʉ̌' ntαn α?",
+        "ascii": "me ghu a nduke ka kum du' ntan a"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "etié bə mə́tóa é nə nyie a vé?",
+        "ascii": "etie be metoa e ne nyie a ve"
+      },
+      "bbj": {
+        "aglc": "tsʉʼ nə́ də́ mə̂twa bə́ a sak nə́ sok á?",
+        "ascii": "tsu' ne de metwa be a sak ne sok a"
+      },
+      "bas": {
+        "aglc": "hè ba yónol matoa?",
+        "ascii": "he ba yonol matoa"
+      },
+      "dua": {
+        "aglc": "wuma nongo la mitoa ma ndio I poti?",
+        "ascii": "wuma nongo la mitoa ma ndio i poti"
+      },
+      "fub": {
+        "aglc": "haa toƴ tassa woni?",
+        "ascii": "haa toy tassa woni"
+      },
+      "wes": {
+        "aglc": "how far idey from here to go reach motor park?",
+        "ascii": "how far idey from here to go reach motor park"
+      },
+      "byv": {
+        "aglc": "nə̀kǔm nsěm yaŋbà' bə α ndaŋnzə̀ sî'i?",
+        "ascii": "nekum nsem yangba' be a ndangnze si'i"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "yi é nə ǹdzwáŋ áwálá?",
+        "ascii": "yi e ne ndzwang awala"
+      },
+      "bbj": {
+        "aglc": "yə̌ŋ mə̂jyə duala á?",
+        "ascii": "yeng mejye duala a"
+      },
+      "bas": {
+        "aglc": "jel hala ini ?",
+        "ascii": "jel hala ini"
+      },
+      "dua": {
+        "aglc": "ngea ni malee o duala nin ?",
+        "ascii": "ngea ni malee o duala nin"
+      },
+      "fub": {
+        "aglc": "ɗoum laawol douala na'ah",
+        "ascii": "doum laawol douala na'ah"
+      },
+      "wes": {
+        "aglc": "di road di go Douala?",
+        "ascii": "di road di go douala"
+      },
+      "byv": {
+        "aglc": "à bə α nzə̀ duǎla lî ke?",
+        "ascii": "a be a nze duala li ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "m̀bó ǹnóm",
+        "ascii": "mbo nnom"
+      },
+      "bbj": {
+        "aglc": "tʉɔ̀",
+        "ascii": "tuo"
+      },
+      "bas": {
+        "aglc": "wa lom",
+        "ascii": "wa lom"
+      },
+      "dua": {
+        "aglc": "mom",
+        "ascii": "mom"
+      },
+      "fub": {
+        "aglc": "ŋamo",
+        "ascii": "ngamo"
+      },
+      "wes": {
+        "aglc": "for right",
+        "ascii": "for right"
+      },
+      "byv": {
+        "aglc": "zwim",
+        "ascii": "zwim"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "m̀bó ŋ̀gál",
+        "ascii": "mbo nggal"
+      },
+      "bbj": {
+        "aglc": "kwyap",
+        "ascii": "kwyap"
+      },
+      "bas": {
+        "aglc": "wa ê",
+        "ascii": "wa e"
+      },
+      "dua": {
+        "aglc": "dimose",
+        "ascii": "dimose"
+      },
+      "fub": {
+        "aglc": "nano",
+        "ascii": "nano"
+      },
+      "wes": {
+        "aglc": "for left",
+        "ascii": "for left"
+      },
+      "byv": {
+        "aglc": "kwèb",
+        "ascii": "kweb"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "tə́tələ zěn",
+        "ascii": "tetele zen"
+      },
+      "bbj": {
+        "aglc": "dəŋdəŋ",
+        "ascii": "dengdeng"
+      },
+      "bas": {
+        "aglc": "nke ni bisu",
+        "ascii": "nke ni bisu"
+      },
+      "dua": {
+        "aglc": "na sim",
+        "ascii": "na sim"
+      },
+      "fub": {
+        "aglc": "tchir",
+        "ascii": "tchir"
+      },
+      "wes": {
+        "aglc": "straight so",
+        "ascii": "straight so"
+      },
+      "byv": {
+        "aglc": "ndǎŋndaŋ",
+        "ascii": "ndangndang"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "opəb",
+        "ascii": "opeb"
+      },
+      "bbj": {
+        "aglc": "mə̂twa busí",
+        "ascii": "metwa busi"
+      },
+      "bas": {
+        "aglc": "matoa ma bikaï",
+        "ascii": "matoa ma bikai"
+      },
+      "dua": {
+        "aglc": "mutoa mu maleeo  eyidi",
+        "ascii": "mutoa mu maleeo eyidi"
+      },
+      "fub": {
+        "aglc": "motta laɗɗé",
+        "ascii": "motta ladde"
+      },
+      "wes": {
+        "aglc": "clando",
+        "ascii": "clando"
+      },
+      "byv": {
+        "aglc": "yaŋbǎ' fɛ̀n",
+        "ascii": "yangba' fen"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "dzǎl",
+        "ascii": "dzal"
+      },
+      "bbj": {
+        "aglc": "láʼ",
+        "ascii": "la'"
+      },
+      "bas": {
+        "aglc": "libok",
+        "ascii": "libok"
+      },
+      "dua": {
+        "aglc": "kwata",
+        "ascii": "kwata"
+      },
+      "fub": {
+        "aglc": "fatouɗɗé",
+        "ascii": "fatoudde"
+      },
+      "wes": {
+        "aglc": "quarter",
+        "ascii": "quarter"
+      },
+      "byv": {
+        "aglc": "tǎŋla'",
+        "ascii": "tangla'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "kələ́ ai mə á tə́m tə́m ŋ̀góla",
+        "ascii": "kele ai me a tem tem nggola"
+      },
+      "bbj": {
+        "aglc": "nə́ gɔ́ tisuŋ sûsó",
+        "ascii": "ne go tisung suso"
+      },
+      "bas": {
+        "aglc": "soho téhna mè i tison",
+        "ascii": "soho tehna me i tison"
+      },
+      "dua": {
+        "aglc": "ongwane mba o po o tetena mundi",
+        "ascii": "ongwane mba o po o tetena mundi"
+      },
+      "fub": {
+        "aglc": "yaaranam haa hander wouro",
+        "ascii": "yaaranam haa hander wouro"
+      },
+      "wes": {
+        "aglc": "i beg carry me we go central town",
+        "ascii": "i beg carry me we go central town"
+      },
+      "byv": {
+        "aglc": "nəco'ò , nɛ̌n càg αm tʉsɔ",
+        "ascii": "neco'o nen cag am tuso"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "dzé é mod a nə́ dzamə dí?",
+        "ascii": "dze e mod a ne dzame di"
+      },
+      "bbj": {
+        "aglc": "gaə̂ wə́ cəŋ nə́ pfaə́ ywə́",
+        "ascii": "gae we ceng ne pfae ywe"
+      },
+      "bas": {
+        "aglc": "mè sombol njè yòm",
+        "ascii": "me sombol nje yom"
+      },
+      "dua": {
+        "aglc": "na mapula da son a lambo",
+        "ascii": "na mapula da son a lambo"
+      },
+      "fub": {
+        "aglc": "miƴƴiɗi gnamougo houndé",
+        "ascii": "miyyidi gnamougo hounde"
+      },
+      "wes": {
+        "aglc": "i want chop some tin",
+        "ascii": "i want chop some tin"
+      },
+      "byv": {
+        "aglc": "mə kɔ̌ nə̀ jʉ məju",
+        "ascii": "me ko ne ju meju"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "maji nâ madi dzóm",
+        "ascii": "maji na madi dzom"
+      },
+      "bbj": {
+        "aglc": "gaə̂ wə́ cəŋ nə́ nwə́ ywə́",
+        "ascii": "gae we ceng ne nwe ywe"
+      },
+      "bas": {
+        "aglc": "mè sombol ŋyò  yòm",
+        "ascii": "me sombol ngyo yom"
+      },
+      "dua": {
+        "aglc": "na mapula nyo son a lambo",
+        "ascii": "na mapula nyo son a lambo"
+      },
+      "fub": {
+        "aglc": "miƴƴiɗi yarougo houndé",
+        "ascii": "miyyidi yarougo hounde"
+      },
+      "wes": {
+        "aglc": "i want drink some tin",
+        "ascii": "i want drink some tin"
+      },
+      "byv": {
+        "aglc": "mə kɔ̌ nə̀ nu ju",
+        "ascii": "me ko ne nu ju"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "maji nâ mangú dzóm",
+        "ascii": "maji na mangu dzom"
+      },
+      "bbj": {
+        "aglc": "tə́pe sí a?",
+        "ascii": "tepe si a"
+      },
+      "bas": {
+        "aglc": "teble i yé holo ?",
+        "ascii": "teble i ye holo"
+      },
+      "dua": {
+        "aglc": "epolo e dia o tebedi ?",
+        "ascii": "epolo e dia o tebedi"
+      },
+      "fub": {
+        "aglc": "waɗɗi babal mere naa?",
+        "ascii": "waddi babal mere naa"
+      },
+      "wes": {
+        "aglc": "we fit still use di table so",
+        "ascii": "we fit still use di table so"
+      },
+      "byv": {
+        "aglc": "dʉ' nə kə̌' nùm nkò' ke?",
+        "ascii": "du' ne ke' num nko' ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mayi etsam-akag",
+        "ascii": "mayi etsam-akag"
+      },
+      "bbj": {
+        "aglc": "ywə́ nə́ cwa pak; sûsó",
+        "ascii": "ywe ne cwa pak suso"
+      },
+      "bas": {
+        "aglc": "mè sombol bijeg bi kekela",
+        "ascii": "me sombol bijeg bi kekela"
+      },
+      "dua": {
+        "aglc": "son sebea mba son a ti",
+        "ascii": "son sebea mba son a ti"
+      },
+      "fub": {
+        "aglc": "wadanam katchitari, oussénima",
+        "ascii": "wadanam katchitari oussenima"
+      },
+      "wes": {
+        "aglc": "i beg gimme breafast ya",
+        "ascii": "i beg gimme breafast ya"
+      },
+      "byv": {
+        "aglc": "fα kə̂bntsi lα mə̀, nəco'ò",
+        "ascii": "fa kebntsi la me neco'o"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mayi bía m̀bɔ́g",
+        "ascii": "mayi bia mbog"
+      },
+      "bbj": {
+        "aglc": "shəŋ mluʼ zəzə sûsó",
+        "ascii": "sheng mlu' zeze suso"
+      },
+      "bas": {
+        "aglc": "mè sombol pos i biè",
+        "ascii": "me sombol pos i bie"
+      },
+      "dua": {
+        "aglc": "son  na mapula bie",
+        "ascii": "son na mapula bie"
+      },
+      "fub": {
+        "aglc": "wadanam mbal, oussénima",
+        "ascii": "wadanam mbal oussenima"
+      },
+      "wes": {
+        "aglc": "i beg gimme beer ya",
+        "ascii": "i beg gimme beer ya"
+      },
+      "byv": {
+        "aglc": "fα zwə̌ndǔ' lα mə̀, nəco'ò",
+        "ascii": "fa zwendu' la me neco'o"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mayi kɔ́b kofí dziá",
+        "ascii": "mayi kob kofi dzia"
+      },
+      "bbj": {
+        "aglc": "taʼ tuʼ kafɛ sûsó",
+        "ascii": "ta' tu' kafe suso"
+      },
+      "bas": {
+        "aglc": "mè sombol cafe",
+        "ascii": "me sombol cafe"
+      },
+      "dua": {
+        "aglc": "son,dibondé la kafe",
+        "ascii": "son dibonde la kafe"
+      },
+      "fub": {
+        "aglc": "wadanam café, oussénima",
+        "ascii": "wadanam cafe oussenima"
+      },
+      "wes": {
+        "aglc": "i beg gimme tea ya",
+        "ascii": "i beg gimme tea ya"
+      },
+      "byv": {
+        "aglc": "fα tsi lα mə̀, nəco'ò",
+        "ascii": "fa tsi la me neco'o"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "wa lə́b mə́ dzé?",
+        "ascii": "wa leb me dze"
+      },
+      "bbj": {
+        "aglc": "pǒ wə́ shəŋ kə́?",
+        "ascii": "po we sheng ke"
+      },
+      "bas": {
+        "aglc": "ki u ŋgwès?",
+        "ascii": "ki u nggwes"
+      },
+      "dua": {
+        "aglc": "o mapula nde nje ?",
+        "ascii": "o mapula nde nje"
+      },
+      "fub": {
+        "aglc": "malli ɗoumé a hokatayam?",
+        "ascii": "malli doume a hokatayam"
+      },
+      "wes": {
+        "aglc": "you want weti?",
+        "ascii": "you want weti"
+      },
+      "byv": {
+        "aglc": "ò kɔ α kə?",
+        "ascii": "o ko a ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "dzé mía kadə diŋ yám múná?",
+        "ascii": "dze mia kade ding yam muna"
+      },
+      "bbj": {
+        "aglc": "pǒ nɛ́ kə sɔʼ?",
+        "ascii": "po ne ke so'"
+      },
+      "bas": {
+        "aglc": "ki ba lamb hana?",
+        "ascii": "ki ba lamb hana"
+      },
+      "dua": {
+        "aglc": "binyo lo mipe nde njika pati a mada o wan",
+        "ascii": "binyo lo mipe nde njika pati a mada o wan"
+      },
+      "fub": {
+        "aglc": "ɗoumé on défi?",
+        "ascii": "doume on defi"
+      },
+      "wes": {
+        "aglc": "na which kind tin dem wuna getam for here?",
+        "ascii": "na which kind tin dem wuna getam for here"
+      },
+      "byv": {
+        "aglc": "kə̂ zə̀ à bə̂ nsi ὰ?",
+        "ascii": "ke ze a be nsi a"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "e mi bə́lə́ kié biə́m?",
+        "ascii": "e mi bele kie biem"
+      },
+      "bbj": {
+        "aglc": "pǒ ghə ywə́tsú tə sɔm bap á?",
+        "ascii": "po ghe ywetsu te som bap a"
+      },
+      "bas": {
+        "aglc": "baa ni ngwé bikaï ?",
+        "ascii": "baa ni ngwe bikai"
+      },
+      "dua": {
+        "aglc": "le ben belembe ?",
+        "ascii": "le ben belembe"
+      },
+      "fub": {
+        "aglc": "on mari houndéji sarden?",
+        "ascii": "on mari houndeji sarden"
+      },
+      "wes": {
+        "aglc": "wuna get chop for pipo dem way dem di chop na only njamanjama?",
+        "ascii": "wuna get chop for pipo dem way dem di chop na only njamanjama"
+      },
+      "byv": {
+        "aglc": "bὰ njα̌b nǔm nsi ke?",
+        "ascii": "ba njab num nsi ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "hánə mə táŋ",
+        "ascii": "hane me tang"
+      },
+      "bbj": {
+        "aglc": "sûsó pó há dəŋ e",
+        "ascii": "suso po ha deng e"
+      },
+      "bas": {
+        "aglc": "soho tina mè soŋgi u moni",
+        "ascii": "soho tina me songgi u moni"
+      },
+      "dua": {
+        "aglc": "binyo bola mba dipapa la mususedi",
+        "ascii": "binyo bola mba dipapa la mususedi"
+      },
+      "fub": {
+        "aglc": "noƴ dalla man?",
+        "ascii": "noy dalla man"
+      },
+      "wes": {
+        "aglc": "ma money na how much?",
+        "ascii": "ma money na how much"
+      },
+      "byv": {
+        "aglc": "sə̂' njǒŋ nkαb nəco'ò",
+        "ascii": "se' njong nkab neco'o"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "kɔ̌s",
+        "ascii": "kos"
+      },
+      "bbj": {
+        "aglc": "bapgù",
+        "ascii": "bapgu"
+      },
+      "bas": {
+        "aglc": "hiobi",
+        "ascii": "hiobi"
+      },
+      "dua": {
+        "aglc": "sue",
+        "ascii": "sue"
+      },
+      "fub": {
+        "aglc": "liɗɗi",
+        "ascii": "liddi"
+      },
+      "wes": {
+        "aglc": "fish",
+        "ascii": "fish"
+      },
+      "byv": {
+        "aglc": "ngǒntsə",
+        "ascii": "ngontse"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "tsíd nyag",
+        "ascii": "tsid nyag"
+      },
+      "bbj": {
+        "aglc": "bap naʼ",
+        "ascii": "bap na'"
+      },
+      "bas": {
+        "aglc": "nyaga",
+        "ascii": "nyaga"
+      },
+      "dua": {
+        "aglc": "nyama anyaka",
+        "ascii": "nyama anyaka"
+      },
+      "fub": {
+        "aglc": "koussél ngari, naggué",
+        "ascii": "koussel ngari naggue"
+      },
+      "wes": {
+        "aglc": "cow meat",
+        "ascii": "cow meat"
+      },
+      "byv": {
+        "aglc": "mbαb mvɔ",
+        "ascii": "mbab mvo"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "tsíd ŋgoe",
+        "ascii": "tsid nggoe"
+      },
+      "bbj": {
+        "aglc": "bap gə́nɔ̀m",
+        "ascii": "bap genom"
+      },
+      "bas": {
+        "aglc": "ŋgoy",
+        "ascii": "nggoy"
+      },
+      "dua": {
+        "aglc": "nyama a ngoa",
+        "ascii": "nyama a ngoa"
+      },
+      "fub": {
+        "aglc": "koussél gadourou",
+        "ascii": "koussel gadourou"
+      },
+      "wes": {
+        "aglc": "meat for swine",
+        "ascii": "meat for swine"
+      },
+      "byv": {
+        "aglc": "mbαb ngʉnyὰm",
+        "ascii": "mbab ngunyam"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "kié biə́m",
+        "ascii": "kie biem"
+      },
+      "bbj": {
+        "aglc": "jap",
+        "ascii": "jap"
+      },
+      "bas": {
+        "aglc": "bikaï",
+        "ascii": "bikai"
+      },
+      "dua": {
+        "aglc": "bewudu",
+        "ascii": "bewudu"
+      },
+      "fub": {
+        "aglc": "hakoje",
+        "ascii": "hakoje"
+      },
+      "wes": {
+        "aglc": "njamanjama",
+        "ascii": "njamanjama"
+      },
+      "byv": {
+        "aglc": "njαb",
+        "ascii": "njab"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "aki kúb",
+        "ascii": "aki kub"
+      },
+      "bbj": {
+        "aglc": "pəm",
+        "ascii": "pem"
+      },
+      "bas": {
+        "aglc": "li tjè",
+        "ascii": "li tje"
+      },
+      "dua": {
+        "aglc": "mweny",
+        "ascii": "mweny"
+      },
+      "fub": {
+        "aglc": "guéraɗé",
+        "ascii": "guerade"
+      },
+      "wes": {
+        "aglc": "egg",
+        "ascii": "egg"
+      },
+      "byv": {
+        "aglc": "bumngab   /   bum",
+        "ascii": "bumngab bum"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bikɔn",
+        "ascii": "bikon"
+      },
+      "bbj": {
+        "aglc": "kə̀lùŋ",
+        "ascii": "kelung"
+      },
+      "bas": {
+        "aglc": "makondo",
+        "ascii": "makondo"
+      },
+      "dua": {
+        "aglc": "musole",
+        "ascii": "musole"
+      },
+      "fub": {
+        "aglc": "kondoŋje",
+        "ascii": "kondongje"
+      },
+      "wes": {
+        "aglc": "banana",
+        "ascii": "banana"
+      },
+      "byv": {
+        "aglc": "kə̀lɔ̀ ntʉ̀n",
+        "ascii": "kelo ntun"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ǹtuba tsíd/kɔ̌s",
+        "ascii": "ntuba tsid kos"
+      },
+      "bbj": {
+        "aglc": "bap gwɔʼɔ",
+        "ascii": "bap gwo'o"
+      },
+      "bas": {
+        "aglc": "huhu",
+        "ascii": "huhu"
+      },
+      "dua": {
+        "aglc": "nyama natam",
+        "ascii": "nyama natam"
+      },
+      "fub": {
+        "aglc": "keoussél lamanguel",
+        "ascii": "keoussel lamanguel"
+      },
+      "wes": {
+        "aglc": "fufu",
+        "ascii": "fufu"
+      },
+      "byv": {
+        "aglc": "yaŋtə̂ bαn",
+        "ascii": "yangte ban"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ikɔ́da",
+        "ascii": "ikoda"
+      },
+      "bbj": {
+        "aglc": "loʼ",
+        "ascii": "lo'"
+      },
+      "bas": {
+        "aglc": "yô",
+        "ascii": "yo"
+      },
+      "dua": {
+        "aglc": "mba",
+        "ascii": "mba"
+      },
+      "fub": {
+        "aglc": "ɓouloumji",
+        "ascii": "bouloumji"
+      },
+      "wes": {
+        "aglc": "yam",
+        "ascii": "yam"
+      },
+      "byv": {
+        "aglc": "bə'",
+        "ascii": "be'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mboŋ",
+        "ascii": "mbong"
+      },
+      "bbj": {
+        "aglc": "cyəsə̀m",
+        "ascii": "cyesem"
+      },
+      "bas": {
+        "aglc": "mbon",
+        "ascii": "mbon"
+      },
+      "dua": {
+        "aglc": "dikwamba",
+        "ascii": "dikwamba"
+      },
+      "fub": {
+        "aglc": "mbaƴ",
+        "ascii": "mbay"
+      },
+      "wes": {
+        "aglc": "cassava",
+        "ascii": "cassava"
+      },
+      "byv": {
+        "aglc": "kàsinga    /    sʉ̀mbʉ̀n",
+        "ascii": "kasinga sumbun"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mətóda",
+        "ascii": "metoda"
+      },
+      "bbj": {
+        "aglc": "tɔ̌m",
+        "ascii": "tom"
+      },
+      "bas": {
+        "aglc": "likabo li ŋkana",
+        "ascii": "likabo li ngkana"
+      },
+      "dua": {
+        "aglc": "ndoko a bakala",
+        "ascii": "ndoko a bakala"
+      },
+      "fub": {
+        "aglc": "pompiteeri",
+        "ascii": "pompiteeri"
+      },
+      "wes": {
+        "aglc": "irish potato",
+        "ascii": "irish potato"
+      },
+      "byv": {
+        "aglc": "ntαmə",
+        "ascii": "ntame"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "məndím",
+        "ascii": "mendim"
+      },
+      "bbj": {
+        "aglc": "shyə",
+        "ascii": "shye"
+      },
+      "bas": {
+        "aglc": "malep",
+        "ascii": "malep"
+      },
+      "dua": {
+        "aglc": "madiba",
+        "ascii": "madiba"
+      },
+      "fub": {
+        "aglc": "njiam",
+        "ascii": "njiam"
+      },
+      "wes": {
+        "aglc": "wata",
+        "ascii": "wata"
+      },
+      "byv": {
+        "aglc": "ntsə",
+        "ascii": "ntse"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bìzəzəg bí ǹnam",
+        "ascii": "bizezeg bi nnam"
+      },
+      "bbj": {
+        "aglc": "mluʼ dʉ̂mtʉ́m",
+        "ascii": "mlu' dumtum"
+      },
+      "bas": {
+        "aglc": "binyonyo",
+        "ascii": "binyonyo"
+      },
+      "dua": {
+        "aglc": "benyegeny",
+        "ascii": "benyegeny"
+      },
+      "fub": {
+        "aglc": "njaram ɓibbe leɗɗe",
+        "ascii": "njaram bibbe ledde"
+      },
+      "wes": {
+        "aglc": "wata for fruit dem",
+        "ascii": "wata for fruit dem"
+      },
+      "byv": {
+        "aglc": "ntsə̌ ntαmntʉ",
+        "ascii": "ntse ntamntu"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "bizəzəg míntáŋɛ́n",
+        "ascii": "bizezeg mintangen"
+      },
+      "bbj": {
+        "aglc": "mluʼ",
+        "ascii": "mlu'"
+      },
+      "bas": {
+        "aglc": "limonad",
+        "ascii": "limonad"
+      },
+      "dua": {
+        "aglc": "limonad",
+        "ascii": "limonad"
+      },
+      "fub": {
+        "aglc": "lemounal",
+        "ascii": "lemounal"
+      },
+      "wes": {
+        "aglc": "wata for lemon fruit",
+        "ascii": "wata for lemon fruit"
+      },
+      "byv": {
+        "aglc": "dʉ̀mtə̂ ndù'",
+        "ascii": "dumte ndu'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "wân",
+        "ascii": "wan"
+      },
+      "bbj": {
+        "aglc": "mluʼ phə́phə́",
+        "ascii": "mlu' phephe"
+      },
+      "bas": {
+        "aglc": "maòk",
+        "ascii": "maok"
+      },
+      "dua": {
+        "aglc": "mao",
+        "ascii": "mao"
+      },
+      "fub": {
+        "aglc": "sanngara",
+        "ascii": "sanngara"
+      },
+      "wes": {
+        "aglc": "mimbo",
+        "ascii": "mimbo"
+      },
+      "byv": {
+        "aglc": "ndù'",
+        "ascii": "ndu'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "akali",
+        "ascii": "akali"
+      },
+      "bbj": {
+        "aglc": "mə̂kə́láʼ",
+        "ascii": "mekela'"
+      },
+      "bas": {
+        "aglc": "makala",
+        "ascii": "makala"
+      },
+      "dua": {
+        "aglc": "dikala",
+        "ascii": "dikala"
+      },
+      "fub": {
+        "aglc": "makala",
+        "ascii": "makala"
+      },
+      "wes": {
+        "aglc": "puffpuff",
+        "ascii": "puffpuff"
+      },
+      "byv": {
+        "aglc": "mὰkὰlà'",
+        "ascii": "makala'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "gátó",
+        "ascii": "gato"
+      },
+      "bbj": {
+        "aglc": "blək",
+        "ascii": "blek"
+      },
+      "bas": {
+        "aglc": "ŋkono",
+        "ascii": "ngkono"
+      },
+      "dua": {
+        "aglc": "ekoki a flawa",
+        "ascii": "ekoki a flawa"
+      },
+      "fub": {
+        "aglc": "gato",
+        "ascii": "gato"
+      },
+      "wes": {
+        "aglc": "cake",
+        "ascii": "cake"
+      },
+      "byv": {
+        "aglc": "tǒntagə",
+        "ascii": "tontage"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "owondo",
+        "ascii": "owondo"
+      },
+      "bbj": {
+        "aglc": "biyɛ́",
+        "ascii": "biye"
+      },
+      "bas": {
+        "aglc": "hiondè",
+        "ascii": "hionde"
+      },
+      "dua": {
+        "aglc": "ngondo",
+        "ascii": "ngondo"
+      },
+      "fub": {
+        "aglc": "biridi",
+        "ascii": "biridi"
+      },
+      "wes": {
+        "aglc": "granut",
+        "ascii": "granut"
+      },
+      "byv": {
+        "aglc": "kə̀nà",
+        "ascii": "kena"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "kudukudu",
+        "ascii": "kudukudu"
+      },
+      "bbj": {
+        "aglc": "kukulú",
+        "ascii": "kukulu"
+      },
+      "bas": {
+        "aglc": "paf",
+        "ascii": "paf"
+      },
+      "dua": {
+        "aglc": "paf",
+        "ascii": "paf"
+      },
+      "fub": {
+        "aglc": "gari",
+        "ascii": "gari"
+      },
+      "wes": {
+        "aglc": "pap",
+        "ascii": "pap"
+      },
+      "byv": {
+        "aglc": "kòkolò'",
+        "ascii": "kokolo'"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "kón",
+        "ascii": "kon"
+      },
+      "bbj": {
+        "aglc": "mkǒ",
+        "ascii": "mko"
+      },
+      "bas": {
+        "aglc": "kon i ŋkoŋg",
+        "ascii": "kon i ngkongg"
+      },
+      "dua": {
+        "aglc": "wondi a balondo",
+        "ascii": "wondi a balondo"
+      },
+      "fub": {
+        "aglc": "gnébbé",
+        "ascii": "gnebbe"
+      },
+      "wes": {
+        "aglc": "beans",
+        "ascii": "beans"
+      },
+      "byv": {
+        "aglc": "bànkun",
+        "ascii": "bankun"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "é mə nə dzǎmá kus mbáŋəla vé?",
+        "ascii": "e me ne dzama kus mbangela ve"
+      },
+      "bbj": {
+        "aglc": "bə́ jó blək hə́?",
+        "ascii": "be jo blek he"
+      },
+      "bas": {
+        "aglc": "hè mè nla lepna bret",
+        "ascii": "he me nla lepna bret"
+      },
+      "dua": {
+        "aglc": "nena na kusa breti o weni",
+        "ascii": "nena na kusa breti o weni"
+      },
+      "fub": {
+        "aglc": "ha toƴ mi heɓata bireedi ?",
+        "ascii": "ha toy mi hebata bireedi"
+      },
+      "wes": {
+        "aglc": "wusai man fit buy bread eh?",
+        "ascii": "wusai man fit buy bread eh"
+      },
+      "byv": {
+        "aglc": "bə̂ mə yə̂n tǒntag α yα?",
+        "ascii": "be me yen tontag a ya"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "é nə táŋə́yá?",
+        "ascii": "e ne tangeya"
+      },
+      "bbj": {
+        "aglc": "â lǎ?",
+        "ascii": "a la"
+      },
+      "bas": {
+        "aglc": "i hè taŋlâ ?",
+        "ascii": "i he tangla"
+      },
+      "dua": {
+        "aglc": "bo manda nde mwaninga",
+        "ascii": "bo manda nde mwaninga"
+      },
+      "fub": {
+        "aglc": "noƴ tchogou man? noƴ tchéɗɗé man?",
+        "ascii": "noy tchogou man noy tchedde man"
+      },
+      "wes": {
+        "aglc": "na how much?",
+        "ascii": "na how much"
+      },
+      "byv": {
+        "aglc": "à bə α sî'i",
+        "ascii": "a be a si'i"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "yá daŋ día",
+        "ascii": "ya dang dia"
+      },
+      "bbj": {
+        "aglc": "dəŋ e tʉɔ teʼ",
+        "ascii": "deng e tuo te'"
+      },
+      "bas": {
+        "aglc": "i yé diè",
+        "ascii": "i ye die"
+      },
+      "dua": {
+        "aglc": "bo makos die",
+        "ascii": "bo makos die"
+      },
+      "fub": {
+        "aglc": "saɗɗi, nawi",
+        "ascii": "saddi nawi"
+      },
+      "wes": {
+        "aglc": "ye over dear",
+        "ascii": "ye over dear"
+      },
+      "byv": {
+        "aglc": "a tǎnjòŋ",
+        "ascii": "a tanjong"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ngǎ wa ha mə dzóm?",
+        "ascii": "nga wa ha me dzom"
+      },
+      "bbj": {
+        "aglc": "pǒ fi dəŋ é a?",
+        "ascii": "po fi deng e a"
+      },
+      "bas": {
+        "aglc": "suhul damba ?",
+        "ascii": "suhul damba"
+      },
+      "dua": {
+        "aglc": "binyo sumwa so a lambo",
+        "ascii": "binyo sumwa so a lambo"
+      },
+      "fub": {
+        "aglc": "oustan naa?",
+        "ascii": "oustan naa"
+      },
+      "wes": {
+        "aglc": "man fit beat price?",
+        "ascii": "man fit beat price"
+      },
+      "byv": {
+        "aglc": "mbə o sêb njòŋ i ke?",
+        "ascii": "mbe o seb njong i ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "mayi tíkɛ́d",
+        "ascii": "mayi tiked"
+      },
+      "bbj": {
+        "aglc": "gaə̂ wə́ shəŋ pipa nə́ jó",
+        "ascii": "gae we sheng pipa ne jo"
+      },
+      "bas": {
+        "aglc": "mè sombol lipep li moni mé ŋsaa",
+        "ascii": "me sombol lipep li moni me ngsaa"
+      },
+      "dua": {
+        "aglc": "na mapula dipapa la mususedi",
+        "ascii": "na mapula dipapa la mususedi"
+      },
+      "fub": {
+        "aglc": "miƴƴiɗi derewol tchédé?",
+        "ascii": "miyyidi derewol tchede"
+      },
+      "wes": {
+        "aglc": "gimme receipt",
+        "ascii": "gimme receipt"
+      },
+      "byv": {
+        "aglc": "fα fə̌jun mə̀",
+        "ascii": "fa fejun me"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "yi o bələ́ tsénde",
+        "ascii": "yi o bele tsende"
+      },
+      "bbj": {
+        "aglc": "ǒ ghə kwə́pnyə́ a?",
+        "ascii": "o ghe kwepnye a"
+      },
+      "bas": {
+        "aglc": "u gwé man moni?",
+        "ascii": "u gwe man moni"
+      },
+      "dua": {
+        "aglc": "lo ben momi musadi ?",
+        "ascii": "lo ben momi musadi"
+      },
+      "fub": {
+        "aglc": "a mari sanji naa?",
+        "ascii": "a mari sanji naa"
+      },
+      "wes": {
+        "aglc": "you get change?",
+        "ascii": "you get change"
+      },
+      "byv": {
+        "aglc": "bàtə̂ nkαb à' bə̂ wʉ̀ ke?",
+        "ascii": "bate nkab a' be wu ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ma kɔn á ǹló",
+        "ascii": "ma kon a nlo"
+      },
+      "bbj": {
+        "aglc": "thə̂ a wə́ búʼ a",
+        "ascii": "the a we bu' a"
+      },
+      "bas": {
+        "aglc": "ŋo u si mè",
+        "ascii": "ngo u si me"
+      },
+      "dua": {
+        "aglc": "mulopo mu e mba sese",
+        "ascii": "mulopo mu e mba sese"
+      },
+      "fub": {
+        "aglc": "horé am ɗo nawa",
+        "ascii": "hore am do nawa"
+      },
+      "wes": {
+        "aglc": "ma head di hot me",
+        "ascii": "ma head di hot me"
+      },
+      "byv": {
+        "aglc": "tu αm cwɛ̌d nja",
+        "ascii": "tu am cwed nja"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "okɔn ábum",
+        "ascii": "okon abum"
+      },
+      "bbj": {
+        "aglc": "vam də̂mlə̌m",
+        "ascii": "vam demlem"
+      },
+      "bas": {
+        "aglc": "libum li kògòl mè",
+        "ascii": "libum li kogol me"
+      },
+      "dua": {
+        "aglc": "dibum la sese",
+        "ascii": "dibum la sese"
+      },
+      "fub": {
+        "aglc": "naoural rédou",
+        "ascii": "naoural redou"
+      },
+      "wes": {
+        "aglc": "belle bite",
+        "ascii": "belle bite"
+      },
+      "byv": {
+        "aglc": "bàm nəya",
+        "ascii": "bam neya"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "okɔn kíŋ",
+        "ascii": "okon king"
+      },
+      "bbj": {
+        "aglc": "tuŋ jɛ́jɛ́",
+        "ascii": "tung jeje"
+      },
+      "bas": {
+        "aglc": "kin i nsoghè mè",
+        "ascii": "kin i nsoghe me"
+      },
+      "dua": {
+        "aglc": "nyingo sese",
+        "ascii": "nyingo sese"
+      },
+      "fub": {
+        "aglc": "naourégua dandé",
+        "ascii": "naouregua dande"
+      },
+      "wes": {
+        "aglc": "ma neck di hot",
+        "ascii": "ma neck di hot"
+      },
+      "byv": {
+        "aglc": "tɔ̂ nəya",
+        "ascii": "to neya"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "fíba",
+        "ascii": "fiba"
+      },
+      "bbj": {
+        "aglc": "fípa",
+        "ascii": "fipa"
+      },
+      "bas": {
+        "aglc": "lihep",
+        "ascii": "lihep"
+      },
+      "dua": {
+        "aglc": "ngoo",
+        "ascii": "ngoo"
+      },
+      "fub": {
+        "aglc": "sourtougo",
+        "ascii": "sourtougo"
+      },
+      "wes": {
+        "aglc": "fever",
+        "ascii": "fever"
+      },
+      "byv": {
+        "aglc": "saŋtə̀wud    /    mfʉαg",
+        "ascii": "sangtewud mfuag"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ásǒŋ dí dá bɔ mintie",
+        "ascii": "asong di da bo mintie"
+      },
+      "bbj": {
+        "aglc": "súŋ yə̌ŋ wə́ jɛ́ a",
+        "ascii": "sung yeng we je a"
+      },
+      "bas": {
+        "aglc": "dini lison li nsoghè",
+        "ascii": "dini lison li nsoghe"
+      },
+      "dua": {
+        "aglc": "songa la e mba sese",
+        "ascii": "songa la e mba sese"
+      },
+      "fub": {
+        "aglc": "nindéré ɗo, ɗo nawa",
+        "ascii": "nindere do do nawa"
+      },
+      "wes": {
+        "aglc": "di teeth di hot eh",
+        "ascii": "di teeth di hot eh"
+      },
+      "byv": {
+        "aglc": "sə̂n sɔ li cwɛ̌d nja",
+        "ascii": "sen so li cwed nja"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ma báli",
+        "ascii": "ma bali"
+      },
+      "bbj": {
+        "aglc": "gaə̂ pyə́p nə́ a",
+        "ascii": "gae pyep ne a"
+      },
+      "bas": {
+        "aglc": "mè babal",
+        "ascii": "me babal"
+      },
+      "dua": {
+        "aglc": "na kedi ebango",
+        "ascii": "na kedi ebango"
+      },
+      "fub": {
+        "aglc": "mi naouni",
+        "ascii": "mi naouni"
+      },
+      "wes": {
+        "aglc": "i dong get cut",
+        "ascii": "i dong get cut"
+      },
+      "byv": {
+        "aglc": "mə ləm",
+        "ascii": "me lem"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "súlugu yá díg mə́",
+        "ascii": "sulugu ya dig me"
+      },
+      "bbj": {
+        "aglc": "títyə́ kə̌ də́m a",
+        "ascii": "titye ke dem a"
+      },
+      "bas": {
+        "aglc": "hison hi kògòl mè",
+        "ascii": "hison hi kogol me"
+      },
+      "dua": {
+        "aglc": "sono e labi mba",
+        "ascii": "sono e labi mba"
+      },
+      "fub": {
+        "aglc": "gnou gnou ngatti am",
+        "ascii": "gnou gnou ngatti am"
+      },
+      "wes": {
+        "aglc": "ant dong bite me",
+        "ascii": "ant dong bite me"
+      },
+      "byv": {
+        "aglc": "ndèdnděd cog αm",
+        "ascii": "ndednded cog am"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "e o bələ́ é dzóm é nə́ dzǎma vɔ́li míntie?",
+        "ascii": "e o bele e dzom e ne dzama voli mintie"
+      },
+      "bbj": {
+        "aglc": "ur?   pǒ ghə ywə́ nə́ tsʉʼ jɛ̂jɛ̌ a?",
+        "ascii": "ur po ghe ywe ne tsu' jeje a"
+      },
+      "bas": {
+        "aglc": "u gwé yòm i nyu njoghè?",
+        "ascii": "u gwe yom i nyu njoghe"
+      },
+      "dua": {
+        "aglc": "lo ben bwanga onyola sibise sese",
+        "ascii": "lo ben bwanga onyola sibise sese"
+      },
+      "fub": {
+        "aglc": "Aɗɗo mari lekki naoural naa?",
+        "ascii": "addo mari lekki naoural naa"
+      },
+      "wes": {
+        "aglc": "you get merecine for skin way ye di hot?",
+        "ascii": "you get merecine for skin way ye di hot"
+      },
+      "byv": {
+        "aglc": "fǔ nùm wʉ̌ nsi nə̀ kògtə̌ yâ yi ke?",
+        "ascii": "fu num wu nsi ne kogte ya yi ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "a nə abum",
+        "ascii": "a ne abum"
+      },
+      "bbj": {
+        "aglc": "ě bə́ tsʉ́m",
+        "ascii": "e be tsum"
+      },
+      "bas": {
+        "aglc": "a yé jém",
+        "ascii": "a ye jem"
+      },
+      "dua": {
+        "aglc": "a  e deme",
+        "ascii": "a e deme"
+      },
+      "fub": {
+        "aglc": "o rédou",
+        "ascii": "o redou"
+      },
+      "wes": {
+        "aglc": "ye dey wit belle",
+        "ascii": "ye dey wit belle"
+      },
+      "byv": {
+        "aglc": "à bə̂ jʉm nα   /    a kə̌d jʉm",
+        "ascii": "a be jum na a ked jum"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "má hɔ́g kig",
+        "ascii": "ma hog kig"
+      },
+      "bbj": {
+        "aglc": "n tə̌ wə́ júʼ pə",
+        "ascii": "n te we ju' pe"
+      },
+      "bas": {
+        "aglc": "mè nok bé",
+        "ascii": "me nok be"
+      },
+      "dua": {
+        "aglc": "na si masontane",
+        "ascii": "na si masontane"
+      },
+      "fub": {
+        "aglc": "mi famata",
+        "ascii": "mi famata"
+      },
+      "wes": {
+        "aglc": "i no di hear ma head",
+        "ascii": "i no di hear ma head"
+      },
+      "byv": {
+        "aglc": "mə̀ kə cwɛ̌d nju'u",
+        "ascii": "me ke cwed nju'u"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "dzǎm té dá kə kíg mə ǹnə́m",
+        "ascii": "dzam te da ke kig me nnem"
+      },
+      "bbj": {
+        "aglc": "â tə́  wə́ tə́ŋ a pə",
+        "ascii": "a te we teng a pe"
+      },
+      "bas": {
+        "aglc": "hala a kal bé mè to yòm",
+        "ascii": "hala a kal be me to yom"
+      },
+      "dua": {
+        "aglc": "nika e si mombwa mba",
+        "ascii": "nika e si mombwa mba"
+      },
+      "fub": {
+        "aglc": "fottinaƴam",
+        "ascii": "fottinayam"
+      },
+      "wes": {
+        "aglc": "i no get time for dat one",
+        "ascii": "i no get time for dat one"
+      },
+      "byv": {
+        "aglc": "yənnα kə̂' bwɔ̀ αm",
+        "ascii": "yenna ke' bwo am"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "é nə m̀bəmbə dzǎm",
+        "ascii": "e ne mbembe dzam"
+      },
+      "bbj": {
+        "aglc": "â ywə́ pəpúŋ",
+        "ascii": "a ywe pepung"
+      },
+      "bas": {
+        "aglc": "hala a yé longè djam",
+        "ascii": "hala a ye longe djam"
+      },
+      "dua": {
+        "aglc": "lambo la bwam di",
+        "ascii": "lambo la bwam di"
+      },
+      "fub": {
+        "aglc": "koujé man ɓoɗɗoum",
+        "ascii": "kouje man boddoum"
+      },
+      "wes": {
+        "aglc": "na fine tin",
+        "ascii": "na fine tin"
+      },
+      "byv": {
+        "aglc": "à bə α jû mə̀bwɔ",
+        "ascii": "a be a ju mebwo"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "nálá ó nə ábé",
+        "ascii": "nala o ne abe"
+      },
+      "bbj": {
+        "aglc": "yə̌ pɔk",
+        "ascii": "ye pok"
+      },
+      "bas": {
+        "aglc": "hala a yé béba",
+        "ascii": "hala a ye beba"
+      },
+      "dua": {
+        "aglc": "nika e si doli",
+        "ascii": "nika e si doli"
+      },
+      "fub": {
+        "aglc": "wodaƴ",
+        "ascii": "woday"
+      },
+      "wes": {
+        "aglc": "ye wowo'o",
+        "ascii": "ye wowo'o"
+      },
+      "byv": {
+        "aglc": "yənnα bαg   /    yənnα kə̂' bwɔ̀",
+        "ascii": "yenna bag yenna ke' bwo"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "ma wódənə miǹson",
+        "ascii": "ma wodene minson"
+      },
+      "bbj": {
+        "aglc": "gaə̂ wə́ júʼ pəpʉ́ŋ",
+        "ascii": "gae we ju' pepung"
+      },
+      "bas": {
+        "aglc": "mè nogda longè",
+        "ascii": "me nogda longe"
+      },
+      "dua": {
+        "aglc": "na jai bwam",
+        "ascii": "na jai bwam"
+      },
+      "fub": {
+        "aglc": "mi jamo, mi ɗo saati",
+        "ascii": "mi jamo mi do saati"
+      },
+      "wes": {
+        "aglc": "ma heart di sweet me",
+        "ascii": "ma heart di sweet me"
+      },
+      "byv": {
+        "aglc": "mə cwɛ̌d nju' mə̀bwɔ",
+        "ascii": "me cwed nju' mebwo"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "e mə nə dzǎmá nɔ̀ŋ fóda?",
+        "ascii": "e me ne dzama nong foda"
+      },
+      "bbj": {
+        "aglc": "bə́ də́ fǒtó nə́ a?",
+        "ascii": "be de foto ne a"
+      },
+      "bas": {
+        "aglc": "mè la ot wè titii ?",
+        "ascii": "me la ot we titii"
+      },
+      "dua": {
+        "aglc": "na ena na nongo wa duta",
+        "ascii": "na ena na nongo wa duta"
+      },
+      "fub": {
+        "aglc": "mi fotti mi filma naa? mi fotti mi hotché foto naa?",
+        "ascii": "mi fotti mi filma naa mi fotti mi hotche foto naa"
+      },
+      "wes": {
+        "aglc": "i fit take you photo ?",
+        "ascii": "i fit take you photo"
+      },
+      "byv": {
+        "aglc": "bə̂ mə fêd ju ke?",
+        "ascii": "be me fed ju ke"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "nálá ó nə áyé",
+        "ascii": "nala o ne aye"
+      },
+      "bbj": {
+        "aglc": "yə́ bə́ a tʉɔ̀",
+        "ascii": "ye be a tuo"
+      },
+      "bas": {
+        "aglc": "hala a yé dutu",
+        "ascii": "hala a ye dutu"
+      },
+      "dua": {
+        "aglc": "nika ni e ndutu",
+        "ascii": "nika ni e ndutu"
+      },
+      "fub": {
+        "aglc": "nɗoum saɗɗi",
+        "ascii": "ndoum saddi"
+      },
+      "wes": {
+        "aglc": "the tin hard eh",
+        "ascii": "the tin hard eh"
+      },
+      "byv": {
+        "aglc": "yənnα tǎ",
+        "ascii": "yenna ta"
+      }
+    },
+    {
+      "ewo": {
+        "aglc": "madiŋ wa",
+        "ascii": "mading wa"
+      },
+      "bbj": {
+        "aglc": "gaə̂ ŋkuŋ ó",
+        "ascii": "gae ngkung o"
+      },
+      "bas": {
+        "aglc": "mè gwes wè",
+        "ascii": "me gwes we"
+      },
+      "dua": {
+        "aglc": "na tondi wa",
+        "ascii": "na tondi wa"
+      },
+      "fub": {
+        "aglc": "ƴiɗi ma",
+        "ascii": "yidi ma"
+      },
+      "wes": {
+        "aglc": "i like you",
+        "ascii": "i like you"
+      },
+      "byv": {
+        "aglc": "mə kɔ̀ o",
+        "ascii": "me ko o"
+      }
+    }
+  ],
+  "fulfulde_fr_lexicon": {
+    "bonjour": "sannu",
+    "merci": "useko",
+    "argent": "ceede",
+    "solde": "ceede keddiiɗe",
+    "envoyer": "neldude",
+    "payer": "yoɓude",
+    "compte": "konte",
+    "frais": "njoɓdi",
+    "frère": "deerɗiraawo",
+    "frere": "deerɗiraawo",
+    "facture": "faktir",
+    "contrat": "alkawal",
+    "travail": "golle",
+    "aide": "ballal",
+    "oui": "ii",
+    "non": "alaa",
+    "combien": "noy",
+    "confirmer": "tabbitinde",
+    "annuler": "haɓɓitde",
+    "modifier": "waylude",
+    "aujourd'hui": "hannde",
+    "machettes": "addaahi",
+    "jeudi": "alhamiisa",
+    "aleo vera": "alovera",
+    "lundi": "altine",
+    "engrais complet": "anngiree timmidinnga",
+    "engrais chimique": "anngiree",
+    "marchandise en gros": "annguro",
+    "emporter": "adgo",
+    "alcool de fabrication locale": "arge",
+    "samedi": "asawe",
+    "apres midi": "asira",
+    "piment moyen": "attarugu",
+    "avril": "aviriil",
+    "mesurer": "agooda",
+    "mesurers": "agooda",
+    "garde": "aynugo",
+    "germe de noix de palmier": "baacol",
+    "germes de noix de palmiers": "baacol",
+    "houe": "baaneewo",
+    "louer": "baaraago",
+    "rendement": "baawal",
+    "lieu": "babal",
+    "dispositif de secours": "ballandum",
+    "milieu du matin": "balte",
+    "porteur": "bambe",
+    "chanvre indien": "banngo",
+    "soulever": "bantugo",
+    "cultivateur": "barima'en",
+    "location": "akiri",
+    "basilic": "bazeliik",
+    "mercredi": "alarba",
+    "dimanche": "alat",
+    "ail": "albasarre",
+    "machette": "addaahi",
+    "connaitre": "anndugo",
+    "erreur": "ayi[i]beeji",
+    "plantior court": "beberwal",
+    "grenier": "beembal",
+    "petit grenier": "beembel",
+    "fruit": "benndaloore",
+    "coeur": "bernde",
+    "ville": "berni",
+    "budget": "bije",
+    "recensement": "binndol",
+    "arachides": "biriiji",
+    "corde": "boggol",
+    "baobab": "bokki",
+    "feuilles de baobab": "bokko",
+    "faucille": "bonngooru",
+    "ravageurs": "bonnoojum",
+    "bloc de terre": "boodere",
+    "peigne": "cancorée",
+    "peigner": "cancorée",
+    "bois de faidherbia": "casngal",
+    "couteaux a tailler": "ceede ngomna",
+    "eau permanente": "ceeéoojam",
+    "bois de ficus ingens": "ceekeewal",
+    "bois des ficus ingens": "ceekeewal",
+    "couteau a tailler": "cettirki",
+    "graine de concombre": "cikilje_paabi(de)",
+    "piment oiseau": "citta",
+    "grossistes": "annguro",
+    "feuilles de cailcedrat": "daaleejam",
+    "huile de cailcedrat": "daaleejam",
+    "bois de cailcedrat": "daaleewal",
+    "cinq francs": "dala",
+    "fruit du cailcedrat": "daleere",
+    "fruits du cailcedrat": "daleere",
+    "patate douce": "dankali",
+    "patates douces": "dankali",
+    "palmier dattier": "dibinoohi",
+    "palmiers dattier": "dibinoohi",
+    "datte": "dibinoore",
+    "dattes": "dibinoore",
+    "num- deux": "didi",
+    "miel de melipones": "dooji",
+    "jeunes feuilles de balanites aegyptiaca": "dubaaho",
+    "fruit du baobab": "bowre",
+    "sac": "buhuure",
+    "sacs": "buhuure",
+    "sorgho": "bulbaasiri",
+    "oignon": "bulenndeen",
+    "igname": "bulumwu",
+    "ignames": "bulumwu",
+    "feuilles de vitex de doniana": "bummeeho",
+    "fruit comestibles de vitex doniana": "bummeere",
+    "fruits comestibles de vitex": "bummeere",
+    "bois de vitex doniana s": "bummewal",
+    "bois de vitex doniana": "bummewal",
+    "brouette": "ngalbiire",
+    "fibre de coton courte": "bursaako rammuko",
+    "fibre de coton longue": "bursaako juutko",
+    "aube": "buulol",
+    "billet de mille francs": "buuruwol",
+    "billets de mille francs": "buuruwol",
+    "feuilles de cambretum nigrican": "buusko",
+    "feuilles de combretums nigricans": "buusko",
+    "balai": "buuwuréi",
+    "plante de sorgho a repiquer": "caakri",
+    "plantes de sorgho a repiquer": "caakri",
+    "palmier ronier (2)": "dubbi",
+    "palmier ronier (1)": "dubbi",
+    "palmier ronier": "dubbi",
+    "papayer": "dukuuhi wuro",
+    "tronc du papaye": "dukuuwal",
+    "troncs du papaye": "dukuuwal",
+    "feuilles de ficus platyphylla": "dundeeho",
+    "fruit de ficus ingens": "dundeeho iijeere",
+    "fruits de ficus ingens": "dundeeho iijeere",
+    "fruit de ficus platyphylla": "dundeere",
+    "fruits de ficus platyphylla": "dundeere",
+    "saison des pluies": "duumol",
+    "accrocher": "feégo",
+    "fleurir": "finnugo",
+    "feuilles de maranthochloa": "fitaaho",
+    "commencer": "fuddugo",
+    "germe": "fudgo",
+    "pilon": "gaafgal",
+    "pilons": "gaafgal",
+    "vendeur ambulant": "gaancinoowo",
+    "vendeurs ambulants": "gaancinoowo",
+    "fil de coton": "gaarawol",
+    "fils de coton": "gaarawol",
+    "tracteur": "gaduuru",
+    "gros village": "galluure",
+    "gros villages": "galluure",
+    "feuilles de mimosa pigra": "ganjannjo",
+    "feuilles de commiphora africana": "garseeho",
+    "porteurs": "gawla",
+    "moringha oleifera": "giliganjaahi",
+    "moringhas oleifera": "giliganjaahi",
+    "feuilles moringha oleifera": "giliganjaaho",
+    "bois de stereospermum kunthianu": "golommbal",
+    "bois de stereospermum": "golommbal",
+    "clou de girofle": "gurumbal",
+    "cloux de girofle": "gurumbal",
+    "feuillage": "haako",
+    "feuilless": "haako",
+    "aromates": "haako uurko",
+    "palmier roniers": "dubbi",
+    "souffler": "hengo",
+    "tracteurs": "gaduuru",
+    "fruit comestible de detarium senegalense": "honkeere",
+    "fruits comestibles de detarium senegalense": "honkeere",
+    "feuilles de mitragyna inermis": "hoolo",
+    "feuilles de pericopsis laxiflora": "hootaro",
+    "fruit de maerua oblongifolia": "humhumre",
+    "fruits de maerua oblongifolia": "humhumre",
+    "bouche": "hunnduko",
+    "concombre": "hurciir",
+    "concombres": "hurciir",
+    "feuilles de ziziphus": "hurnaaho",
+    "jujube": "hurnaare",
+    "fruit de terminalia avicenni": "huulaare",
+    "fruits de terminalia avicenni": "huulaare",
+    "travailler": "huuwgo",
+    "bois de ficus sycomorus": "ibbal",
+    "bois des ficus sycomorus": "ibbal",
+    "fruit de ficus sycomorus": "ibbere",
+    "fruits de ficus sycomorus": "ibbere",
+    "goyavier": "ibbi-nasaara",
+    "feuilles de ficus ingens": "iijeeho",
+    "vanner en transvasant": "jaartugo",
+    "jardin": "jarne",
+    "jardinier": "jarnoowo",
+    "num- neuf": "jeenay",
+    "num- huit": "jeetati",
+    "vendredi": "jum’aare",
+    "feuilles de commiphora kerstingii": "kaabiiho",
+    "feuilles des commiphora kerstingii": "kaabiiho",
+    "bois de commiphora kerstingii": "kaabiiwal",
+    "bois des commiphora kerstingiis": "kaabiiwal",
+    "carottes": "karot",
+    "feuilles de herminiera elaphoroxylon": "katammbaaho",
+    "bois de herminiera elaphoroxylon": "katammbaawal",
+    "bois de herminiera elaphoroxylons": "katammbaawal",
+    "assemblage": "kawtuéum",
+    "bois de daniellia oliveri": "kayarlawal",
+    "bois des daniellia oliver": "kayarlawal",
+    "campagne": "kaywe",
+    "champagnes": "kaywe",
+    "villageois": "kaywe",
+    "tomate cerise": "kelkel banja",
+    "grands vents": "kena",
+    "germe du mil": "kine gawri",
+    "bois de mitragyna inermis": "koolal",
+    "engrais vert": "koonal haako",
+    "fumier": "koonal",
+    "fumiers": "koonal",
+    "haricot": "koosay",
+    "faim du matin": "kooye",
+    "farines": "kuroori",
+    "farine de manioc": "kuroori mbay",
+    "cuilleret": "kuyeer",
+    "brousse": "ladde",
+    "feuilles de combretums aculeatum": "lawnyo",
+    "tige rampante": "layol",
+    "tiges rampantes": "layol",
+    "orangier dou": "leemuuhi makki",
+    "citron vert": "leemuuhi",
+    "citron verts": "leemuuhi",
+    "carotte": "karot",
+    "insecticide": "lekki koowoowe",
+    "arbre": "lekki",
+    "arbres": "lekki",
+    "terre": "lesdi",
+    "feuille de cordia abyssinica": "lipilibaaho",
+    "fruit de cordia abyssinica": "lipilibaare",
+    "fruits de cordia abyssinica": "lipilibaare",
+    "bois de cordia abyssinica": "lipilibaawal",
+    "branche": "lisal",
+    "riz": "maaroori",
+    "arachide": "mbiriiwu",
+    "miel rouge": "ndirkimmeeri",
+    "eau de marigot": "ndiyam luggerre",
+    "huile de palme": "nebbam mannja",
+    "arachide qui donne trois a quatre graines": "ngaggaawu",
+    "arachides qui donne trois a quatre graines": "ngaggaawu",
+    "feuilles de vitex doniana": "ngalbiiho",
+    "six": "njeego",
+    "neuf": "njeenayo",
+    "huit": "njeetato",
+    "cinq": "njowon",
+    "grand vent": "kena",
+    "haricots": "koosay",
+    "farine": "kuroori",
+    "feuilles de terminalia avicennioides": "kuulaahi",
+    "travailleur": "kuuwoowo",
+    "pamplemoussie": "leemuuhi makki",
+    "herbicide": "lekki geene",
+    "terrain": "lesdi",
+    "branches": "lisal",
+    "manioc doux cru": "mbay kecca",
+    "manger": "nyaamgo",
+    "soja": "nyebbe nasaara",
+    "haricot textile": "nyedde",
+    "arachide laiteuse": "pampamwu",
+    "producteur de semence": "piddoowo aawdi",
+    "mardi": "salaasa",
+    "fruit de grewia sp": "siibolde",
+    "casde de gousse faidherbia albida": "sasnde",
+    "feuilles de faidherbia albida": "sasko",
+    "feuilles de grewia sd": "siiboolo",
+    "fruits de grewia sp": "siibolde",
+    "hachette de chasseur": "siikataare",
+    "poireau": "tinyeere nasaara",
+    "feuilles de piliostigma retuculatum": "warkeeho",
+    "tomates": "tumaat",
+    "fruit de celtis integrifolia": "wanre",
+    "feuilles d_acacia nilotica": "wawaaro",
+    "tomate": "tumaat",
+    "fruits de celtis integrifolia": "wanre",
+    "vendre en gros": "soorugo annguro",
+    "planter": "tiggugo",
+    "herbe a toits": "tiitiiho",
+    "feuilles de lannea humilis": "welluko",
+    "feuilles de cassia odtusifolia": "tasba",
+    "feuille d_hibiscus cannabinus": "wabayre",
+    "gombo": "waskoore",
+    "gombos": "waskoore",
+    "melon": "waygoore nasaara",
+    "feuilles de celtis integrifolia": "wanko",
+    "feuilles de tribulus terrestris": "tuppo",
+    "acheter": "soodgo",
+    "feuilles de tamarinier": "yabbo",
+    "feuilles de guiera senegalensis": "yelooko",
+    "feuilles de stereospermum kunthianu": "wolommbo",
+    "feuilles d_hexalobus monopetalus": "woylo",
+    "fruit de lannea humilis": "wellunde",
+    "oeuf": "yeeraande",
+    "fruits d_hexalobus monopetalus": "woylere",
+    "fruit d_hexalobus monopetalus": "woylere",
+    "fruits de glumosa": "wiskeere",
+    "feuilles de ficus glumosa": "wiskeeho",
+    "fruit de ficus glumosa": "wiskeere",
+    "glu de fruit de gui": "taari yowtere",
+    "fleur": "pinndi",
+    "cultiver": "remgo bee wamnde",
+    "fruits de gardenia spp": "riinaalde",
+    "feuilles de papaye": "rukuuho",
+    "champ": "saabeere",
+    "houe a soie": "saborgo",
+    "pomper": "safgo",
+    "cœur": "bernde",
+    "grenier  (1)": "beembal",
+    "2 cultivateur": "barima'en",
+    "1cultivateurs": "barima'en",
+    "1 controleur": "aynoowo",
+    "1 arrosoir": "arozuwar",
+    "alcool de fabrication artisanale local": "arge",
+    "2 arrosoirs": "arozuwar",
+    "ecraser": "arbugo",
+    "2 ignames": "arasre",
+    "1 igname": "arasre",
+    "engrais chimique (1)": "anngiree",
+    "recherche de terrain": "ankeet",
+    "aloe vera": "alovera",
+    "1 machette": "addaahi",
+    "2 machettes": "addaahi",
+    "peigne brosse": "cancorée",
+    "finances publiques": "ceede ngomna",
+    "1 bois de ficus ingen": "ceekeewal",
+    "2 bois de ficus ingens": "ceekeewal",
+    "grain de concombre": "cikilje_paabi(de)",
+    "piment rouge": "citta",
+    "grossiste distributeur": "annguro",
+    "cinq franc": "dala",
+    "1 patate": "dankali",
+    "2 patates": "dankali",
+    "deux": "didi",
+    "jeunes feuilles de balanites": "dubaaho",
+    "1 papayer": "dukuuhi wuro",
+    "2 papaye": "dukuuhi wuro",
+    "tronc papayer": "dukuuwal",
+    "bois de ficus platyphylla": "dundeewal",
+    "feuilles de maranthochola": "fitaaho",
+    "vegetation": "fudngo",
+    "1 pilon": "gaafgal",
+    "2 pilons": "gaafgal",
+    "1 fil de coton": "gaarawol",
+    "1 porteur": "gawla",
+    "2 porteurs": "gawla",
+    "1 moringa oleifera": "giliganjaahi",
+    "2 les moringas oleifera": "giliganjaahi",
+    "feuilles de moringa": "giliganjaaho",
+    "1 feuille": "haako",
+    "2 feuillages": "haako",
+    "1 fruit comestibles de detarium": "honkeere",
+    "2 fruit comestibles de detarium": "honkeere",
+    "1 concombre": "hurciir",
+    "2concombres": "hurciir",
+    "fruit de terminalia avicennioides": "huulaare",
+    "1 bois de ficus sycomorus": "ibbal",
+    "2 les bois de ficus sycomorus": "ibbal",
+    "1 bois de daniellia oliver": "kayarlawal",
+    "2 les bois de daniellia oliver": "kayarlawal",
+    "1 campagne": "kaywe",
+    "2 campagnes": "kaywe",
+    "1 villageois": "kaywe",
+    "2 les villageois": "kaywe",
+    "germe mil": "kine gawri",
+    "angrais vert": "koonal haako",
+    "1 fumier": "koonal",
+    "2 fumiers": "koonal",
+    "1 farine": "kuroori",
+    "2 farines": "kuroori",
+    "1 travailleur": "kuuwoowo",
+    "2 travailleurs": "kuuwoowo",
+    "1 tige rampante": "layol",
+    "2 tiges rampantes": "layol",
+    "1 datte": "dibinoore",
+    "2 dattes": "dibinoore",
+    "2 fils de coton": "gaarawol",
+    "2 balais": "buuwuréi",
+    "1 balai": "buuwuréi",
+    "2 feuilles de combretum nigrican": "buusko",
+    "1 feuille de combretum nigrican": "buusko",
+    "2 billets de mille francs": "buuruwol",
+    "1 billet de mille francs": "buuruwol",
+    "fruit comestible de vitex doniana": "bummeere",
+    "2 fruits du baobab": "bowre",
+    "1 fruit du baobab": "bowre",
+    "plante non identifier": "boorawol",
+    "2 arachides": "biriiji",
+    "1 arachide": "biriiji",
+    "sol": "lesdi",
+    "2 arbres": "lekki",
+    "1 arbre": "lekki",
+    "herbicides": "lekki geene",
+    "2 pamplemousse": "leemuuhi makki",
+    "1 orange dou": "leemuuhi makki",
+    "2 arachides laiteuses": "pampamwu",
+    "1 arachide laiteuse": "pampamwu",
+    "feuilles de faidherbia albia": "sasko",
+    "1 tomate": "tumaat",
+    "2 tomates": "tumaat",
+    "feuilles de tribulus": "tuppo",
+    "feuilles de celtis intergrifolia": "wanko",
+    "fruit de celtis intergrifolia": "wanre",
+    "feuilles de piliostigma": "warkeeho",
+    "1 gombo": "waskoore",
+    "2 gombos": "waskoore",
+    "fruits de ficus glumosa": "wiskeere",
+    "1 oeuf": "yabbo",
+    "2 oeufs": "yabbo",
+    "arachides qui donne trois a quatre grains par": "ngaggaawu",
+    "1- erreurs": "ayi[i]beeji",
+    "arrosoir": "arozuwar",
+    "1- ignames": "arasre",
+    "angrais chimique": "anngiree",
+    "angrais complet": "anngiree timmidinnga",
+    "enquete": "ankeet",
+    "1- ails": "albasarre",
+    "1machettes": "addaahi",
+    "1- fruits comestibles doniana": "bummeere",
+    "1- feuilles de vitex doniana": "bummeeho",
+    "feuille de vitex doniana": "bummeeho",
+    "1- oignons": "bulenndeen",
+    "oignon ou tomate": "bulenndeen",
+    "1- sorghos": "bulbaasiri",
+    "1- sacs": "buhuure",
+    "1- fruits de baobab": "bowre",
+    "fruit de baobab": "bowre",
+    "1- ravageurs": "bonnoojum",
+    "ravageur": "bonnoojum",
+    "1- cordes": "boggol",
+    "1- arachides": "biriiji",
+    "1- budgets": "bije",
+    "1- fruits": "benndaloore",
+    "1- plantiors courts": "beberwal",
+    "1- feuilles de sorgho ou de mais": "barwalol",
+    "feuille de sorgho ou de mais": "barwalol",
+    "1- cultivateurs, agriculteurs": "barima'en",
+    "cultivateur, agriculteur": "barima'en",
+    "1- dispositifs de secours": "ballandum",
+    "1- lieux": "babal",
+    "germes de noix de palmier": "baacol",
+    "1- faucilles": "bonngooru",
+    "1- jeunes feuilles de balanites aegyptia": "dubaaho",
+    "jeune feuille de balanite aegyptia": "dubaaho",
+    "1- dattes": "dibinoore",
+    "1- palmiers dattiers": "dibinoohi",
+    "representant des planteurs": "darnaaéo remoobe",
+    "1- patates douces": "dankali",
+    "1- vapeur": "cuurka",
+    "1- grossistes": "annguro",
+    "grossiste, distributaire": "annguro",
+    "recolte": "codol",
+    "piment": "citta",
+    "graine de concombre( des traciens)": "cikilje_paabi(de)",
+    "1- bois de ficus ingens": "ceekeewal",
+    "1- argents": "ceede",
+    "finences ngomna": "ceede ngomna",
+    "peigne, brousse": "cancorée",
+    "feuille de combretum nigrican": "buusko",
+    "1- feuilles de combretum nigrican": "buusko",
+    "1- germes de gombos (1)": "kine waskoore",
+    "germe de gombo (1)": "kine waskoore",
+    "germe de mil (1)": "kine gawri",
+    "grand vent (1)": "kena",
+    "tomate cerise (1)": "kaabiiwal",
+    "campagnard (1)": "kaywe",
+    "1- campagnes (1)": "kaywe",
+    "1- campagnards (1)": "kaywe",
+    "1- germes de gombos": "kine waskoore",
+    "germe de gombo": "kine waskoore",
+    "germe de mil": "kine gawri",
+    "1- campagnards": "kaywe",
+    "campagnard": "kaywe",
+    "1- bois de daniellia oliver": "kayarlawal",
+    "bois de daniellia oliver": "kayarlawal",
+    "1- bois de herminiera elaphroxhlon": "katammbaawal",
+    "1- bois de commiphora kerstingii": "kaabiiwal",
+    "1 feuilles de commiphora kerstingii": "kaabiiho",
+    "feuille de commiphora kerstingii": "kaabiiho",
+    "recolter du miel": "jumtaago",
+    "1- campagnes": "kaywe",
+    "bois de herminiera elaphroxylon": "katammbaawal",
+    "feuilles de herminiera elaphroxylon": "katammbaaho",
+    "bisilic": "jammbal",
+    "1- fruits de terminaliaavicennioides": "huulaare",
+    "1- jujubes": "hurnaare",
+    "1- concombres": "hurciir",
+    "1- bouches": "hunnduko",
+    "1- fruits de maerua oblongifolia": "humhumre",
+    "1- fruits de deterium senegalense": "honkeere",
+    "fruit de deterium senegalense": "honkeere",
+    "soufler, ventiler": "hengo",
+    "feuillage, feuilles": "haako",
+    "1- bois de stereopermum": "golommbal",
+    "bois de stereopermum": "golommbal",
+    "feuilles de moringa oleifera": "giliganjaaho",
+    "moringa oleifera": "giliganjaahi",
+    "1- feuilles de mimosa pigra": "ganjannjo",
+    "feuille de mimosa pigra": "ganjannjo",
+    "1- gros villages": "galluure",
+    "1- tracteurs": "gaduuru",
+    "1- fils de coton": "gaarawol",
+    "1- vendeurs ambulants": "gaancinoowo",
+    "commercer": "fuddugo",
+    "saison de pluies": "duumol",
+    "1- troncs du papaye": "dukuuwal",
+    "1- papayers": "dukuuhi wuro",
+    "1- branches": "lisal",
+    "1- bois de cordia abyssinica": "lipilibaawal",
+    "1- fruits de cordia abyssinica": "lipilibaare",
+    "1- feuilles de cordia abyssinica": "lipilibaaho",
+    "fruit dz cordia abyssinica": "lipilibaare",
+    "terres marecageuses": "lesde gonde naddere",
+    "1- sols, terres, terrains": "lesdi",
+    "oranger dou, pamplemoussie": "leemuuhi makki",
+    "1- tiges rampantes": "layol",
+    "feuilles de combretum aculeatum": "lawnyo",
+    "1- brousses": "ladde",
+    "cuiller": "kuyeer",
+    "1- travailleurs, ouvriers": "kuuwoowo",
+    "travailleur, ouvrier": "kuuwoowo",
+    "champs": "saabeere",
+    "feuilles de papayer": "rukuuho",
+    "feuilles de gardenia spp": "riinaalo",
+    "1- fruits de gardenia spp": "riinaalde",
+    "1- arachides laiteuses": "pampamwu",
+    "fruit de gardenia spp": "riinaalde",
+    "1- œufs": "yeeraande",
+    "œuf": "yeeraande",
+    "feuilles de tamarinier tamarindus": "yabbo",
+    "feuilles de stereospermum kunthianum": "wolommbo",
+    "fruit de fiscusg glumosa": "wiskeere",
+    "1- fruits de lannea humilis": "wellunde",
+    "1- gombos": "waskoore",
+    "glu de fruit": "taari yowtere",
+    "1- fruits de fiscusg glumosa": "wiskeere",
+    "feuilles de tribulus terrestres": "tuppo",
+    "feuilles de grewia sp": "siiboolo",
+    "fruit de grewa sp": "siibolde",
+    "feuille de ficus ingens": "seekeeho",
+    "gousse de faidherbia": "sasnde",
+    "1-arrosoirs (1)": "arozuwar",
+    "connaitre savoir": "anndugo",
+    "un bois de vitex doniana": "bummewal",
+    "cultivateur ou agriculteur": "barima'en",
+    "1-billets de mille francs": "buuruwol",
+    "1cultivateurs ou agriculteurs": "barima'en",
+    "feuille de baobab": "bokko",
+    "engrais chimiques": "anngiree",
+    "1-peigner ou brosser les cheveux": "cancorée",
+    "2-mesurer": "agooda",
+    "emporter (1)": "adgo",
+    "1-germes de noix de palmier": "baacol",
+    "1-des fruits comestibles de vitex doniana": "bummeere",
+    "1 repiquer": "ajagamaari",
+    "garder (1)": "aynugo",
+    "1-feuilles de combretum nigrican": "buusko",
+    "1-ignames (1)": "arasre",
+    "brouette (1)": "burweel",
+    "1-loyer": "akiri",
+    "louer (champ)": "baaraago",
+    "alcool de fabrication artisanale locale": "arge",
+    "erreurs": "ayi[i]beeji",
+    "1-des bois de vitex doniana": "bummewal",
+    "1-ignames": "bulumwu",
+    "soulever relever": "bantugo",
+    "1-machettes": "addaahi",
+    "1- des vendeurs ambulants": "gaancinoowo",
+    "des bois de ficus platyphalla": "dundeewal",
+    "distributeur grossiste": "annguro",
+    "1-fruits de ficus platyphalla": "dundeere",
+    "les finances publiques": "ceede ngomna",
+    "1-des fruits de terminalia avicennioides": "huulaare",
+    "recolte du miel": "jumtaago",
+    "sol terre terrain": "lesdi",
+    "fruit de ziziphus": "hurnaare",
+    "tronc de papayer": "dukuuwal",
+    "1-des fil de coton": "gaarawol",
+    "huit personnes": "njeetato",
+    "1-des fruits comestibles de detarium": "honkeere",
+    "travailler agir": "huuwgo",
+    "1-distributeurs grossistes": "annguro",
+    "1-des fruits de maerua oblongifolia": "humhumre",
+    "travailleur ouvrier": "kuuwoowo",
+    "1-des tiges rampant": "layol",
+    "fruit de ficus platyphalla": "dundeere",
+    "1-des fruits de lannea humilis": "wellunde",
+    "1-des gros villages": "galluure",
+    "1-cuillers": "kuyeer",
+    "1-fruits de ficus ingens": "dundeeho iijeere",
+    "campagnard villageois": "kaywe",
+    "1-des bois de ficus ingens": "ceekeewal",
+    "feuilles de piliostigma reticulatum": "warkeeho",
+    "1-haricots": "koosay",
+    "1-des pilons": "gaafgal",
+    "1-tomates": "tumaat",
+    "garder": "aynugo",
+    "1-des branches": "lisal",
+    "1-des carottes": "karot",
+    "des bois de daniellia olivier": "kayarlawal",
+    "1-bois de ficus ingens": "iijeewal",
+    "gousse de faidherbia albida": "sasnde",
+    "1-des porteurs": "gawla",
+    "oranger dou pamplemousse": "leemuuhi makki",
+    "1-des fruits de ficus glumosa": "wiskeere",
+    "feuilles de grewia": "siiboolo",
+    "1-des papayers": "dukuuhi wuro",
+    "1-des feuilles feuillages": "haako",
+    "1-farine de manioc": "kuroori mbay",
+    "germer": "fudgo",
+    "1-des bois de stereospermum": "golommbal",
+    "1-des brousses": "ladde",
+    "bois de ficus platyphalla": "dundeewal",
+    "1-des bois de ficus sycomorus": "ibbal",
+    "1-des concombres": "hurciir",
+    "huit (08)": "jeetati",
+    "1-bois de daniellia olivier": "kayarlawal",
+    "1-arrosoirs": "arozuwar",
+    "1-les gombo": "waskoore",
+    "jeune feuille de balanites": "dubaaho",
+    "1-grands vents": "kena",
+    "six (06)": "njeego",
+    "1-farines": "kuroori",
+    "1-campagnes": "kaywe",
+    "1-des clou de girofle": "gurumbal",
+    "gousses de faidherbia albida": "sasnde",
+    "fruit de grewia": "siibolde",
+    "1-des fruits de ziziphus": "hurnaare",
+    "1-des moringa oleifera": "giliganjaahi",
+    "feuillage feuilles": "haako",
+    "1-des patates douce": "dankali",
+    "1-sols terres": "lesdi",
+    "1-des arbres": "lekki",
+    "1-des bois de cordia abyssinica": "lipilibaawal",
+    "feuilles de ficus": "dundeeho",
+    "des tracteurs": "gaduuru",
+    "eau du marigot": "ndiyam luggerre",
+    "1-des œufs": "yeeraande",
+    "citon vert": "leemuuhi",
+    "deux(02)": "didi",
+    "bois de faidherbia albida": "casngal",
+    "neuf personnes": "njeenayo",
+    "1-des bois de herminiera elaphroxylon": "katammbaawal",
+    "1-des dattes": "dibinoore",
+    "neuf (09)": "jeenay",
+    "feuilles de stereospermum": "wolommbo",
+    "1-des arachides": "mbiriiwu",
+    "1-des troncs de papayer": "dukuuwal",
+    "1-fruits de cordia abyssinica": "lipilibaare",
+    "1-des fruits de ficus ingens": "seekeere",
+    "feuille de pericopsis laxiflora": "hootaro",
+    "1-des palmiers dattiers": "dibinoohi",
+    "1-des fruits de grewia": "siibolde",
+    "tige rampant": "layol",
+    "1-tamarin": "yabbo",
+    "1-des bois de commiphora kerstingii": "kaabiiwal",
+    "feuilles de cordia abyssinica": "lipilibaaho",
+    "1-cinq franc": "dala",
+    "1-des citron vert": "leemuuhi",
+    "cinq (05)": "njowon",
+    "1-des oranges pamplemousses": "leemuuhi makki",
+    "machete": "addaahi",
+    "engrais": "anngiree",
+    "1-mesurettes": "agooda",
+    "marchandises en gros": "annguro",
+    "mesurette": "agooda",
+    "1- arrosoirs": "arozuwar",
+    "1- machete": "addaahi",
+    "loue un champ pour cultiver (1)": "baaraago",
+    "dispostif de secours (1)": "ballandum",
+    "lieu (1)": "babal",
+    "erreur (1)": "ayi[i]beeji",
+    "1- germes de noix de palmier (1)": "baacol",
+    "rendement (1)": "baawal",
+    "bache (1)": "baas",
+    "germe de noix de palmier (1)": "baacol",
+    "1- houes (1)": "baaneewo",
+    "houe (1)": "baaneewo",
+    "plantoir court": "beberwal",
+    "loue un champ pour cultiver": "baaraago",
+    "dispostif de secours": "ballandum",
+    "bache": "baas",
+    "cultivateurs": "barima'en",
+    "bloc de terre,  de sucre...": "boodere",
+    "1- germes de noix de palmier": "baacol",
+    "1- houes": "baaneewo",
+    "feuilles de combertum nigricans": "buusko",
+    "fibre de coton cour": "bursaako rammuko",
+    "sac ( mil, riz ... )": "buhuure",
+    "1- les bois de ficus ingens": "ceekeewal",
+    "fruit de vitex doniana": "bummeere",
+    "1- fruits de vitex doniana": "bummeere",
+    "fibre de coton long": "bursaako juutko",
+    "1- se peigner": "cancorée",
+    "1- sacs (mil, riz ... )": "buhuure",
+    "1- fruits de ficus platyphylla": "dundeeho iijeere",
+    "germes": "fudngo",
+    "miel de melipone": "dooji",
+    "saison de pluie": "duumol",
+    "1- bids de ficus platyphylla": "dundeewal",
+    "1- pilons": "gaafgal",
+    "jeune feuilles de balanite aegyptiaca": "dubaaho",
+    "1- palmiers dattier": "dibinoohi",
+    "graines de concombre": "cikilje_paabi(de)",
+    "boid de ficus platyphylla": "dundeewal",
+    "feuilles de commiphora africa": "garseeho",
+    "1- files de coton": "gaarawol",
+    "feuilles de zizifus": "hurnaaho",
+    "plante herbal": "gariiho",
+    "goyave": "ibbi-nasaara",
+    "1- porteurs": "gawla",
+    "feuille(des plantes )": "haako",
+    "1- fruits de ficus sycomorus": "ibbere",
+    "feuilles des plantes": "haako",
+    "fruits de terminalia avicennioides": "huulaare",
+    "184- feuilles de pericopsi": "hootaro",
+    "1- moringas oleifera": "giliganjaahi",
+    "sol, terre": "lesdi",
+    "1- citrons verts": "leemuuhi",
+    "1- arbres": "lekki",
+    "1- bois de daniellia olivera": "kayarlawal",
+    "gousse de nere parkia biglobosa": "nuunuure",
+    "1- terrain": "lesdi",
+    "1- bois de herminiera": "katammbaawal",
+    "1- farines": "kuroori",
+    "karote": "karot",
+    "1- grands vents": "kena",
+    "feuilles de combertum aculeatum": "lawnyo",
+    "angrai vert": "koonal haako",
+    "1- karotes": "karot",
+    "feuilles de parkia biglobosa": "nareeho",
+    "vaner en transvasant": "jaartugo",
+    "boi de herminiera": "katammbaawal",
+    "oranger, pamplemoussier": "leemuuhi makki",
+    "vanne a graines": "kuvertir gawri",
+    "feuilles de herminiera": "katammbaaho",
+    "feuilles de nere parkia biglobosa": "nuunuuho",
+    "boi de daniellia olivera": "kayarlawal",
+    "campagnard, villageois": "kaywe",
+    "recolter le miel": "jumtaago",
+    "producteur de semences": "piddoowo aawdi",
+    "fleurs": "pinndi",
+    "feuilles de faiderbia albida": "sasko",
+    "1- fruits de ficus ingens": "seekeere",
+    "glu de fruits de gui": "taari yowtere",
+    "feuilles de odtusifolia": "tasba",
+    "1- tomates": "tumaat",
+    "feuilles de lannea humilus": "welluko",
+    "1- fruits de ficus glumosa": "wiskeere",
+    "1- oeufs": "yeeraande",
+    "feuilles de guera senegalensis": "yelooko",
+    "peu": "piddoowo aawdi",
+    "plante non identifiable": "boorawol",
+    "fibre de coton court": "bursaako rammuko",
+    "2 les bois de vitex doniana": "bummewal",
+    "les engrais": "anngiree",
+    "2 sacs": "buhuure",
+    "2 fruits comestible de vitex doniana": "bummeere",
+    "1 cœur": "bernde",
+    "barrage": "baraas",
+    "1 fruit comestible de vitex doniana": "bummeere",
+    "1  bois de vitex doniana": "bummewal",
+    "1 germe du noix de palmier": "baacol",
+    "2 coeurs": "bernde",
+    "feuilles de combretum nigrican": "buusko",
+    "1 sac": "buhuure",
+    "agriculteur": "barima'en",
+    "2 germes du noix de palmiers": "baacol",
+    "murir": "benndugo",
+    "sorgo": "bulbaasiri",
+    "1 feuillage": "haako",
+    "2 feuilles": "haako",
+    "2 les bois de ficus platyphylla": "dundeewal",
+    "1 bois de commiphora kerstingii": "kaabiiwal",
+    "2 papayers": "dukuuhi wuro",
+    "2 patates douces": "dankali",
+    "1 palmier ronier": "dubbi",
+    "2 tracteurs": "gaduuru",
+    "2 les bois de ficus ingens": "iijeewal",
+    "1 moringa oleifer": "giliganjaahi",
+    "1 bois de stereospermum kunthianu": "golommbal",
+    "grossiste": "annguro",
+    "1 tronc de papayer": "dukuuwal",
+    "2 fruits de terminalia avicennioides": "huulaare",
+    "2 troncs de papayers": "dukuuwal",
+    "2 palmiers roniers": "dubbi",
+    "2 fruits de ficus platyphylla": "dundeere",
+    "1 fruit de cailcedrat": "daleere",
+    "2 les gros village": "galluure",
+    "1 gros village": "galluure",
+    "2 les clous de girofle": "gurumbal",
+    "1 fruit de maerua oblongifolia": "humhumre",
+    "2 fruits de maera oblongifolia": "humhumre",
+    "2 les bois de cailcedrat": "daaleewal",
+    "2 moringa oleifera": "giliganjaahi",
+    "1 un clou de girofle": "gurumbal",
+    "1 dattier": "dibinoohi",
+    "1 bois de ficus ingens": "ceekeewal",
+    "1 tracteur": "gaduuru",
+    "2 fruits comestibles de detarium senegalense": "honkeere",
+    "2 dattiers": "dibinoohi",
+    "1 fruit de terminalia avicennioides": "huulaare",
+    "2 fruits de cailcedrat": "daleere"
+  },
+  "pidgin_en_pairs": [
+    {
+      "en": "I also made friends in a nearby Vietnamese - language congregation .",
+      "wes": "A start go their meeting them and A make friend with them ."
+    },
+    {
+      "en": "This proves that God 's spirit is helping us .",
+      "wes": "Dis wan di sho sei God yi spirit di helep wi ."
+    },
+    {
+      "en": "Even so , he did not give up on them .",
+      "wes": "Even so , ih no be tire for di preach ."
+    },
+    {
+      "en": "How the brothers rejoiced at that peaceful outcome !",
+      "wes": "The brother them be really glad as e happen so weh problem no komot ."
+    },
+    {
+      "en": "The sister simply took her seat .",
+      "wes": "The sister be just shidong ."
+    },
+    {
+      "en": "We can be sure that we can succeed with Jehovah 's help !",
+      "wes": "We be sure say we fit succeed if Jehovah helep we ."
+    },
+    {
+      "en": "Do you meditate on how to help your Bible students ?",
+      "wes": "Yu di tink dip hau yu go helep pipul weh yu di stodi Baibul witi dem ?"
+    },
+    {
+      "en": "Imagine the joy Adam felt doing this work !",
+      "wes": "( Genesis 2 : 19 , 20 ) Jos cheik hau weh Adam bi fit di glad as ih bi di du dis wok !"
+    },
+    {
+      "en": "How available is the Bible today ?",
+      "wes": "Baibul dei tudei fo hau meini kontri tok dem ?"
+    },
+    {
+      "en": "Brothers working business territory witness to a mechanic in an auto repair garage .",
+      "wes": "Brother them weh they be di preach for business territory for some mechanic for garage ."
+    },
+    {
+      "en": "Can the person we consult explain how the test or treatment works ?",
+      "wes": "De peson ou dokto weh wi mitop - am fit explein - am fain hau de meksin di wok ?"
+    },
+    {
+      "en": "Paying attention to these warning signs has saved the lives of many people .",
+      "wes": "Fo folo daa advais don save plenti pipul dia laif ."
+    },
+    {
+      "en": "A pioneer sister from their congregation joined them in their witnessing initiative .",
+      "wes": "Some pioneer sister for their congregation be join them ."
+    },
+    {
+      "en": "Then we try to spend more time with the brothers and sisters . \"",
+      "wes": "Then we go try for be with brother and sister them plenty time . \""
+    },
+    {
+      "en": "Things did not immediately work out as God had purposed .",
+      "wes": "Thing them no be just waka fine as God be want - am ."
+    },
+    {
+      "en": "Why is it so important to continue to show brotherly love ?",
+      "wes": "Wai e ova bi impotan fo kontiniu fo sho sei wi laik wi Christian famili ?"
+    },
+    {
+      "en": "Even so , our work is not finished .",
+      "wes": "12 : 2 ) Even so , we work never finish ."
+    },
+    {
+      "en": "How does this help us to show brotherly love ?",
+      "wes": "Na hau dis kain fashon di helep wi fo sho wi broda dem sei wi laik dem ?"
+    },
+    {
+      "en": "Other brothers who were drafted refused to bear arms and requested noncombatant roles .",
+      "wes": "Other brother them weh their name be dei for list be deny for take gun and they be beg say make they give them na work weh they no go di fight ."
+    },
+    {
+      "en": "Consider the example of Irene , a single sister in the United States .",
+      "wes": "See example for Irene , some single sister for United States ."
+    },
+    {
+      "en": "A young brother named Patrick had similar success .",
+      "wes": "Som yong broda weh dey di kol yi sei Patrick bi gein tuu as ih bi rait de ting weh ih bi get fo du ."
+    },
+    {
+      "en": "The box \" How to Simplify Your Life \" gives some suggestions .",
+      "wes": "The box weh e talk say \" How for Make Ya Life Simple \" give some fine suggestion them ."
+    },
+    {
+      "en": "The four of us worked together for over 50 years .",
+      "wes": "We four be work for this office for year them weh they pass 50 ."
+    },
+    {
+      "en": "And how may we help others to do so ?",
+      "wes": "And how we fit helep other people for get peace ?"
+    },
+    {
+      "en": "I was surprised to see Brother Hughes smile at the memory .",
+      "wes": "E be surprise me for see as Brother Hughes di smile as ih di tell me the story ."
+    },
+    {
+      "en": "Give Success to All Your Plans \"",
+      "wes": "Helep You for Succeed for All Ya Plan Them '"
+    },
+    {
+      "en": "How does rendering honor to others help us ?",
+      "wes": "Na how for di give honor for other people go helep we ?"
+    },
+    {
+      "en": "Send me ! \"",
+      "wes": "Send me ! ' , plenty people for this we time dei like yi ."
+    },
+    {
+      "en": "I started studying with Brother Hardaker the very next week .",
+      "wes": "So Brother Hardaker be start study with me the next week ."
+    },
+    {
+      "en": "The cities were given \" a sacred status . \"",
+      "wes": "This town them be be na ' special place them . '"
+    },
+    {
+      "en": "What else has Jehovah provided that gives us reason for joy ?",
+      "wes": "Which other thing Jehovah don give - am weh e di make we for di glad ?"
+    },
+    {
+      "en": "We are brothers and sisters .",
+      "wes": "Wi reli bi na broda an sista dem ."
+    },
+    {
+      "en": "( b ) Describe Brother Russell 's search for truth .",
+      "wes": "( b ) Explain how Brother Russell be find religion weh e di teach the true thing ."
+    },
+    {
+      "en": "They can help you choose the best way of life .",
+      "wes": "Dey fit helep yu fo chus de best wei fo laif ."
+    },
+    {
+      "en": "Pay back any money you owe as soon as you can",
+      "wes": "No waste time for pay any money weh you di owe - am"
+    },
+    {
+      "en": "His very name is understood to mean \" He Causes to Become . \"",
+      "wes": "The meaning for yi name na ' Ih Di Make Anything for Be Weiti weh Ih Want - am . '"
+    },
+    {
+      "en": "What responsibilities did God give husbands and wives ?",
+      "wes": "Weiti God be talk say married man and married woman get for do ?"
+    },
+    {
+      "en": "Therefore , work hard to remain humble and strong in faith .",
+      "wes": "( 1 Cor . 8 : 1 ) So , try hard for remain humble and for get strong faith ."
+    },
+    {
+      "en": "( b ) What helps us to finish God 's work ?",
+      "wes": "( b ) Weiti di helep we for continue for preach ?"
+    },
+    {
+      "en": "Margaret Walker ( second sister from the left ) helped me learn the truth",
+      "wes": "Margaret Walker ( nomba two sista fo ma left han ) bi helep mi fo len Baibul"
+    },
+    {
+      "en": "They even tried to make their brothers join them in their sins .",
+      "wes": "They be even try for make their brother them for join them for di do bad ."
+    },
+    {
+      "en": "Yes , Paul readily greeted his brothers and sisters . - Rom .",
+      "wes": "This one di show say Paul be di salute yi Christian brother and sister them . - Rom ."
+    },
+    {
+      "en": "We willingly do this work because we love Jehovah and we love people .",
+      "wes": "We di give we self for do this work because we like Jehovah and we like people too ."
+    },
+    {
+      "en": "What will help us to keep bearing fruit with endurance ?",
+      "wes": "Weiti go helep we for continue for preach with tie - heart ?"
+    },
+    {
+      "en": "How can modesty help us when others criticize us unfairly ?",
+      "wes": "When we dei humble , na how e fit helep we time weh other people talk bad about we ?"
+    },
+    {
+      "en": "and the brochure Who Are Doing Jehovah 's Will Today ?",
+      "wes": "and the brochure Na Wu Dem Di Du Ting weh Jehova Want - am fo Dis Wi Taim ?"
+    },
+    {
+      "en": "( a ) How did one sister at first react to criticism ?",
+      "wes": "( a ) How some sister be first behave time weh they be talk bad about yi way for preach ?"
+    },
+    {
+      "en": "Our actions thereby prove our sincerity and give Jehovah something to bless .",
+      "wes": "12 : 11 ) As we di do so , e go show say we be serious and we go give Jehovah some thing for bless - am ."
+    },
+    {
+      "en": "I was beside him as a master worker .",
+      "wes": "A bi dei fo yi kona lek yi chif wok - man ."
+    },
+    {
+      "en": "And the brothers and sisters are so encouraging .",
+      "wes": "Brother and sister them di really encourage me ."
+    },
+    {
+      "en": "Pray to him \" with thanksgiving , \" remembering your blessings .",
+      "wes": "Di memba too the blessing them weh God don give you and di pray ' di thank yi . '"
+    },
+    {
+      "en": "He had helped many of them to learn the truth .",
+      "wes": "Ih be helep plenty for come worship Jehovah ."
+    },
+    {
+      "en": "How can research tools help you ?",
+      "wes": "Na how brochure and other magazine them fit helep you ?"
+    },
+    {
+      "en": "Our work is supported entirely by voluntary donations .",
+      "wes": "Na onli moni weh pipul dem di giv - am weh e di komot fo dia hat dey di yus - am fo sopot dis wok deh ."
+    },
+    {
+      "en": "What can you do to show love for your brothers ?",
+      "wes": "Na weiti yu fit du fo sho ya broda dem sei yu laik dem ?"
+    },
+    {
+      "en": "What does it mean to \" let endurance complete its work \" ?",
+      "wes": "Wen Baibul tok sei \" meik wuna pawa fo tai - hat . . . [ \" finish yi wok , \" NW ] \" e min sei weiti ?"
+    },
+    {
+      "en": "[ 1 ] ( paragraph 1 ) The name has been changed .",
+      "wes": "[ 1 ] ( paragraph 1 ) They don change the name ."
+    },
+    {
+      "en": "( a ) What admonition did Paul give to Timothy ?",
+      "wes": "( a ) Which advice Paul be give Timothy ?"
+    },
+    {
+      "en": "( b ) Why do they need our patient help ?",
+      "wes": "( b ) Why we need for be patient as we di helep them ?"
+    },
+    {
+      "en": "And how will his teaching help us to keep united ?",
+      "wes": "And how thing weh Jesus be teach - am fit helep we for be one ?"
+    },
+    {
+      "en": "At first , Lennart Johnson and I did most of the work .",
+      "wes": "For first time , na me and Lennart Johnson be di do plenty for the work them ."
+    },
+    {
+      "en": "Dispose of things you do not use , and pay off debts .",
+      "wes": "No keep thing weh you no di use - am , and pay all debt them ."
+    },
+    {
+      "en": "There is no shortage of work in God 's organization today .",
+      "wes": "Plenty work dei for do for God yi organization today ."
+    },
+    {
+      "en": "the scope of their work ?",
+      "wes": "wusaid their work for preach di reach ?"
+    },
+    {
+      "en": "We will not complain about our brothers or about our situation in life .",
+      "wes": "( 1 Timothy 6 : 6 - 8 ) Wi no go di komplein abaut wi broda dem ou abaut ting dem weh dey di hapen fo wi laif ."
+    },
+    {
+      "en": "Those taking the lead respected him , and he helped Paul .",
+      "wes": "( Acts 4 : 36 , 37 ) People weh they di take the lead be di respect yi , and ih be helep Paul ."
+    },
+    {
+      "en": "What responsibility do brothers who teach from the platform have ?",
+      "wes": "Brother them weh they di teach for congregation get for make sure say weiti ?"
+    },
+    {
+      "en": "Finally , my sisters and I are united spiritually .",
+      "wes": "E bi kam en sei , mi an ma sista dem kam join fo woship Jehova ."
+    },
+    {
+      "en": "He can give them courage and wisdom .",
+      "wes": "Ih fit giv dem pawa an sens fo tanap trong ."
+    },
+    {
+      "en": "What was Martha confident about regarding her brother ?",
+      "wes": "Martha be believe say weiti go happen for yi brother ?"
+    },
+    {
+      "en": "A young man named Eutychus was listening , seated at a window .",
+      "wes": "Some young boy weh yi name na Eutychus be shidong for window for number three floor for that story building di listen as Paul di talk ."
+    },
+    {
+      "en": "One was about the preaching work .",
+      "wes": "Wan fo dis komand dem bi get som ting fo du with de wok fo prich ."
+    },
+    {
+      "en": "No more is known about our dear brother of old , Gaius .",
+      "wes": "We no know plenty thing about we dear brother Gaius for first first time ."
+    },
+    {
+      "en": "Why are lovers of money not truly happy ?",
+      "wes": "Why people weh they over like money no really dei happy ?"
+    },
+    {
+      "en": "Are you paying your vows to Jehovah ?",
+      "wes": "You di pay ya vow them for Jehovah ?"
+    },
+    {
+      "en": "How can Paul 's example help those who struggle with feelings of unworthiness ?",
+      "wes": "How Paul yi example fit helep people weh they di feel bad because of their pass sin them ?"
+    },
+    {
+      "en": "She writes : \" This experience helped me to realize that Jehovah cares .",
+      "wes": "Ih write say : \" This one be make me for know say Jehovah get ma time ."
+    },
+    {
+      "en": "What further practical help can you give to newcomers ?",
+      "wes": "Na for which other way them you fit helep them ?"
+    },
+    {
+      "en": "How do corrupt organizations affect us today ?",
+      "wes": "Na how organization them weh they corrupt di affect we today ?"
+    },
+    {
+      "en": "( a ) What opportunities do we have to show brotherly love today ?",
+      "wes": "( a ) Na wich kain wei dem wi get - am fo sho sei wi laik wi broda dem fo dis wi taim ?"
+    },
+    {
+      "en": "Money problems and debt",
+      "wes": "Debt an moni problem dem weh man di get - am"
+    },
+    {
+      "en": "He will help them provide for the needs of their families .",
+      "wes": "Ih go helep them for support their family ."
+    },
+    {
+      "en": "Keep the \" road \" to your forgiveness open and in good repair .",
+      "wes": "Keep the \" road \" for ya heart open and dei ready for forgive ."
+    },
+    {
+      "en": "I was one of the brothers invited .",
+      "wes": "So branch office want two pioneer brother them for kam helep for Bethel ."
+    },
+    {
+      "en": "Others are afraid to be different at work or at school .",
+      "wes": "Som oda wan dem fit di fear fo bi diferen fo wok - pleis ou fo skuul ."
+    },
+    {
+      "en": "In fact , Sarah was Abraham 's half sister .",
+      "wes": "True - true , Sarah be be na Abraham yi step sister ."
+    },
+    {
+      "en": "Why should we be careful when others give us advice about health ?",
+      "wes": "Wai wi get fo lukot wen oda pipul dem di giv wi advais abaut hau wi go lukot wi sef fo sik ?"
+    },
+    {
+      "en": "How can we avoid misusing our God - given freedom ?",
+      "wes": "Weiti we fit do so that we no go use we gift for be free for wrong way ?"
+    },
+    {
+      "en": "Why should a Christian guilty of serious sin approach the elders for help ?",
+      "wes": "Why any Christian weh ih don do some serious sin get for see elder them for helep yi ?"
+    },
+    {
+      "en": "He has also given us his own Book , the Bible .",
+      "wes": "( Acts 17 : 27 , 28 ) And again , ih don give we yi Book , weh na the Bible ."
+    },
+    {
+      "en": "During that time , he continued to give Jehovah exclusive devotion .",
+      "wes": "5 : 11 ) For all this time , ih continue for di worship God with all yi heart ."
+    },
+    {
+      "en": "Then , Jehovah allowed his Son to help him create all other things .",
+      "wes": "Den Jehova liv - am yi Pikin helep yi fo meik ol oda ting dem ."
+    },
+    {
+      "en": "Publishers must make sacrifices to help out in other territories .",
+      "wes": "For support this territory them , publisher them need for give their self for preach for deh ."
+    },
+    {
+      "en": "How did Peter benefit from Jehovah 's forgiveness ?",
+      "wes": "Na how Peter be benefit as Jehovah be forgive yi ?"
+    },
+    {
+      "en": "What does God give to all people ?",
+      "wes": "Na weiti God di giv - am fo ol man ?"
+    },
+    {
+      "en": "Accountability to Jehovah is not founded on the act of getting baptized .",
+      "wes": "No be only people weh they don baptize go answer for Jehovah for the way they di live their life ."
+    },
+    {
+      "en": "Older brothers can train younger ones .",
+      "wes": "Older brother them fit train young brother them ."
+    },
+    {
+      "en": "Paul preached with zeal and set a good example for Christians today .",
+      "wes": "Paul be preach with all yi power and ih show some fine example for Christian them today ."
+    },
+    {
+      "en": "What can help you to develop and maintain your interest in others ?",
+      "wes": "So weiti fit helep you for di feel for people and continue for do so ?"
+    },
+    {
+      "en": "Some elders have worked very hard in the congregation for many years .",
+      "wes": "Som elda dem don wok plenti fo kongrigeishon fo plenti year dem ."
+    },
+    {
+      "en": "That brother had been unaware of the powerful effect of his brief greeting .",
+      "wes": "That brother no be know thing weh yi salute don do ."
+    },
+    {
+      "en": "The pottery shard on which the farmworker 's plea was written",
+      "wes": "The half stone weh they be write the case ontop"
+    },
+    {
+      "en": "Why has translation of the Bible into other languages been given priority ?",
+      "wes": "Wai e bi na nomba wan ting fo Govenin Bodi fo rait Baibul fo diferen kontri tok dem ?"
+    },
+    {
+      "en": "What has helped her to become more peaceable ?",
+      "wes": "Weiti be helep yi for no di over vex ?"
+    },
+    {
+      "en": "What can we do to promote more unity among God 's people today ?",
+      "wes": "Weiti we fit do for helep make God yi people continue for be one ?"
+    },
+    {
+      "en": "Why did this sister feel that way ?",
+      "wes": "Why this sister be feel so ?"
+    },
+    {
+      "en": "Jesus ' half brother James called love \" the royal law . \"",
+      "wes": "( John 13 : 35 ) James weh na Jesus yi step brother be talk say love na ' the important law . ' ( Jas ."
+    },
+    {
+      "en": "( b ) What wise counsel did Jesus give regarding material things ?",
+      "wes": "( b ) Jesus be give which fine advice about cargo ?"
+    },
+    {
+      "en": "Do I still give Jehovah my very best ?",
+      "wes": "A di stil giv Jehova ma best ?"
+    },
+    {
+      "en": "Is it practical today ?",
+      "wes": "E fit helep wi fo dis wi taim ?"
+    },
+    {
+      "en": "Directing people to jw.org helps to spread the \" good news . \"",
+      "wes": "For di direct people for jw.org di helep make the ' good news ' go before ."
+    },
+    {
+      "en": "What is the meaning of the name Jehovah ?",
+      "wes": "Jehova yi neim min sei weiti ?"
+    },
+    {
+      "en": "What will help youths not to be distracted ?",
+      "wes": "Weiti fit helep young people for no forget their plan ?"
+    },
+    {
+      "en": "Adolescents can be sure that their hard work is not in vain .",
+      "wes": "Wuna brother and sister them for congregation di support wuna ."
+    },
+    {
+      "en": "( a ) What can help us to grow spiritually ?",
+      "wes": "( a ) Weiti go helep we for di do thing weh God want - am ?"
+    },
+    {
+      "en": "27 How Gaius Helped His Brothers",
+      "wes": "27 How Gaius Be Helep Yi Brother Them"
+    },
+    {
+      "en": "I decided to work harder at acquiring spiritual riches . \"",
+      "wes": "A be decide for do ma best for work more for God . \" ( Matt ."
+    },
+    {
+      "en": "I truly love doing shepherding work in the congregation !",
+      "wes": "A over like for do shepherding visit for encourage brother and sister them !"
+    },
+    {
+      "en": "Jonathan even helped David to rely on Jehovah .",
+      "wes": "Jonathan bi ivin helep David meik ih kontiniu fo put yi trost fo Jehova ."
+    },
+    {
+      "en": "The Bible account makes no mention of any children .",
+      "wes": "Bible no talk whether they be born any pikin ."
+    },
+    {
+      "en": "But we thank Jehovah for blessing our efforts and sacrifices .",
+      "wes": "But we thank Jehovah as ih bless we effort and sacrifice them ."
+    },
+    {
+      "en": "One form of dishonesty that is particularly widespread today is lying .",
+      "wes": "Wan ting weh e no korekt , weh e plenti fo dis wi taim na sei pipul dem di lai ."
+    },
+    {
+      "en": "We have abundant proof that Jehovah continues to help people today .",
+      "wes": "Wi get plenti ting dem fo sho sei Jehova di kontiniu fo helep pipul dem fo dis wi taim ."
+    },
+    {
+      "en": "Think of all the exciting work we will do in the future !",
+      "wes": "Meik wi cheik ol de fain wok dem weh wi go du - am fo taim weh e di kam !"
+    },
+    {
+      "en": "What help did angels give to Joshua and Hezekiah ?",
+      "wes": "Na how angel them be helep Joshua and Hezekiah ?"
+    },
+    {
+      "en": "How we love these dear sisters !",
+      "wes": "We really love this we sister them ."
+    },
+    {
+      "en": "What can help all in the family to cooperate with one another ?",
+      "wes": "Weiti fit helep ol man fo famili fo di join han wok ?"
+    },
+    {
+      "en": "How can we avoid becoming lovers of money ?",
+      "wes": "Weiti we fit do for no di over like we self , money ?"
+    },
+    {
+      "en": "Why did Abraham ask his wife to say that she was his sister ?",
+      "wes": "Why Abraham be tell yi woman for talk say ih be yi brother ?"
+    },
+    {
+      "en": "( b ) What helped David to wait patiently ?",
+      "wes": "( b ) Weiti be helep David for tie - heart di wait ?"
+    },
+    {
+      "en": "( b ) Why is forgiveness a test of humility ?",
+      "wes": "( b ) Why for forgive na test for show whether we put skin for down ?"
+    },
+    {
+      "en": "For some , the preaching work is difficult .",
+      "wes": "Fo som pipul dem , fo prich no bi som izi ting ."
+    },
+    {
+      "en": "Give examples of the rewards that come from showing compassion in the ministry .",
+      "wes": "Give example them weh they di show the blessing them weh we di get - am when we helep people for field service ."
+    },
+    {
+      "en": "How could a Christian sister win over her unbelieving husband ?",
+      "wes": "How sister fit make yi man kam serve Jehovah ?"
+    },
+    {
+      "en": "How can we help new ones to converse with householders and others ?",
+      "wes": "How we fit helep new publisher them for know how for preach ?"
+    },
+    {
+      "en": "Paul and his companion Barnabas risked their lives to encourage their brothers .",
+      "wes": "Paul and Barnabas be put their life for danger because they be want for encourage their brother them ."
+    },
+    {
+      "en": "What will help us make wise decisions ?",
+      "wes": "Weiti go helep we for di make correct decision them ?"
+    },
+    {
+      "en": "What questions can help us analyze ourselves ?",
+      "wes": "Which question them fit helep we for check we self ?"
+    },
+    {
+      "en": "Mary worked hard to strengthen her faith .",
+      "wes": "( Galatian 5 : 22 ; Ephesian 2 : 8 ) Mary bi wok trong fo meik yi faith fo grou ."
+    },
+    {
+      "en": "That same spirit prevails in many parts of the world today .",
+      "wes": "15 : 32 ) That very fashion dei for plenty people them today for this world ."
+    },
+    {
+      "en": "These schools have successfully trained brothers and sisters and have strengthened their faith .",
+      "wes": "Dis skuul dem don tich broda an sista dem fain , an don meik dia trost fo God fo trong ."
+    },
+    {
+      "en": "He trusted in Jehovah 's mercy and forgiveness .",
+      "wes": "Ih be get trust say Jehovah go show yi sorry - heart and ih go forgive yi ."
+    },
+    {
+      "en": "He uses his power to help his servants and to defeat his enemies .",
+      "wes": "Ih di yus yi pawa fo helep pipul weh dey di woship yi an fo win yi enemi dem ."
+    },
+    {
+      "en": "What can help a Christian to decide whether to get married ?",
+      "wes": "Weiti fit helep some Christian for decide whether ih go married ?"
+    },
+    {
+      "en": "Why is keeping on the watch so important today ?",
+      "wes": "Why e be important for continue for lukot for this we time ?"
+    },
+    {
+      "en": "Catholic priests pressured some local authorities not to give us permits for assemblies .",
+      "wes": "Catholic priest them be force some government people for no leave - am make we get we assembly ."
+    },
+    {
+      "en": "We likewise help others \" to search for Jehovah . \"",
+      "wes": "Jehovah di glad when ih see how we di talk about yi for other people and for we neighbor them ."
+    },
+    {
+      "en": "Many people today do not believe that God created us .",
+      "wes": "Plenty people for this we time no believe say na God make all man ."
+    },
+    {
+      "en": "They often thank us for visiting them .",
+      "wes": "Plenty time them , they di thank we as we di kam preach for them ."
+    },
+    {
+      "en": "There are a number of ways to combat peer pressure .",
+      "wes": "Plenty way dei for fight for no join bad friend them ."
+    },
+    {
+      "en": "With the help of yet another gift .",
+      "wes": "Weiti be helep them ?"
+    },
+    {
+      "en": "13 Life Story - I Have Been Blessed to Work With Spiritual Men",
+      "wes": "13 Story about some person yi life - Na Blessing for Me As A Don Work With Brother Them weh They Get Faith"
+    },
+    {
+      "en": "Help people spiritually .",
+      "wes": "Helep people for know God ."
+    },
+    {
+      "en": "\" All of you are brothers , \" he said .",
+      "wes": "Ih be tell them say : ' All wuna na brother them . '"
+    },
+    {
+      "en": "He was baptized , and today he serves as an elder .",
+      "wes": "Ih kam baptise , and today na elder ."
+    },
+    {
+      "en": "Jehovah sets the standard for how his creation should work together .",
+      "wes": "Jehovah don make law for how thing them weh ih make - am get for work together ."
+    },
+    {
+      "en": "Noah faithfully fulfilled the work assignment that Jehovah had given him .",
+      "wes": "Noah be do all the work weh Jehovah be give yi just as Jehovah be want - am ."
+    },
+    {
+      "en": "So how would Jehovah help that good person ?",
+      "wes": "So na hau Jehova go helep daa gud peson ?"
+    },
+    {
+      "en": "So like Nathan , obey Jehovah but be kind to your brother .",
+      "wes": "So obei Jehova , bot get gud - hat fo ya broda , laik hau weh Nathan bi get - am ."
+    },
+    {
+      "en": "Why can we be confident of Jesus ' sympathy today ?",
+      "wes": "Weiti make we for be sure say Jesus di still feel for people today ?"
+    },
+    {
+      "en": "When it comes to forgiveness , even good friends sometimes struggle .",
+      "wes": "When na time for forgive other person , even good friend them sometime di struggle for do - am ."
+    },
+    {
+      "en": "( b ) How does God help parents fulfill their responsibilities ?",
+      "wes": "( b ) How Jehovah di helep papa and mami them for train their pikin them ?"
+    },
+    {
+      "en": "Think what those resurrection accounts would have meant to Martha !",
+      "wes": "13 : 14 , 20 , 21 ) Think how all this miracle them be helep Martha ."
+    },
+    {
+      "en": "Both then began working toward the goal of Bethel service .",
+      "wes": "All them be plan for work for Bethel and they be try for see say make e waka ."
+    },
+    {
+      "en": "His comments touched my heart and helped me regain my spiritual balance .",
+      "wes": "Around that time , ma mami be kam for London and be gri make brother John E ."
+    },
+    {
+      "en": "Five centuries later , Jesus Christ was involved in a similar educational work .",
+      "wes": "Faif hondred yie dem afta , Jesus Christ tuu bi di du dis kain wok fo tich ."
+    },
+    {
+      "en": "It was very sad to see Brother Knorr suffer from cancer in 1976 .",
+      "wes": "For 1976 A be over feel bad for see as Brother Knorr be suffer from cancer ."
+    },
+    {
+      "en": "Give examples of how brothers and sisters have helped you personally .",
+      "wes": "Give some example them how brother and sister them don helep you self - self ."
+    },
+    {
+      "en": "A good decision can help us draw closer to Jehovah .",
+      "wes": "If we make good decision , e fit helep we for kam near Jehovah ."
+    },
+    {
+      "en": "Jehovah also invited humans to work together with him .",
+      "wes": "Jehova bi invait pipul dem fo dis grong tuu fo wok witi yi ."
+    },
+    {
+      "en": "Meetings give us opportunities to show our brothers that we love them .",
+      "wes": "Miting dem di giv wi chans fo sho wi broda an sista dem sei wi laik dem ."
+    },
+    {
+      "en": "How can you help your children if your language ability is limited ?",
+      "wes": "Na how you fit helep ya pikin them if you no di understand the new country talk fine ?"
+    },
+    {
+      "en": "A brother in southern Africa had also previously justified violence .",
+      "wes": "Some brother for some country for Africa be di think say e correct for di fight ."
+    },
+    {
+      "en": "What can help us to direct attention to the Bible in the ministry ?",
+      "wes": "Weiti fit helep we for use Bible when we di preach ?"
+    },
+    {
+      "en": "What should help us to make wise choices ?",
+      "wes": "Weiti go helep we for choose correct klus them ?"
+    },
+    {
+      "en": "What motivates God to forgive so freely ?",
+      "wes": "55 : 6 , 7 ) Weiti di push God for be ready for di forgive for this way ?"
+    },
+    {
+      "en": "One couple , Jesse and Lynn Cantwell , helped me greatly .",
+      "wes": "One couple weh na Jesse and Lynn Cantwell be helep me plenty ."
+    },
+    {
+      "en": "More and more Bible translations leave out God 's personal name .",
+      "wes": "Plenti diferen Baibul dem weh dey dei no get God yi oun neim fo insaid ."
+    },
+    {
+      "en": "What will help you to endure ?",
+      "wes": "Weiti go helep yu fo tai hat ?"
+    },
+    {
+      "en": "We serve our Life - Giver , the happy God .",
+      "wes": "Wi di woship de Peson Weh Ih Giv Wi Laif , de God weh ih di glad ."
+    },
+    {
+      "en": "How can this help us as public instructors of the good news ?",
+      "wes": "( John 14 : 25 , 26 ) Na how this one fit helep we as we di teach the good news for public ?"
+    },
+    {
+      "en": "( a ) How can opening our mouth wider help our singing ?",
+      "wes": "( a ) When we open we moup fine , how e di helep we for sing ?"
+    },
+    {
+      "en": "( b ) What Scriptural thought helped this sister to maintain her peace ?",
+      "wes": "( b ) Na which verse them for Bible be helep yi ?"
+    },
+    {
+      "en": "But one of the brothers was offended by the way she greeted him .",
+      "wes": "But one no be like the way weh ih be salute them ."
+    },
+    {
+      "en": "How can parents help children who may need to study in two languages ?",
+      "wes": "Na how papa and mami fit helep pikin them weh they need for study them with two country talk ?"
+    },
+    {
+      "en": "What will help you to build and maintain your faith ?",
+      "wes": "Na wich ting go helep yu fo kontiniu fo put hat fo God an fo meik ya trost fo yi fo grou ?"
+    },
+    {
+      "en": "Many stores sell only popular fashions .",
+      "wes": "Plenty store them di sell na only fashion klus them ."
+    },
+    {
+      "en": "I work as an executive assistant at an international bank .",
+      "wes": "Tom fo Amerika tok sei , \" A di wok lek smol patron fo som bank weh e dei fo plenti kontri dem ."
+    },
+    {
+      "en": "Follow the advice given to the young man Timothy .",
+      "wes": "2 : 2 ; Titus 1 : 10 ) Follow advice weh Paul be give Timothy ."
+    },
+    {
+      "en": "Besides doing housework , I recited the Rosary with him every evening .",
+      "wes": "A no bi di onli du na wok fo haus . A bi di yus Rosary tuu fo prei evri ivining with ma uncle ."
+    },
+    {
+      "en": "But an increasing number in the congregation spoke Kyrgyz as their mother tongue .",
+      "wes": "But plenty people for congregation be di talk na Kyrgyz ."
+    },
+    {
+      "en": "Talks , dramas , and demonstrations encourage us to give Jehovah our best .",
+      "wes": "De diferen tok dem , drama dem an demonstreishon dem di enkoureij wi fo woship Jehova with ol wi hat ."
+    },
+    {
+      "en": "Then , they traveled together and helped one another .",
+      "wes": "Den , ol dem bi di waka di go an bi di sopot de oda wan dem as dey di waka fo roud ."
+    },
+    {
+      "en": "The testimony card helped publishers in different ways .",
+      "wes": "Dis shot peipa bi helep publisha dem fo diferen wei dem ."
+    },
+    {
+      "en": "If you feel that way , Jehovah can help you develop courage .",
+      "wes": "If na so you di feel , know say Jehovah fit helep you for get strong - heart ."
+    },
+    {
+      "en": "So I interpreted , which helped them grasp the truth more readily .",
+      "wes": "So for meeting , A be di translate so that they fit really understand ."
+    },
+    {
+      "en": "So be happy in your work .",
+      "wes": "So make you be happy with ya work ."
+    },
+    {
+      "en": "What did one brother say about giving responsibility to others ?",
+      "wes": "Weiti one brother be talk weh e show say for train young brother them na fine thing ?"
+    },
+    {
+      "en": "I live a clean life and feel Jehovah 's forgiveness and support .",
+      "wes": "A di live clean life and A di feel say Jehovah don forgive me and ih di support me ."
+    },
+    {
+      "en": "This also gives us joy .",
+      "wes": "Dis wan tuu di meik wi fo glad ."
+    },
+    {
+      "en": "Ezekiel was not involved in either the marking work or the destruction itself .",
+      "wes": "Ezekiel no dei among they people weh they be di put mark for people their front head or even among people for destroy Jerusalem ."
+    },
+    {
+      "en": "He helps us to do what is right .",
+      "wes": "Ih di helep wi fo du ting weh e korekt ."
+    },
+    {
+      "en": "So they cannot be doing the work that Jesus started .",
+      "wes": "So they no fit di do na the work weh Jesus be start - am ."
+    },
+    {
+      "en": "What can help you to cope if a family member leaves Jehovah ?",
+      "wes": "Weiti fit helep you for tie - heart , if ya family member leave Jehovah ?"
+    },
+    {
+      "en": "That , in turn , helps us to make wise decisions .",
+      "wes": "And this one go helep we for make correct decision them ."
+    },
+    {
+      "en": "Instead , he remained positive and expressed a sincere desire to help .",
+      "wes": "Instead , ih be di encourage me and ih be show say ih really want for helep me . \""
+    },
+    {
+      "en": "How was she finally helped to begin feeling truly loved by God ?",
+      "wes": "Na weiti be helep yi for know say God really love yi ?"
+    },
+    {
+      "en": "We are very thankful for having been freed from Babylon the Great .",
+      "wes": "We di glad say we don komot inside Babylon the Great ."
+    },
+    {
+      "en": "How can being hospitable help us overcome negative feelings about others ?",
+      "wes": "When we invite people for we house , how that one go make we for no di feel bad about them ?"
+    },
+    {
+      "en": "Ask God to help you focus on your brother 's positive qualities .",
+      "wes": "Beg God for helep you for di see na yi fine fashion them ."
+    },
+    {
+      "en": "That is more than any other book available today .",
+      "wes": "Daa wan pas eni oda buk weh wi fit get - am fo dis wi taim ."
+    },
+    {
+      "en": "These words also apply to God 's people today .",
+      "wes": "This talk concern yi servant them today ."
+    },
+    {
+      "en": "Send me ! ' \"",
+      "wes": "send me ! ' \""
+    },
+    {
+      "en": "Give Success to All Your Plans , \" July",
+      "wes": "' Make Ih Helep You for Succeed for All Ya Plan Them , ' July"
+    },
+    {
+      "en": "How large is the great crowd today ?",
+      "wes": "( Reveleishon 7 : 9 , 13 , 14 ) Na weiti bi de nomba fo daa \" plenti pipul \" fo dis wi taim ?"
+    },
+    {
+      "en": "32 A Bible Name on an Ancient Jar",
+      "wes": "32 Some Bible Name for Some Jar for First First Time"
+    },
+    {
+      "en": "But we need to work hard if we want to continue to change .",
+      "wes": "But we get for put power if we want for continue for change ."
+    },
+    {
+      "en": "Continue to pray for help .",
+      "wes": "Di pray make God helep you ."
+    },
+    {
+      "en": "Today , Jehovah guides us with his Word , the Bible .",
+      "wes": "For this we time , Jehovah di use yi Talk weh e dei for inside Bible for direct we ."
+    },
+    {
+      "en": "How may we imitate Jehovah 's mercy when others need our forgiveness ?",
+      "wes": "How we fit show sorry - heart like Jehovah when other people need make we forgive them ?"
+    },
+    {
+      "en": "Like Hezekiah , how have many today proved to be Jehovah 's friends ?",
+      "wes": "Na hau plenti pipul dem don sho sei dey bi Jehova yi fren dem , laik Hezekiah ?"
+    },
+    {
+      "en": "How did one sister stay loyal to God in a difficult situation ?",
+      "wes": "Na hau som sista bi remein faithful fo God taim weh e no bi izi fo yi ?"
+    },
+    {
+      "en": "Some of the names in this article have been changed .",
+      "wes": "We don change some name them for this article ."
+    },
+    {
+      "en": "Would you be able to forgive him ?",
+      "wes": "You go fit forgive yi ?"
+    },
+    {
+      "en": "Likewise , hardworking wives appreciate hearing upbuilding words from their husbands .",
+      "wes": "7 : 39 ) Woman them too weh they don married di like - am when their masa talk fine talk for them ."
+    },
+    {
+      "en": "What advice did Paul give them ?",
+      "wes": "Na wich kain advais Paul bi giv dem ?"
+    },
+    {
+      "en": "This confidence helps us to have faith in him .",
+      "wes": "This one di helep we for get faith for yi ."
+    },
+    {
+      "en": "Why is Jehovah the best one to help us endure ?",
+      "wes": "Wai wi tok sei Jehova na de best peson fo helep wi fo tai hat ?"
+    },
+    {
+      "en": "What will help us to examine the depth of our love for Christ ?",
+      "wes": "Weiti go helep we for know whether we really love Christ ?"
+    },
+    {
+      "en": "Still , there is no other work I would rather do . \"",
+      "wes": "But A like for do this work pass any other work . \""
+    },
+    {
+      "en": "Holy spirit is able to mold us in a number of ways .",
+      "wes": "Holy spirit fit mold we for plenty way them ."
+    },
+    {
+      "en": "How can we allow divine principles to help us act as Christians today ?",
+      "wes": "Na hau wi fit liv - am meik Jehova yi loh dem helep wi fo di akt laik Christian dem fo dis wi taim ?"
+    },
+    {
+      "en": "Names have been changed .",
+      "wes": "They don change some name them ."
+    },
+    {
+      "en": "We rejoice in the advancement of the Kingdom - preaching work .",
+      "wes": "We di glad say the work for preach di go na for before ."
+    },
+    {
+      "en": "Are we not happy that our sins can be forgiven ?",
+      "wes": "We no di glad say God fit forgive we sin them ?"
+    },
+    {
+      "en": "So when we forgive others , we are trusting in Jehovah .",
+      "wes": "( Luke 11 : 4 ) So wen wi chus pipul fo dia bad , wi di sho sei wi trost Jehova ."
+    },
+    {
+      "en": "But now she had decided to give up this habit . \"",
+      "wes": "But now ih don decide for stop this fashion . \""
+    },
+    {
+      "en": "Give an example of the burden faced by first - century Jews .",
+      "wes": "Give some example for show say Jew people be di over pay tax ."
+    },
+    {
+      "en": "How did Bible chapter and verse numbering come about ?",
+      "wes": "Na how they be start for put chapter and verse them for Bible ?"
+    },
+    {
+      "en": "A number have even left the way of the truth .",
+      "wes": "Some don even stop for di serve Jehovah ."
+    },
+    {
+      "en": "Why is it important to use God 's name in the Bible ?",
+      "wes": "Wai e bi impotan fo yus God yi neim fo insaid Baibul ?"
+    },
+    {
+      "en": "Why should God 's forgiveness motivate us to forgive our brothers ?",
+      "wes": "Wai e bi sei de wei weh God di fogiv wi di push wi fo fogiv wi broda dem ?"
+    },
+    {
+      "en": "Your answers may help you to see how well you know Jehovah .",
+      "wes": "Ya answer them go helep you for know whether you really know Jehovah ."
+    },
+    {
+      "en": "( b ) How do we show our support for the Kingdom today ?",
+      "wes": "( b ) Na how we di show today say we di support the Kingdom ?"
+    },
+    {
+      "en": "Do I take the initiative to be helpful to others ? '",
+      "wes": "A di try ma best for helep other people ? '"
+    },
+    {
+      "en": "Moreover , when we choose to forgive , we also benefit ourselves .",
+      "wes": "Agein , taim weh wi chus fo fogiv oda pipul , wi sef sef di gein tuu ."
+    },
+    {
+      "en": "Additionally , they use the opportunity to strengthen the brothers .",
+      "wes": "And too , they be use that chance for encourage their brother them ."
+    },
+    {
+      "en": "Today , we have much more than Abraham had .",
+      "wes": "Fo dis wi taim , plenti ting dem dei fo len - am pas de wan dem weh Abraham bi fit len - am ."
+    },
+    {
+      "en": "Imagine a brother thinking about his future in the congregation .",
+      "wes": "Just think about some brother weh ih di calculate how ih fit do more work for congregation ."
+    },
+    {
+      "en": "Tell her to come and help me . \"",
+      "wes": "Meik yu tel yi fo kam helep mi . '"
+    },
+    {
+      "en": "How should we feel about our brothers and sisters ?",
+      "wes": "Na hau wi get fo di fil abaut wi broda an sista dem ?"
+    },
+    {
+      "en": "Romans chapter 8 offers advice that will help you to do so .",
+      "wes": "Romans chapter 8 di give advice weh e go helep you ."
+    },
+    {
+      "en": "So Jehovah inspired Paul to write to those dear brothers and sisters .",
+      "wes": "So Jehova bi yus yi holi spirit fo darekt Paul meik ih rait leta fo daa broda an sista dem ."
+    },
+    {
+      "en": "An example from the Bible gives us the answer .",
+      "wes": "This Bible example go give we the answer ."
+    },
+    {
+      "en": "[ 1 ] ( paragraph 1 ) Some names have been changed .",
+      "wes": "[ 1 ] ( paragraph 1 ) They don change some name them ."
+    },
+    {
+      "en": "Out of ignorance , many work in harmony with Satan 's purpose .",
+      "wes": "( Jas . 1 : 14 ) Some people them di do thing weh Satan want - am weh they no even know say they di do - am ."
+    },
+    {
+      "en": "( c ) What will help a marriage mate not to separate quickly ?",
+      "wes": "( c ) Weiti fit helep married people for no leave married quick - quick ?"
+    },
+    {
+      "en": "( c ) What gifts strengthen us today ?",
+      "wes": "( c ) Which thing them di helep we for tie - heart ?"
+    },
+    {
+      "en": "Working with God has always made Jehovah 's servants happy .",
+      "wes": "Jehova yi wok - pipul dem don eva di glad as dey di wok witi yi ."
+    },
+    {
+      "en": "Little children rely on their parents to help them and protect them .",
+      "wes": "Smol pikin dem di put ol dia hat na fo dia papa an mami dem fo helep an protekt dem ."
+    },
+    {
+      "en": "Cain refused Jehovah 's help , and he suffered as a result .",
+      "wes": "( Genesis 4 : 6 , 7 ) Cain bi dinai de helep weh Jehova bi giv yi , an ih bi sofa foseika daa wan ."
+    },
+    {
+      "en": "Nor do we wish that any should be called by our name . \"",
+      "wes": "And we no want make they use we name for call any person . \""
+    },
+    {
+      "en": "Commend your brothers sincerely .",
+      "wes": "Di praise ya brother them true - true ."
+    },
+    {
+      "en": "It allows us to take advantage of our circumstances to help others .",
+      "wes": "E di give we chance for use we thing them for helep other people ."
+    },
+    {
+      "en": "Give an example of how he tried to do this .",
+      "wes": "Give one example how ih be try for do - am ."
+    },
+    {
+      "en": "If we practice forgiving others , Jehovah will forgive us .",
+      "wes": "If we di forgive other people , Jehovah go forgive we ."
+    },
+    {
+      "en": "Be Determined to \" Let Your Brotherly Love Continue \" ! Jan .",
+      "wes": "Imiteit Pipul weh Dey Bi Bi Faithful fo Jehova , Feb ."
+    },
+    {
+      "en": "Jesus , on the other hand , truly loved the name of Jehovah .",
+      "wes": "Jesus be really like Jehovah yi name ."
+    },
+    {
+      "en": "How can I help our brothers in prison ?",
+      "wes": "Na hau A fit helep wi broda dem weh dey dei fo prison ?"
+    },
+    {
+      "en": "How does the Bible help us choose our recreation ?",
+      "wes": "Na hau Baibul di helep wi fo chus korekt wei fo relax ?"
+    },
+    {
+      "en": "How should younger ones work along with older ones ?",
+      "wes": "How young brother them fit work together with old brother them ?"
+    },
+    {
+      "en": "She helped a widow named Carol .",
+      "wes": "Ih bi helep som widou weh yi neim na Carol ."
+    },
+    {
+      "en": "Just how does God view war today ?",
+      "wes": "Na hau God di si war fo dis wi taim ?"
+    },
+    {
+      "en": "How can we show our brotherly love ?",
+      "wes": "Na hau wi fit sho sei wi laik wi Christian famili ?"
+    },
+    {
+      "en": "What can help us to see what God does for us ?",
+      "wes": "Na weiti fit helep wi fo si ting dem weh God di du - am fo wi ?"
+    },
+    {
+      "en": "What will help us to know how to treat our brothers ?",
+      "wes": "Na weiti go helep wi fo sabi hau fo trit wi broda dem ?"
+    },
+    {
+      "en": "Jehovah has truly given us an \" indescribable free gift . \"",
+      "wes": "Tru tru , Jehova don giv wi som gift weh \" e pas mak . \""
+    },
+    {
+      "en": "We are truly grateful to know how to give honor Jehovah 's way .",
+      "wes": "We di really glad for know how we get for honor people for the way weh Jehovah want - am ."
+    },
+    {
+      "en": "How can Jesus ' expressions of sympathy and consolation help us today ?",
+      "wes": "We di see say Jesus di really understand and di feel for people ."
+    },
+    {
+      "en": "What might help you overcome hesitancy to speak up about your beliefs ?",
+      "wes": "Weiti fit helep you if e di hard you for preach for ya friend them ?"
+    },
+    {
+      "en": "What makes our brotherhood unique ?",
+      "wes": "Weiti make the unity for we Christian brother and sister them for the whole world for be special ?"
+    },
+    {
+      "en": "So Asa 's strategy worked - at first glance !",
+      "wes": "16 : 5 ) So , for some way we fit talk say Asa yi plan be work !"
+    },
+    {
+      "en": "I really want to help them .",
+      "wes": "A really want for helep them ."
+    },
+    {
+      "en": "Brother Russell visited Ireland seven times in all .",
+      "wes": "Brother Russell be visit Ireland seven time ."
+    },
+    {
+      "en": "But God did not give animals free will .",
+      "wes": "But God no ever give animal them that kind right ."
+    },
+    {
+      "en": "How are we helped to endure in our preaching work ?",
+      "wes": "How Jehovah di helep we for tie - heart for we preaching work ?"
+    },
+    {
+      "en": "Pay constant attention to yourself and to your teaching . \"",
+      "wes": "Make you di lukot ya self and thing weh you di teach - am . '"
+    },
+    {
+      "en": "What , specifically , can help bereaved individuals heal their painful emotional wounds ?",
+      "wes": "Na weiti fit really helep man weh ih di cry yi person weh ih don die ?"
+    },
+    {
+      "en": "Today , elders and parents can follow Paul 's example .",
+      "wes": "Papa and mami and elder them fit follow Paul yi example ."
+    },
+    {
+      "en": "What can help us be good guests ?",
+      "wes": "Weiti fit helep we for behave fine when they invite we ?"
+    },
+    {
+      "en": "We show our faith in Jehovah when we forgive others .",
+      "wes": "Wi di sho sei wi put hat fo Jehova wen wi chus pipul dem fo dia bad ."
+    },
+    {
+      "en": "( b ) What will help us to remain humble ?",
+      "wes": "( b ) Weiti go helep we for continue for di put skin for down ?"
+    },
+    {
+      "en": "This school helped all to become effective teachers .",
+      "wes": "Dis skuul bi helep ol publisha dem fo bi fain ticha dem ."
+    },
+    {
+      "en": "Yet , Jehovah gives a name or a designation to each star .",
+      "wes": "Even so , Jehovah know any star yi name or place weh the star dei ."
+    },
+    {
+      "en": "He also knew that he had more work to do before he died .",
+      "wes": "Ih bi sabi tuu sei ih get plenti wok fo du bifo ih dai ."
+    },
+    {
+      "en": "Jehovah encouraged him by sending an angel to strengthen and comfort him .",
+      "wes": "Jehovah be send angel for encourage yi and comfort yi ."
+    },
+    {
+      "en": "How should you treat anointed brothers and sisters ?",
+      "wes": "Na hau yu get fo di luk anointed broda dem an sista dem ?"
+    },
+    {
+      "en": "From the beginning , what has characterized God 's works ?",
+      "wes": "Sins taim weh God stat di meik ting dem , na weiti wi don si - am fo yi wei fo wok ?"
+    },
+    {
+      "en": "28 \" Be Courageous . . . and Go to Work \"",
+      "wes": "28 ' Get Strong - Heart . . . and Go for Work '"
+    },
+    {
+      "en": "How did Peter ' strengthen his brothers ' ?",
+      "wes": "How Peter be encourage yi brother them for ' be strong ' ?"
+    },
+    {
+      "en": "That is where we worship Jehovah with our brothers and sisters .",
+      "wes": "Na fo deh weh wi di woship Jehova witi wi broda an sista dem ."
+    },
+    {
+      "en": "How can the ministry help you to strengthen your faith ?",
+      "wes": "When you di preach , na how e fit make ya faith for strong ?"
+    },
+    {
+      "en": "Her fine conduct in the face of difficulties impressed another colleague named Hans .",
+      "wes": "Yi fine fashion be touch some other person for work place weh yi name na Hans ."
+    },
+    {
+      "en": "( b ) What can we do to help the congregation stay united ?",
+      "wes": "( b ) Weiti we fit do for helep congregation for be in unity ?"
+    },
+    {
+      "en": "All these dear brothers and sisters from different backgrounds serve Jehovah unitedly .",
+      "wes": "All this brother and sister them weh they komot from different place them di serve Jehovah together ."
+    },
+    {
+      "en": "But all the tools have helped us to increase our preaching skills .",
+      "wes": "Bot ol dis wok ting dem don helep wi fo prich fain pas hau weh wi bi di prich bifo ."
+    },
+    {
+      "en": "But things worked out very differently .",
+      "wes": "But e no be happen so ."
+    },
+    {
+      "en": "Give examples of courage in the Christian congregation .",
+      "wes": "How elder them and sister them weh they never married for congregation fit show say they get strong - heart ."
+    },
+    {
+      "en": "Rather than give in to temptation , prayerfully reject such desires .",
+      "wes": "Insted fo liv - am meik e push yu fo du ting weh e no fain , prei fo Jehova meik ih helep yu fo stop fo di tink daa kain ting dem ."
+    },
+    {
+      "en": "What happened when Manoah asked Jehovah to help him be a good parent ?",
+      "wes": "Na weiti bi hapen taim weh Manoah bi ask Jehova fo helep yi fo bi gud papa ?"
+    },
+    {
+      "en": "I was assigned to take his place and work alongside Don Adams .",
+      "wes": "So ih be talk make A take that brother yi place and work with Don Adams ."
+    },
+    {
+      "en": "Our compassion and practical help can strengthen their faith . - Prov .",
+      "wes": "We sorry - heart and helep fit make their faith for strong . - Prov ."
+    },
+    {
+      "en": "What insight do those scriptures give you into God 's thinking ?",
+      "wes": "Weiti this verse them di tell you about the way Jehovah di think ?"
+    },
+    {
+      "en": "Accounts in the Bible prove that Jehovah can give us anything we need .",
+      "wes": "( Luke 11 : 3 ) Plenti tori dem dei insaid Baibul weh dey di sho sei Jehova fit giv wi eni ting weh wi nid - am ."
+    },
+    {
+      "en": "I did it just to make more money .",
+      "wes": "A bi di du - am na bikos A bi want plenti moni ."
+    },
+    {
+      "en": "And it 's cool to be helping where there is a greater need .",
+      "wes": "And too e over fine for di helep for place weh need dei . \""
+    },
+    {
+      "en": "Today , this means that he should be disfellowshipped .",
+      "wes": "For this we time , this talk mean say they get for disfellowship that person ."
+    },
+    {
+      "en": "Through their spiritual brothers , they received relief supplies .",
+      "wes": "Ih use we Christian brother and sister them for give them thing weh they need - am ."
+    },
+    {
+      "en": "So we need to work hard to strengthen our faith .",
+      "wes": "( Hebrew 10 : 39 ) So wi nid fo put pawa fo meik - am meik wi trost fo God e trong ."
+    },
+    {
+      "en": "And what can help us to meditate regularly and to enjoy it ?",
+      "wes": "An na weiti fit helep wi fo tink dip ol taim an fo enjoi as wi di du - am ?"
+    },
+    {
+      "en": "He says that his children were always willing to help at assemblies .",
+      "wes": "Ih tok sei yi pikin dem bi di eva bi redi fo helep fo asembli dem ."
+    },
+    {
+      "en": "That was true in the first century , and it is true today .",
+      "wes": "Na so e be dei for time for apostle them and na the same thing today ."
+    },
+    {
+      "en": "What qualities will help us to be loyal to God , and how ?",
+      "wes": "Na wich fashon dem go helep wi fo bi faithful fo God , an na fo wich wei dey go helep wi ?"
+    },
+    {
+      "en": "The accounts mentioned above should give you something that Martha had .",
+      "wes": "The miracle them weh we don just talk about - am fit give we the same hope weh Martha be get - am ."
+    },
+    {
+      "en": "The Bethel family helps to provide spiritual food .",
+      "wes": "The work weh all the brother and sister them for Bethel di do , di helep make we get Bible and other book them ."
+    },
+    {
+      "en": "That decision gave renewed vigor to the preaching work .",
+      "wes": "This one be helep the preaching work for go before ."
+    },
+    {
+      "en": "How does Zechariah 's record of those visions affect us today ?",
+      "wes": "Weiti we fit learn for the vision them weh Zechariah be see - am ?"
+    },
+    {
+      "en": "How does the Bible help us to be organized ?",
+      "wes": "17 You Di Show Respect for Bible ?"
+    },
+    {
+      "en": "How can we see Jehovah and his hand today ?",
+      "wes": "Hau wi fit si Jehova an yi han fo dis wi taim ?"
+    },
+    {
+      "en": "My father was a blacksmith , and my mother worked in the fields .",
+      "wes": "Ma papa bi di yus iron meik ting dem , an ma mami bi di wok farm ."
+    },
+    {
+      "en": "How do ministerial servants help the congregation to be united ?",
+      "wes": "Na hau Ministeria savan dem di helep kongrigeishon fo bi wan ?"
+    },
+    {
+      "en": "We do not want to give up work that we enjoy .",
+      "wes": "They no want leave the work weh they di enjoy - am ."
+    },
+    {
+      "en": "Who are in need of encouragement today ?",
+      "wes": "We get for encourage na who them ?"
+    },
+    {
+      "en": "He gives us his love .",
+      "wes": "Ih di give we yi love ."
+    },
+    {
+      "en": "Jesus assured her : \" Your brother will rise . \"",
+      "wes": "Jesus be tell yi say : ' Ya brother go weikop . '"
+    },
+    {
+      "en": "How can Matthew 6 : 33 help us when planning recreation ?",
+      "wes": "Na hau Matthew 6 : 33 fit helep wi taim weh wi di plan fo relax ?"
+    },
+    {
+      "en": "Yes , work with God 's discipline , not against it .",
+      "wes": "So support Jehovah yi decision , no be against the decision ."
+    },
+    {
+      "en": "Those activities and heartfelt prayer helped to sustain us spiritually .",
+      "wes": "This work them and prayer be helep we for remain strong for we faith ."
+    },
+    {
+      "en": "Younger brothers can take on more responsibility in a modest and respectful way .",
+      "wes": "Young brother them fit gri for do more work , be humble , and continue for get respect for old brother them ."
+    },
+    {
+      "en": "It also gives us the ability to pray and sing praises to Jehovah .",
+      "wes": "E di meik - am tuu , wi di fit prei an sing song dem fo preis Jehova ."
+    },
+    {
+      "en": "\" Who \" was the meaning given in the earlier rendering .",
+      "wes": "For the first Bible they be use the word \" who . \""
+    },
+    {
+      "en": "Helping the Children of \" Foreign Residents , \" May",
+      "wes": "Get Power , ' Sept ."
+    },
+    {
+      "en": "Has God authorized any group of people today to engage in warfare ?",
+      "wes": "God don giv rait fo eni group fo pipul fo fait war ?"
+    },
+    {
+      "en": "Once I accompanied Brother Finch on a preaching trip to northern Pakistan .",
+      "wes": "Some day A be follow Brother Finch go preach for north side for Pakistan ."
+    },
+    {
+      "en": "The school principal approved , and that arrangement lasted until my sister graduated .",
+      "wes": "The principal be gri and the program be continue sotee ma sister finish school ."
+    },
+    {
+      "en": "We hope that our prayers will help a little . \"",
+      "wes": "We hope say we prayer go helep . \""
+    },
+    {
+      "en": "Self - discipline helps us to reach spiritual goals .",
+      "wes": "When we di correct we self , e di helep we for do thing weh we don plan for do - am for Jehovah ."
+    },
+    {
+      "en": "But there are practical , helpful things that we can do .",
+      "wes": "But plenty thing them dei weh we fit do - am for helep them ."
+    },
+    {
+      "en": "How does the account of the jailer relate to our preaching work ?",
+      "wes": "How the story about the man weh ih di lukot prison concern we preaching work ?"
+    },
+    {
+      "en": "She says , \" I depend on Jehovah 's help through prayer . \"",
+      "wes": "Ih tok sei : \" A di luk na fo Jehova fo helep mi as A di prei fo yi . \""
+    },
+    {
+      "en": "How can the Bible help us to strengthen our faith ?",
+      "wes": "Na hau Baibul fit helep fo meik wi hat fo God trong ?"
+    },
+    {
+      "en": "How can undeserved kindness \" help us at the right time \" ?",
+      "wes": "Na how God yi favor di ' helep we for correct time ' ?"
+    },
+    {
+      "en": "How did Paul help the Christians to solve this important issue ?",
+      "wes": "Na how Paul be helep them for fix this matter ?"
+    },
+    {
+      "en": "( b ) What admonition did Jesus give his followers ?",
+      "wes": "( b ) Na which advice Jesus be give yi disciple them ?"
+    },
+    {
+      "en": "Your faithfully worshipping Jehovah can help you to do the same .",
+      "wes": "73 : 16 , 17 ) If you continue for di worship Jehovah , e go helep you for do the same thing ."
+    },
+    {
+      "en": "If you find public witnessing challenging , do not give up .",
+      "wes": "If e di hard you for preach for public , make you no stop for di try ."
+    },
+    {
+      "en": "Jehovah 's Witnesses preach to glorify God and to make known his name .",
+      "wes": "Jehova Witnes dem di prich na fo ono God an fo meik - am meik pipul dem sabi yi neim ."
+    },
+    {
+      "en": "He helped them to \" understand everything \" necessary to please him .",
+      "wes": "Jehovah be helep them for ' understand all thing ' weh e go helep them for make yi happy ."
+    },
+    {
+      "en": "My four older sisters had already left home to work as schoolteachers .",
+      "wes": "Ma four big sister them be be na teacher them and they no be di stay for house again ."
+    },
+    {
+      "en": "That helps him to see lessons that are not so obvious .",
+      "wes": "That one be helep yi for see lesson them weh ih no for fit see - am quick - quick ."
+    },
+    {
+      "en": "After that , the Church began working closely with the Roman government .",
+      "wes": "After , this lie - lie Christian them start di work tight - tight with this government for Roman ."
+    },
+    {
+      "en": "Because he did not rely on himself for help .",
+      "wes": "Bikos ih bi no sei ih no fit helep yi sef ."
+    },
+    {
+      "en": "How can I use it to help others ? '",
+      "wes": "Na how A fit use - am for helep other people ? '"
+    },
+    {
+      "en": "There could be a number of reasons .",
+      "wes": "Plenty reason fit dei ."
+    },
+    {
+      "en": "Eventually , the brothers recorded 92 different talks .",
+      "wes": "Smol smol , broda dem kam teip 92 diferen tok dem ."
+    },
+    {
+      "en": "Help them to make new friends by arranging opportunities for upbuilding association .",
+      "wes": "Arrange make they di spend time with brother and sister them so that they fit get new friend them ."
+    },
+    {
+      "en": "Will my decisions help me to \" be peaceable \" ?",
+      "wes": "Ma decision them go helep me grow as Christian , do more for Jehovah , and ' make peace ' with people ?"
+    },
+    {
+      "en": "How has this brother coped ?",
+      "wes": "Weiti don helep this brother ?"
+    },
+    {
+      "en": "When Brother Rutherford said \" Advertise ! \"",
+      "wes": "When Brother Rutherford be talk the second time say : \" Advertise ! \""
+    },
+    {
+      "en": "What questions will help us to analyze how much we love pleasures ?",
+      "wes": "Which question them go helep we for know whether we over like enjoyment ?"
+    },
+    {
+      "en": "and its accompanying worksheet on jw.org .",
+      "wes": "and the worksheet weh they dei for jw.org ."
+    },
+    {
+      "en": "Thereafter , Brother Franz took the lead in our work .",
+      "wes": "2 : 10 ) After , na brother Franz be start di direct we work ."
+    },
+    {
+      "en": "Like many cities today , first - century Ephesus was filled with vice .",
+      "wes": "2 : 2 , 3 ) Like plenty town them today , Ephesus be get plenty bad bad thing weh they be di happen for deh ."
+    },
+    {
+      "en": "If you have sinned seriously , Jehovah is ready to help you recover .",
+      "wes": "32 : 3 - 5 ) If you don do some serious sin , Jehovah dei ready for helep you ."
+    },
+    {
+      "en": "The Bible and his organization can help us .",
+      "wes": "Bible and yi organization fit helep we ."
+    },
+    {
+      "en": "Knowing this will help us to cope .",
+      "wes": "If we know this one e go helep we for cope ."
+    },
+    {
+      "en": "Who pays for all of this ?",
+      "wes": "Wusaid moni di komot fo pei ol dis ting dem ?"
+    },
+    {
+      "en": "Young people today might be likened to those passengers .",
+      "wes": "Young people them dei like passenger them weh they di go waka , because for grow dei like na long waka weh they di go ."
+    },
+    {
+      "en": "And they assigned experienced Christians to advance the evangelizing work in new territories .",
+      "wes": "( Acts 6 : 4 ) And they be choose some mature Christian them for go preach for some other place them ."
+    },
+    {
+      "en": "Brother Rutherford thundered .",
+      "wes": "Brother Rutherford talk with power say ."
+    },
+    {
+      "en": "Is it proper for a brother today to have a beard ?",
+      "wes": "For this we time , e correct make some brother leave bia - bia for yi chin ?"
+    },
+    {
+      "en": "Maurizio had done so with me when I needed help .",
+      "wes": "Maurizio too be don helep me time weh A be make mistake ."
+    },
+    {
+      "en": "What advice does God 's Word give us about controlling our emotions ?",
+      "wes": "Na which advice Bible di give we for control how we di feel ?"
+    },
+    {
+      "en": "Some names in this article have been changed .",
+      "wes": "They don change some name them for this article ."
+    },
+    {
+      "en": "Why should we not give up when difficulties arise ?",
+      "wes": "Why we no get for stop we plan if we mitop problem them ?"
+    },
+    {
+      "en": "For example , how does this apply to social networking ?",
+      "wes": "For example , how this one concern friend them for Internet ?"
+    },
+    {
+      "en": "Help me ! \"",
+      "wes": "Helep mi ! \""
+    },
+    {
+      "en": "How can the Bible help if there are problems in a marriage ?",
+      "wes": "How Bible fit helep if problem them dei inside married ?"
+    },
+    {
+      "en": "Jehovah has lovingly given us the amazing faculty of imagination .",
+      "wes": "Jehova don giv wi de gift fo yus wi brain fo tink ."
+    },
+    {
+      "en": "Brother Jensen evidently knew what was good for me !",
+      "wes": "Thing weh brother Jensen be talk na true !"
+    },
+    {
+      "en": "Today , there are six Russian congregations in New York City .",
+      "wes": "Today , about six Russian congregation dei for New York City ."
+    },
+    {
+      "en": "What should be the scope of the preaching work ?",
+      "wes": "Wusaid we get for preach go reach ?"
+    },
+    {
+      "en": "good works ?",
+      "wes": "fo du gud wok dem ?"
+    },
+    {
+      "en": "A century ago , our brothers were busy and accomplished much .",
+      "wes": "5 : 16 ) For the one hundred year weh e don pass , we brother and sister them be dei busy and be succeed for do plenty thing them for Jehovah yi work ."
+    },
+    {
+      "en": "Finally , Daniel sought the help of the elders .",
+      "wes": "But Danial be last talk for elder them ."
+    },
+    {
+      "en": "How can prayer help to strengthen your faith ?",
+      "wes": "Na hau preiya fit helep yu fo meik ya hat fo God trong ?"
+    },
+    {
+      "en": "Consider the example of Tessie , a sister in Australia .",
+      "wes": "See Tessie yi example , some sister for Australia ."
+    },
+    {
+      "en": "This will help us to understand how Jehovah can forgive us .",
+      "wes": "They di helep we for understand how Jehovah fit forgive we ."
+    },
+    {
+      "en": "What will help you when talking to others about God and creation ?",
+      "wes": "Weiti go helep you time weh you di talk for other people about God and thing them weh ih don make - am ?"
+    },
+    {
+      "en": "( b ) How can you help your children enjoy the ministry ?",
+      "wes": "( b ) Hau yu fit helep ya pikin dem meik dey enjoi fo prich ?"
+    }
+  ]
+}

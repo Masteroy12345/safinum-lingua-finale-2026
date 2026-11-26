@@ -1,0 +1,24 @@
+# Python & virtualenvs
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Secrets & env
+.env
+*.key
+
+# Modèles IA lourds (> 50 Mo) téléchargés via scripts/download_models.py
+# Le manifest et les scripts restent versionnés dans Git ; les poids binaires sont régénérables.
+models/*/
+!models/manifest.json
+datasets/**/.cache/
+**/.cache/
+
+# Fichiers temporaires OS / éditeurs
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

@@ -1,0 +1,157 @@
+{
+  "models": {
+    "cameroon-int8": {
+      "repo_id": "flagship-ai/cameroon-int8",
+      "role": "translation_cameroon_ct2_int8",
+      "pairs": [
+        "francais-ewondo",
+        "ewondo-francais",
+        "francais-fufulde",
+        "fufulde-francais",
+        "francais-ghomala",
+        "ghomala-francais",
+        "francais-medumba",
+        "medumba-francais",
+        "francais-english",
+        "english-francais"
+      ],
+      "local_dir": "models/cameroon-int8",
+      "license": "CC-BY-NC-4.0"
+    },
+    "opus-mt-fr-bnt": {
+      "repo_id": "Helsinki-NLP/opus-mt-tc-bible-big-deu_eng_fra_por_spa-bnt",
+      "role": "translation_bantu",
+      "languages": [
+        "dua",
+        "bas",
+        "ewo"
+      ],
+      "local_dir": "models/opus-mt-fr-bnt",
+      "license": "CC-BY-4.0",
+      "ct2_int8_dir": "models/opus-mt-fr-bnt-ct2-int8"
+    },
+    "opus-mt-fr-mul": {
+      "repo_id": "Helsinki-NLP/opus-mt-tc-bible-big-deu_eng_fra_por_spa-mul",
+      "role": "translation_multilingual",
+      "languages": [
+        "wes",
+        "pcm",
+        "bas",
+        "ful"
+      ],
+      "local_dir": "models/opus-mt-fr-mul",
+      "license": "CC-BY-4.0",
+      "ct2_int8_dir": "models/opus-mt-fr-mul-ct2-int8"
+    },
+    "opus-mt-bnt-fr": {
+      "repo_id": "Helsinki-NLP/opus-mt-tc-bible-big-bnt-deu_eng_fra_por_spa",
+      "role": "translation_bantu_reverse",
+      "languages": [
+        "dua",
+        "bas",
+        "ewo",
+        "fr",
+        "en"
+      ],
+      "local_dir": "models/opus-mt-bnt-fr",
+      "license": "CC-BY-4.0",
+      "ct2_int8_dir": "models/opus-mt-bnt-fr-ct2-int8"
+    },
+    "t5-spell-fr": {
+      "repo_id": "fdemelo/t5-base-spell-correction-fr",
+      "role": "sentence_correction_fr",
+      "languages": [
+        "fr"
+      ],
+      "local_dir": "models/t5-spell-fr",
+      "license": "Apache-2.0"
+    },
+    "t5-grammar-en": {
+      "repo_id": "vennify/t5-base-grammar-correction",
+      "role": "sentence_correction_en",
+      "languages": [
+        "en"
+      ],
+      "local_dir": "models/t5-grammar-en",
+      "license": "Apache-2.0"
+    },
+    "mms-tts-ewo": {
+      "repo_id": "OlameMend/mms-tts-ewo",
+      "role": "tts_audio",
+      "languages": [
+        "ewo"
+      ],
+      "local_dir": "models/mms-tts-ewo",
+      "license": "CC-BY-NC-4.0"
+    },
+    "mms-tts-ful": {
+      "repo_id": "facebook/mms-tts-ful",
+      "role": "tts_audio",
+      "languages": [
+        "fub",
+        "ful"
+      ],
+      "local_dir": "models/mms-tts-ful",
+      "license": "CC-BY-NC-4.0"
+    },
+    "mms-tts-pcm": {
+      "repo_id": "facebook/mms-tts-pcm",
+      "role": "tts_audio",
+      "languages": [
+        "wes",
+        "pcm"
+      ],
+      "local_dir": "models/mms-tts-pcm",
+      "license": "CC-BY-NC-4.0"
+    },
+    "mms-tts-fra": {
+      "repo_id": "facebook/mms-tts-fra",
+      "role": "tts_audio",
+      "languages": [
+        "fr"
+      ],
+      "local_dir": "models/mms-tts-fra",
+      "license": "CC-BY-NC-4.0"
+    },
+    "ewondo-french-yemen2016": {
+      "repo_id": "yemen2016/ewondo-french-model",
+      "role": "translation_ewondo_fr_experimental",
+      "languages": [
+        "ewo",
+        "fr"
+      ],
+      "local_dir": "models/ewondo-french-yemen2016",
+      "license": "unknown"
+    },
+    "ewondo-tts-speecht5": {
+      "repo_id": "exyms/ewondo-tts-speecht5",
+      "role": "tts_ewondo_speecht5",
+      "languages": [
+        "ewo"
+      ],
+      "local_dir": "models/ewondo-tts-speecht5",
+      "license": "unknown"
+    }
+  },
+  "datasets": {
+    "soreva": {
+      "repo_id": "OlameMend/soreva",
+      "local_dir": "datasets/soreva",
+      "extracted": "safinum-middleware/app/data/cameroon_corpus_extract.json"
+    },
+    "french-fulfulde-adamaoua": {
+      "repo_id": "FredMike23/french-FULFULDE-ADAMAOUA",
+      "local_dir": "datasets/french-fulfulde-adamaoua",
+      "rows": 42768
+    },
+    "fulfulde-agri": {
+      "repo_id": "BATBAINA/fulfulde-dataset-asr-agri",
+      "local_dir": "datasets/fulfulde-agri"
+    },
+    "cameroon-pidgin-pairs": {
+      "repo_id": "michsethowusu/english-cameroon-pidgin_sentence-pairs_mt560",
+      "local_dir": "datasets/cameroon-pidgin-pairs",
+      "rows": 28159
+    }
+  }
+}

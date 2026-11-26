@@ -1,0 +1,388 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Safinum Lingua — Universal Linguistic Middleware",
+    "description": "Infrastructure linguistique multicanale (USSD conversationnel + Mobile/Web ui_translation + SMS/ATM/IVR v2) pour le SAFINUM Innovate Challenge 2026.",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/diagnostics": {
+      "get": {
+        "summary": "Get Diagnostics",
+        "operationId": "get_diagnostics_api_diagnostics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Diagnostics Api Diagnostics Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/grammar": {
+      "get": {
+        "summary": "Get Grammar",
+        "description": "Expose les règles de conjugaison, pronoms et phonologie des langues camerounaises.",
+        "operationId": "get_grammar_api_grammar_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Grammar Api Grammar Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/phonetics": {
+      "post": {
+        "summary": "Convert Phonetics",
+        "description": "Convertit un texte financier en transcription IPA et script audio prêt pour TTS.",
+        "operationId": "convert_phonetics_api_phonetics_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Convert Phonetics Api Phonetics Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/audio/tts": {
+      "get": {
+        "summary": "Tts Audio",
+        "description": "Synthèse audio WAV locale (Meta MMS-TTS) avec repli phonétique structuré.",
+        "operationId": "tts_audio_api_audio_tts_get",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Text"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "fr",
+              "title": "Language"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Tts Audio",
+        "description": "Synthèse audio WAV locale (Meta MMS-TTS) avec repli phonétique structuré.",
+        "operationId": "tts_audio_api_audio_tts_post",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Text"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "fr",
+              "title": "Language"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/translate": {
+      "post": {
+        "summary": "Translate Endpoint",
+        "description": "Traduit un mot ou une phrase complète en protégeant montants/numéros, avec sortie IPA et audio.",
+        "operationId": "translate_endpoint_api_translate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Translate Endpoint Api Translate Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/middleware": {
+      "post": {
+        "summary": "Handle Gateway",
+        "operationId": "handle_gateway_middleware_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Dashboard",
+        "operationId": "dashboard__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

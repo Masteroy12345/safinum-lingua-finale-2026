@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 620" width="1400" height="620">
+  <rect width="1400" height="620" fill="#F8FAFC"/>
+  <rect x="0" y="0" width="1400" height="84" fill="#0F172A"/>
+  <text x="48" y="42" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">Mécanisme d'Intégration Unifié — <tspan fill="#10B981">POST /middleware</tspan></text>
+  <text x="48" y="66" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#94A3B8">Un seul endpoint REST sert simultanément USSD, Mobile Banking et Web Banking (et prêt pour SMS, ATM, IVR)</text>
+
+  <!-- Left: USSD Contract -->
+  <g transform="translate(48, 120)" font-family="Segoe UI, Arial, sans-serif">
+    <rect x="0" y="0" width="630" height="450" rx="16" fill="#FFFFFF" stroke="#10B981" stroke-width="2.5"/>
+    <rect x="0" y="0" width="630" height="52" rx="16" fill="#059669"/>
+    <text x="24" y="33" font-size="18" font-weight="700" fill="#FFFFFF">Contrat 1 : USSD Conversationnel (channel = "ussd")</text>
+
+    <text x="24" y="84" font-size="13" font-weight="700" fill="#0F172A">1. Requête Gateway → Middleware :</text>
+    <rect x="24" y="96" width="582" height="114" rx="8" fill="#0F172A"/>
+    <text x="36" y="118" font-family="Consolas, monospace" font-size="10.8" fill="#34D399">{ "trace_id": "6f1c...", "channel": "ussd", "phone": "2376XXXXXXXX",</text>
+    <text x="36" y="138" font-family="Consolas, monospace" font-size="10.8" fill="#E2E8F0">  "language": "dua" | null, "input": {"type": "text", "text": "nel 5000..."},</text>
+    <text x="36" y="158" font-family="Consolas, monospace" font-size="10.8" fill="#FBBF24">  "constraints": {"max_chars": 182, "charset": "gsm7", "timeout_ms": 3000},</text>
+    <text x="36" y="178" font-family="Consolas, monospace" font-size="10.8" fill="#94A3B8">  "bank_api": {"base_url": "https://www.safinum.cm/api/v1"} }</text>
+
+    <text x="24" y="236" font-size="13" font-weight="700" fill="#0F172A">2. Propagation API Bancaire (X-Team-Key + X-Trace-Id strict) :</text>
+    <text x="24" y="260" font-size="12.5" fill="#334155">• Tour 1 : POST /transactions (pending) → Tour 2 (nouveau X-Trace-Id) : POST /confirm</text>
+    <text x="24" y="280" font-size="12.5" fill="#DC2626" font-weight="600">• Zéro NO_BANK_CALL • Zéro CONFIRM_WITHOUT_USER_TURN • GSM-7 &lt;= 182 septets</text>
+
+    <text x="24" y="314" font-size="13" font-weight="700" fill="#0F172A">3. Réponse Middleware → Gateway :</text>
+    <rect x="24" y="326" width="582" height="104" rx="8" fill="#0F172A"/>
+    <text x="36" y="350" font-family="Consolas, monospace" font-size="10.5" fill="#E2E8F0">{ "response": {"text": "...", "end_session": false, "options": ["Confirmer"]},</text>
+    <text x="36" y="372" font-family="Consolas, monospace" font-size="10.5" fill="#38BDF8">  "interpretation": {"intent": "TRANSFER", "parameters": {...}, "language": "dua"},</text>
+    <text x="36" y="394" font-family="Consolas, monospace" font-size="10.5" fill="#34D399">  "transaction": {"id": "TRX-...", "status": "pending"} }</text>
+  </g>
+
+  <!-- Right: Mobile & Web UI Translation Contract -->
+  <g transform="translate(722, 120)" font-family="Segoe UI, Arial, sans-serif">
+    <rect x="0" y="0" width="630" height="450" rx="16" fill="#FFFFFF" stroke="#0284C7" stroke-width="2.5"/>
+    <rect x="0" y="0" width="630" height="52" rx="16" fill="#0284C7"/>
+    <text x="24" y="33" font-size="18" font-weight="700" fill="#FFFFFF">Contrat 2 : Mobile &amp; Web (type = "ui_translation")</text>
+
+    <text x="24" y="84" font-size="13" font-weight="700" fill="#0F172A">1. Requête Gateway → Middleware :</text>
+    <rect x="24" y="96" width="582" height="114" rx="8" fill="#0F172A"/>
+    <text x="36" y="118" font-family="Consolas, monospace" font-size="10.5" fill="#38BDF8">{ "channel": "mobile" | "web", "type": "ui_translation", "language": "dua",</text>
+    <text x="36" y="138" font-family="Consolas, monospace" font-size="10.5" fill="#E2E8F0">  "screen": "home|transfer|pay|review|receipt|history",</text>
+    <text x="36" y="158" font-family="Consolas, monospace" font-size="10.5" fill="#FBBF24">  "strings": { "nav.home": {"text": "Accueil", "max_chars": 12},</text>
+    <text x="36" y="178" font-family="Consolas, monospace" font-size="10.5" fill="#94A3B8">    "error.INSUFFICIENT_FUNDS": {"text": "Il vous manque {missing}."} } }</text>
+
+    <text x="24" y="236" font-size="13" font-weight="700" fill="#0F172A">2. Règles strictes validées par le Sandbox &amp; le Jury :</text>
+    <text x="24" y="260" font-size="12.5" fill="#334155">• 89 clés officielles + repli dynamique IA si nouvelle clé (0 MISSING_STRINGS)</text>
+    <text x="24" y="280" font-size="12.5" fill="#059669" font-weight="600">• Emplacements {amount}, {name}, {fee}, {missing} intacts • max_chars respectés</text>
+
+    <text x="24" y="314" font-size="13" font-weight="700" fill="#0F172A">3. Réponse Middleware → Gateway (avec adaptation TTS fr-FR) :</text>
+    <rect x="24" y="326" width="582" height="104" rx="8" fill="#0F172A"/>
+    <text x="36" y="350" font-family="Consolas, monospace" font-size="10.5" fill="#34D399">{ "language": "dua",</text>
+    <text x="36" y="372" font-family="Consolas, monospace" font-size="10.5" fill="#E2E8F0">  "strings": { "nav.home": "Mboa",</text>
+    <text x="36" y="394" font-family="Consolas, monospace" font-size="10.5" fill="#FBBF24">    "error.INSUFFICIENT_FUNDS": "Moni mu si koki: o bena {missing} si." } }</text>
+  </g>
+</svg>
