@@ -6,16 +6,27 @@ les 12 codes d'erreur traduits, et les explications de terminologie financière.
 import re
 from typing import Any
 
+# 7 Langues Nationales Camerounaises (incl. Pidgin Camerounais) + Langues officielles (FR/EN) pour le pivot/source
+CAMEROON_NATIONAL_LANGUAGES = {
+    "dua": "Duálá (Cameroun)",
+    "ewo": "Ewondo (Cameroun)",
+    "bas": "Ɓasaá (Cameroun)",
+    "bbj": "Ghɔmálá' (Cameroun)",
+    "byv": "Mə̀dûmbà (Cameroun)",
+    "fub": "Fulfulde (Cameroun)",
+    "wes": "Pidgin Camerounais (Kamtok)",
+}
+
 SUPPORTED_LANGUAGES = {
+    "dua": "Duálá",
+    "ewo": "Ewondo",
+    "bas": "Ɓasaá",
+    "bbj": "Ghɔmálá'",
+    "byv": "Mə̀dûmbà",
+    "fub": "Fulfulde",
+    "wes": "Pidgin Camerounais (Kamtok)",
     "fr": "Français",
     "en": "English",
-    "ewo": "Ewondo",
-    "fub": "Fulfulde",
-    "dua": "Duálá",
-    "bas": "Ɓasaá",
-    "bbj": "Ghɔmálá",
-    "byv": "Mə̀dûmbà",
-    "wes": "Pidgin",
 }
 
 LANGUAGE_ALIASES = {
@@ -45,7 +56,7 @@ def detect_language(text: str, fallback: str = "fr") -> str:
     markers = {
         "wes": ["weh", "moni", "pesin", "comot", "fit", "wetin", "abeg", "na ", "don ", "wan ", "how much", "send moni"],
         "fub": ["ceede", "njoɓdi", "njobdi", "neldude", "nel ", "konte", "sannu", "sannou", "tabbitin", "heɓoowo", "heboowo", "meere", "yonaa", "demgal", "golle", "keeri"],
-        "ewo": ["mone", "mòni", "lôm", "lom ", "mbolo", "yebe", "fre ", "kônte", "mod a kos", "zeze", "zezé", "kele", "sûli", "suli", "bili", "ben ", "alom", "nkobo"],
+        "ewo": ["mone", "mòni", "mɔni", "a lig", "a ne va", "wom", "lôm", "lom ", "mbolo", "yebe", "fre ", "kônte", "mod a kos", "zeze", "zezé", "kele", "sûli", "suli", "bili", "ben ", "alom", "nkobo"],
         "dua": ["bwea", "bwam", "idib", "masoma", "na som", "mboa", "ndutu", "môni", "moni ma", "lóma", "loma", "hee", "kem", "mbale", "diba", "njoa", "bola", "timbis"],
         "bas": ["kɛl i lam", "kel i lam", "mɛ̀ ǹyega", "nyega", "lémèl", "lemel", "lôñ", "moni wem", "moni u nkon", "ni nkon", "basa", "ŋ̀ŋ̂", "tɔ̀", "nsas", "bilon", "hémle", "hemle"],
         "bbj": ["ghomala", "mbúʼ", "mbu", "mbou", "ndèmá", "ndema", "ŋkap", "nkap", "nkàp", "yôô", "yoo", "ka'", "tso", "nyam", "bivul", "tom "],
@@ -230,10 +241,10 @@ TEMPLATES: dict[str, dict[str, str]] = {
         "err_GENERIC": "Juumre reso: sarwis oo heɓataake jooni. Fuɗɗito kadi.",
     },
     "ewo": {
-        "menu": "Safinum Pay\n1. Mone ma tabe\n2. Lom mone\n3. Fre\n4. Alom ya nde\n5. Kredit\n6. Faktir\n0. Nkobo",
-        "menu_ussd": "Safinum Pay\n1.Mone\n2.Lom mone\n3.Fre\n4.Alom nde\n5.Kredit\n6.Faktir\n0.Nkobo",
-        "balance": "Mbolo {name}. Mone woe ma tabe a ne {balance} FCFA (konte {phone}).",
-        "balance_ussd": "Mone {name}: {balance} FCFA. 1.Lom 2.Fre 0.Menu",
+        "menu": "Safinum Pay\n1. Mòni a lig\n2. Lom mòni\n3. Fre\n4. Alom ya nde\n5. Kredit\n6. Faktir\n0. Nkobo",
+        "menu_ussd": "Safinum Pay\n1.Moni\n2.Lom moni\n3.Fre\n4.Alom nde\n5.Kredit\n6.Faktir\n0.Nkobo",
+        "balance": "Mbolo {name}. Mòni wôé a lig a ne {balance} FCFA (konte {phone}).",
+        "balance_ussd": "Moni {name}: {balance} FCFA. 1.Lom 2.Fre 0.Menu",
         "fees": "Asu {amount} FCFA ({op_type}), fre a ne {fee} FCFA. Mone mese ba ye nyon: {total} FCFA.",
         "fees_ussd": "Fre {amount} FCFA: {fee} FCFA. Mese: {total} FCFA. 0.Menu",
         "history_header": "Alom mone ya nde {count}:",
@@ -445,7 +456,7 @@ FINANCIAL_TERMS: dict[str, dict[str, str]] = {
         "en": "The balance is the total amount of money currently available in your account.",
         "wes": "Balance na all di moni weh e remain inside yu account now.",
         "fub": "Ceede keddiide ko limre ceede gonnde e konte maa jooni.",
-        "ewo": "Mone ma tabe a ne mone mese me ne a konte woe den.",
+        "ewo": "Mòni a lig a ne mòni mese me ne a kônte wôé dên.",
         "dua": "Moni ma dia me moni mese me o konte ango tatan.",
         "bas": "Moni u nkon u yene moni mwomede u ye i konte yon nano.",
         "bbj": "Nkap ya tse ba nkap tsem e ba o konte po tatan.",
@@ -510,39 +521,168 @@ def get_term_explanation(lang: str, term_key: str) -> str:
 
 # Lexique mot-à-mot vérifié pour les phrases inédites ou partielles (9 langues)
 WORD_GLOSSARY: dict[str, dict[str, str]] = {
+    # Salutations, politesse & dialogue courant
     "bonjour": {"fr": "bonjour", "en": "hello", "wes": "hello", "fub": "sannu", "ewo": "mbolo", "dua": "idib'a bwam", "bas": "kɛl i lam", "bbj": "mbúʼ", "byv": "o zi à"},
+    "salut": {"fr": "salut", "en": "hi", "wes": "i salut oh", "fub": "sannu", "ewo": "masug", "dua": "na nje", "bas": "me yéga", "bbj": "caʼtə", "byv": "mə cà'tə̌"},
+    "bonsoir": {"fr": "bonsoir", "en": "good evening", "wes": "good evening", "fub": "jam hiiri", "ewo": "mbembe ngoge", "dua": "ebyamu a bwam", "bas": "kokoa i lam", "bbj": "mbúʼ", "byv": "o zi à"},
+    "bienvenue": {"fr": "bienvenue", "en": "welcome", "wes": "welcome", "fub": "jaɓɓama", "ewo": "mbolo", "dua": "bwam", "bas": "mɛ̀ ǹyega", "bbj": "mbúʼ", "byv": "o zi à"},
     "merci": {"fr": "merci", "en": "thank you", "wes": "thank yu", "fub": "useko", "ewo": "ma və́ wa akíba", "dua": "na som", "bas": "matue", "bbj": "ndèmá", "byv": "mə̀ làbtə̌"},
-    "combien": {"fr": "combien", "en": "how much", "wes": "how much", "fub": "noy", "ewo": "tân ya", "dua": "nena", "bas": "nwaa", "bbj": "sa", "byv": "sa"},
+    "pardon": {"fr": "pardon", "en": "please", "wes": "abeg", "fub": "accu hakke", "ewo": "engongol", "dua": "ndedi", "bas": "nwéhél", "bbj": "mesə", "byv": "ndə"},
+    "svp": {"fr": "s'il vous plaît", "en": "please", "wes": "abeg", "fub": "useni", "ewo": "engongol", "dua": "na so", "bas": "sôhô", "bbj": "mba", "byv": "mba"},
     "oui": {"fr": "oui", "en": "yes", "wes": "yes", "fub": "ii", "ewo": "yebe", "dua": "hee", "bas": "ŋ̀ŋ̂", "bbj": "yôô", "byv": "ŋ̂"},
     "non": {"fr": "non", "en": "no", "wes": "no", "fub": "alaa", "ewo": "bili", "dua": "kem", "bas": "tɔ̀", "bbj": "ka'", "byv": "ŋŋ̀"},
-    "solde": {"fr": "solde", "en": "balance", "wes": "moni weh remain", "fub": "ceede keddiiɗe", "ewo": "mone ma tabe", "dua": "môni ma dia", "bas": "moni u nkon", "bbj": "ŋkap ya tse", "byv": "nkap bwam"},
+    "daccord": {"fr": "d'accord", "en": "okay", "wes": "na so", "fub": "gasii", "ewo": "yebe", "dua": "hee", "bas": "hémle", "bbj": "yôô", "byv": "yebe"},
+    "ok": {"fr": "d'accord", "en": "okay", "wes": "ok", "fub": "gasii", "ewo": "yebe", "dua": "hee", "bas": "hémle", "bbj": "yôô", "byv": "yebe"},
+    "aide": {"fr": "aide", "en": "help", "wes": "help", "fub": "ballal", "ewo": "mvolan", "dua": "jongwane", "bas": "mahôla", "bbj": "mvolan", "byv": "mvolan"},
+    "aider": {"fr": "aider", "en": "help", "wes": "help", "fub": "wallude", "ewo": "vole", "dua": "ongwane", "bas": "hôla", "bbj": "vole", "byv": "vole"},
+
+    # Questions & pronoms
+    "combien": {"fr": "combien", "en": "how much", "wes": "how much", "fub": "noye", "ewo": "tân ya", "dua": "nena", "bas": "nwaa", "bbj": "sa", "byv": "sa"},
+    "comment": {"fr": "comment", "en": "how", "wes": "na how", "fub": "no", "ewo": "aya", "dua": "nena", "bas": "lelaa", "bbj": "pa'", "byv": "kə"},
+    "quoi": {"fr": "quoi", "en": "what", "wes": "wetin", "fub": "ko", "ewo": "dzé", "dua": "nje", "bas": "kii", "bbj": "ka", "byv": "kə"},
+    "qui": {"fr": "qui", "en": "who", "wes": "who", "fub": "mo", "ewo": "zá", "dua": "nja", "bas": "njee", "bbj": "wə", "byv": "wə"},
+    "ou": {"fr": "où", "en": "where", "wes": "usai", "fub": "toye", "ewo": "vé", "dua": "owe", "bas": "hee", "bbj": "ha", "byv": "ha"},
+    "quand": {"fr": "quand", "en": "when", "wes": "wustem", "fub": "nde", "ewo": "éyong fé", "dua": " njika ponda", "bas": "ngéda", "bbj": "ngə", "byv": "ngə"},
+    "pourquoi": {"fr": "pourquoi", "en": "why", "wes": "why", "fub": "ko waɗi", "ewo": "asu dzé", "dua": "onyola nje", "bas": "inyu kii", "bbj": "mba ka", "byv": "num kə"},
+
+    # Nombres en lettres : conservés en français pour éviter toute confusion bancaire
+    "zero": {"fr": "zéro", "en": "zero", "wes": "zéro", "fub": "zéro", "ewo": "zéro", "dua": "zéro", "bas": "zéro", "bbj": "zéro", "byv": "zéro"},
+    "un": {"fr": "un", "en": "one", "wes": "un", "fub": "un", "ewo": "un", "dua": "un", "bas": "un", "bbj": "un", "byv": "un"},
+    "deux": {"fr": "deux", "en": "two", "wes": "deux", "fub": "deux", "ewo": "deux", "dua": "deux", "bas": "deux", "bbj": "deux", "byv": "deux"},
+    "trois": {"fr": "trois", "en": "three", "wes": "trois", "fub": "trois", "ewo": "trois", "dua": "trois", "bas": "trois", "bbj": "trois", "byv": "trois"},
+    "quatre": {"fr": "quatre", "en": "four", "wes": "quatre", "fub": "quatre", "ewo": "quatre", "dua": "quatre", "bas": "quatre", "bbj": "quatre", "byv": "quatre"},
+    "cinq": {"fr": "cinq", "en": "five", "wes": "cinq", "fub": "cinq", "ewo": "cinq", "dua": "cinq", "bas": "cinq", "bbj": "cinq", "byv": "cinq"},
+    "dix": {"fr": "dix", "en": "ten", "wes": "dix", "fub": "dix", "ewo": "dix", "dua": "dix", "bas": "dix", "bbj": "dix", "byv": "dix"},
+    "cent": {"fr": "cent", "en": "hundred", "wes": "cent", "fub": "cent", "ewo": "cent", "dua": "cent", "bas": "cent", "bbj": "cent", "byv": "cent"},
+    "mille": {"fr": "mille", "en": "thousand", "wes": "mille", "fub": "mille", "ewo": "mille", "dua": "mille", "bas": "mille", "bbj": "mille", "byv": "mille"},
+    "fcfa": {"fr": "FCFA", "en": "FCFA", "wes": "FCFA", "fub": "FCFA", "ewo": "FCFA", "dua": "FCFA", "bas": "FCFA", "bbj": "FCFA", "byv": "FCFA"},
+    "xaf": {"fr": "XAF", "en": "XAF", "wes": "XAF", "fub": "XAF", "ewo": "XAF", "dua": "XAF", "bas": "XAF", "bbj": "XAF", "byv": "XAF"},
+    "cfa": {"fr": "CFA", "en": "CFA", "wes": "CFA", "fub": "CFA", "ewo": "CFA", "dua": "CFA", "bas": "CFA", "bbj": "CFA", "byv": "CFA"},
+
+    # Terminologie bancaire, finance numérique & Mobile Money
+    "solde": {"fr": "solde", "en": "balance", "wes": "moni weh remain", "fub": "ceede keddiiɗe", "ewo": "mòni a lig", "dua": "môni ma dia", "bas": "moni u nkon", "bbj": "ŋkap ya tse", "byv": "nkap bwam"},
     "argent": {"fr": "argent", "en": "money", "wes": "moni", "fub": "ceede", "ewo": "mòni", "dua": "môni", "bas": "moni", "bbj": "ŋkap", "byv": "nkap"},
     "montant": {"fr": "montant", "en": "amount", "wes": "how much", "fub": "limre ceede", "ewo": "mone", "dua": "môni", "bas": "moni", "bbj": "ŋkap", "byv": "nkap"},
+    "somme": {"fr": "somme", "en": "amount", "wes": "moni", "fub": "limre ceede", "ewo": "mone", "dua": "môni", "bas": "moni", "bbj": "ŋkap", "byv": "nkap"},
     "frais": {"fr": "frais", "en": "fees", "wes": "charges", "fub": "njoɓdi", "ewo": "fre", "dua": "njoa", "bas": "nsas", "bbj": "frais", "byv": "frais"},
+    "commission": {"fr": "commission", "en": "fee", "wes": "charges", "fub": "njoɓdi", "ewo": "fre", "dua": "njoa", "bas": "nsas", "bbj": "frais", "byv": "frais"},
+    "tarif": {"fr": "tarif", "en": "rate", "wes": "charges", "fub": "njoɓdi", "ewo": "fre", "dua": "njoa", "bas": "nsas", "bbj": "frais", "byv": "frais"},
+    "cout": {"fr": "coût", "en": "cost", "wes": "charges", "fub": "njoɓdi", "ewo": "fre", "dua": "njoa", "bas": "nsas", "bbj": "frais", "byv": "frais"},
+    "prix": {"fr": "prix", "en": "price", "wes": "price", "fub": "coggu", "ewo": "taan", "dua": "mususedi", "bas": "nsañ", "bbj": "ŋkap", "byv": "nkap"},
+    "total": {"fr": "total", "en": "total", "wes": "all moni", "fub": "fuu", "ewo": "mese", "dua": "mese", "bas": "mwomede", "bbj": "tsem", "byv": "tsem"},
+    "plafond": {"fr": "plafond", "en": "limit", "wes": "limit", "fub": "keeri", "ewo": "plafon", "dua": "ndelo", "bas": "ndék", "bbj": "plafon", "byv": "plafon"},
+    "limite": {"fr": "limite", "en": "limit", "wes": "limit", "fub": "keeri", "ewo": "ndelo", "dua": "ndelo", "bas": "ndék", "bbj": "plafon", "byv": "plafon"},
+    "banque": {"fr": "banque", "en": "bank", "wes": "bank", "fub": "banki", "ewo": "banki", "dua": "banki", "bas": "banki", "bbj": "banki", "byv": "banki"},
+    "compte": {"fr": "compte", "en": "account", "wes": "account", "fub": "konte", "ewo": "kônte", "dua": "konte", "bas": "konte", "bbj": "konte", "byv": "konte"},
+    "client": {"fr": "client", "en": "customer", "wes": "customer", "fub": "soodoowo", "ewo": "mod", "dua": "moto", "bas": "mut", "bbj": "moto", "byv": "moto"},
+    "beneficiaire": {"fr": "bénéficiaire", "en": "beneficiary", "wes": "pesin weh go receive", "fub": "heɓoowo", "ewo": "mod a kos", "dua": "moto nu ma kusa", "bas": "mut a nkôs", "bbj": "we e nyam", "byv": "wo e nyam"},
+    "destinataire": {"fr": "destinataire", "en": "recipient", "wes": "pesin weh go receive", "fub": "heɓoowo", "ewo": "mod a kos", "dua": "moto nu ma kusa", "bas": "mut a nkôs", "bbj": "we e nyam", "byv": "wo e nyam"},
+    "nom": {"fr": "nom", "en": "name", "wes": "name", "fub": "innde", "ewo": "dzoe", "dua": "dina", "bas": "jôl", "bbj": "dzo", "byv": "lin"},
+    "numero": {"fr": "numéro", "en": "number", "wes": "number", "fub": "limre", "ewo": "nombre", "dua": "numba", "bas": "nombo", "bbj": "nombo", "byv": "nombo"},
+    "telephone": {"fr": "téléphone", "en": "phone", "wes": "phone", "fub": "telefon", "ewo": "telefon", "dua": "telefon", "bas": "telefon", "bbj": "telefon", "byv": "telefon"},
+    "credit": {"fr": "crédit", "en": "airtime", "wes": "credit", "fub": "kredit", "ewo": "kredit", "dua": "kredit", "bas": "kredit", "bbj": "kredit", "byv": "kredit"},
+    "recharge": {"fr": "recharge", "en": "top up", "wes": "credit", "fub": "kredit", "ewo": "kredit", "dua": "kredit", "bas": "kredit", "bbj": "kredit", "byv": "kredit"},
+    "facture": {"fr": "facture", "en": "bill", "wes": "bill", "fub": "faktir", "ewo": "faktir", "dua": "faktir", "bas": "faktir", "bbj": "faktir", "byv": "faktir"},
+    "eau": {"fr": "eau", "en": "water", "wes": "wata", "fub": "ndiyam", "ewo": "mendim", "dua": "madiba", "bas": "malép", "bbj": "shyə", "byv": "ntsi"},
+    "electricite": {"fr": "électricité", "en": "electricity", "wes": "light", "fub": "kuuraŋ", "ewo": "kuran", "dua": "kuran", "bas": "kuran", "bbj": "kuran", "byv": "kuran"},
+    "courant": {"fr": "courant", "en": "power", "wes": "light", "fub": "kuuraŋ", "ewo": "kuran", "dua": "kuran", "bas": "kuran", "bbj": "kuran", "byv": "kuran"},
+    "television": {"fr": "télévision", "en": "television", "wes": "TV", "fub": "televizion", "ewo": "televizion", "dua": "televizion", "bas": "televizion", "bbj": "televizion", "byv": "televizion"},
+    "internet": {"fr": "internet", "en": "internet", "wes": "intanet", "fub": "enternet", "ewo": "enternet", "dua": "intanet", "bas": "enternet", "bbj": "enternet", "byv": "enternet"},
+    "reseau": {"fr": "réseau", "en": "network", "wes": "network", "fub": "reso", "ewo": "reso", "dua": "reso", "bas": "reso", "bbj": "reso", "byv": "reso"},
+    "operateur": {"fr": "opérateur", "en": "operator", "wes": "network", "fub": "operater", "ewo": "operater", "dua": "operater", "bas": "operater", "bbj": "operater", "byv": "operater"},
+    "service": {"fr": "service", "en": "service", "wes": "service", "fub": "sarwis", "ewo": "sarvis", "dua": "sarvis", "bas": "sarvis", "bbj": "sarvis", "byv": "sarvis"},
+    "historique": {"fr": "historique", "en": "history", "wes": "history", "fub": "golle ceede", "ewo": "alom ya nde", "dua": "bola la môni", "bas": "biloñ bi moni", "bbj": "bivul bi ŋkap", "byv": "bivul bi nkap"},
+    "operation": {"fr": "opération", "en": "transaction", "wes": "transaction", "fub": "golle", "ewo": "alôm", "dua": "bola", "bas": "biloñ", "bbj": "bivul", "byv": "bivul"},
+    "transaction": {"fr": "transaction", "en": "transaction", "wes": "transaction", "fub": "golle ceede", "ewo": "alôm mone", "dua": "bola la môni", "bas": "biloñ bi moni", "bbj": "tom ŋkap", "byv": "ntúm nkap"},
+    "reference": {"fr": "référence", "en": "reference", "wes": "reference", "fub": "referaans", "ewo": "referans", "dua": "referans", "bas": "referans", "bbj": "referans", "byv": "referans"},
+    "recu": {"fr": "reçu", "en": "receipt", "wes": "receipt", "fub": "seedee", "ewo": "kalara", "dua": "kalati", "bas": "kaat", "bbj": "referans", "byv": "referans"},
+    "code": {"fr": "code", "en": "code", "wes": "code", "fub": "kod", "ewo": "kod", "dua": "kod", "bas": "kod", "bbj": "kod", "byv": "kod"},
+    "erreur": {"fr": "erreur", "en": "error", "wes": "wahala", "fub": "juumre", "ewo": "ékop", "dua": "ndutu", "bas": "hôha", "bbj": "ndutu", "byv": "ndutu"},
+    "probleme": {"fr": "problème", "en": "problem", "wes": "wahala", "fub": "caɗeele", "ewo": "ndzúk", "dua": "ndutu", "bas": "ndutu", "bbj": "problem", "byv": "problem"},
+    "succes": {"fr": "succès", "en": "success", "wes": "fine", "fub": "gasii", "ewo": "mbembe", "dua": "bwam", "bas": "longe", "bbj": "bwe", "byv": "bwam"},
+    "attente": {"fr": "en attente", "en": "pending", "wes": "di wait", "fub": "e fada", "ewo": "a yange", "dua": "o longe", "bas": "u mbem", "bbj": "e yange", "byv": "a yange"},
+    "langue": {"fr": "langue", "en": "language", "wes": "language", "fub": "demgal", "ewo": "nkobo", "dua": "bwea", "bas": "hop", "bbj": "ghom", "byv": "medumba"},
+    "accueil": {"fr": "accueil", "en": "home", "wes": "home", "fub": "jaɓɓorgo", "ewo": "aba", "dua": "mboa", "bas": "ndap", "bbj": "la'", "byv": "nda"},
+    "maison": {"fr": "maison", "en": "house", "wes": "house", "fub": "suudu", "ewo": "nda", "dua": "ndabo", "bas": "ndap", "bbj": "nda", "byv": "nda"},
+    "date": {"fr": "date", "en": "date", "wes": "date", "fub": "ñalnde", "ewo": "amôs", "dua": "bunya", "bas": "kel", "bbj": "lyɛ̌'", "byv": "lyɛ'"},
+    "jour": {"fr": "jour", "en": "day", "wes": "day", "fub": "ñalnde", "ewo": "amôs", "dua": "bunya", "bas": "kel", "bbj": "lyɛ̌'", "byv": "lyɛ'"},
+    "aujourd'hui": {"fr": "aujourd'hui", "en": "today", "wes": "today", "fub": "hannde", "ewo": "den", "dua": "wɛŋgɛ", "bas": "len", "bbj": "tatan", "byv": "tatan"},
+    "demain": {"fr": "demain", "en": "tomorrow", "wes": "tomorrow", "fub": "jaŋgo", "ewo": "okídí", "dua": "kiele", "bas": "yani", "bbj": "fɔ̂kdzǔ", "byv": "ndǎmnjʉ"},
+    "maintenant": {"fr": "maintenant", "en": "now", "wes": "now", "fub": "jooni", "ewo": "éyong nyi", "dua": "tatan", "bas": "nano", "bbj": "tatan", "byv": "tatan"},
+
+    # Verbes d'action bancaires et leurs formes conjuguées courantes
     "envoyer": {"fr": "envoyer", "en": "send", "wes": "send", "fub": "neldude", "ewo": "lôm", "dua": "lóma", "bas": "lémèl", "bbj": "tom", "byv": "ntúm"},
+    "envoie": {"fr": "envoie", "en": "send", "wes": "send", "fub": "nel", "ewo": "lôm", "dua": "lóma", "bas": "lémèl", "bbj": "tom", "byv": "ntúm"},
+    "envoye": {"fr": "envoyé", "en": "sent", "wes": "don send", "fub": "neldaama", "ewo": "a lômban", "dua": "e lómabe", "bas": "i nlémél", "bbj": "tom", "byv": "ntúm"},
     "transfert": {"fr": "transfert", "en": "transfer", "wes": "send moni", "fub": "nelde ceede", "ewo": "alôm mone", "dua": "loma la môni", "bas": "lémèl moni", "bbj": "tom ŋkap", "byv": "ntúm nkap"},
-    "payer": {"fr": "payer", "en": "pay", "wes": "pay", "fub": "yoɓude", "ewo": "ave", "dua": "sawa", "bas": "jel", "bbj": "fo", "byv": "fo"},
+    "transferer": {"fr": "transférer", "en": "transfer", "wes": "send", "fub": "neldude", "ewo": "lôm", "dua": "lóma", "bas": "lémèl", "bbj": "tom", "byv": "ntúm"},
+    "recevoir": {"fr": "recevoir", "en": "receive", "wes": "receive", "fub": "heɓude", "ewo": "kos", "dua": "kusa", "bas": "kôs", "bbj": "nyam", "byv": "nyam"},
+    "retirer": {"fr": "retirer", "en": "withdraw", "wes": "comot moni", "fub": "ittude", "ewo": "nyon", "dua": "busise", "bas": "pémés", "bbj": "tu'", "byv": "tu'"},
+    "retrait": {"fr": "retrait", "en": "withdrawal", "wes": "comot moni", "fub": "ittugo ceede", "ewo": "nyonan mone", "dua": "busa môni", "bas": "pémés moni", "bbj": "tu' ŋkap", "byv": "tu' nkap"},
+    "payer": {"fr": "payer", "en": "pay", "wes": "pay", "fub": "yoɓude", "ewo": "ya", "dua": "sawa", "bas": "jel", "bbj": "fo", "byv": "fo"},
+    "paie": {"fr": "paie", "en": "pay", "wes": "pay", "fub": "yoɓ", "ewo": "ya", "dua": "sawa", "bas": "jel", "bbj": "fo", "byv": "fo"},
+    "paye": {"fr": "payé", "en": "paid", "wes": "don pay", "fub": "yoɓaama", "ewo": "a yaban", "dua": "e sawabe", "bas": "i njel", "bbj": "fo bwe", "byv": "fo bwam"},
+    "acheter": {"fr": "acheter", "en": "buy", "wes": "buy", "fub": "soodude", "ewo": "kus", "dua": "anda", "bas": "somb", "bbj": "yu", "byv": "yu"},
+    "achete": {"fr": "achète", "en": "buy", "wes": "buy", "fub": "sood", "ewo": "kus", "dua": "anda", "bas": "somb", "bbj": "yu", "byv": "yu"},
     "verifier": {"fr": "vérifier", "en": "verify", "wes": "check", "fub": "ƴeewde", "ewo": "yen mbembe", "dua": "kwaléa", "bas": "tol", "bbj": "ye bwe", "byv": "yen bwam"},
+    "consulter": {"fr": "consulter", "en": "check", "wes": "check", "fub": "ƴeewde", "ewo": "yen", "dua": "ombwa", "bas": "béñge", "bbj": "ye", "byv": "yen"},
+    "voir": {"fr": "voir", "en": "see", "wes": "see", "fub": "yi'ude", "ewo": "yen", "dua": "ombwa", "bas": "tehe", "bbj": "ye", "byv": "yen"},
     "confirmer": {"fr": "confirmer", "en": "confirm", "wes": "confirm", "fub": "tabbitinde", "ewo": "yebe", "dua": "timbisɛ", "bas": "hémle", "bbj": "yôô", "byv": "yebe"},
+    "valider": {"fr": "valider", "en": "confirm", "wes": "confirm", "fub": "tabbitinde", "ewo": "yebe", "dua": "timbisɛ", "bas": "hémle", "bbj": "yôô", "byv": "yebe"},
     "annuler": {"fr": "annuler", "en": "cancel", "wes": "cancel", "fub": "haɓɓitde", "ewo": "bili", "dua": "timba", "bas": "bôg", "bbj": "ka'", "byv": "tebe"},
     "modifier": {"fr": "modifier", "en": "edit", "wes": "change am", "fub": "waylude", "ewo": "sûli", "dua": "tukwa", "bas": "henha", "bbj": "shang", "byv": "shang"},
-    "compte": {"fr": "compte", "en": "account", "wes": "account", "fub": "konte", "ewo": "kônte", "dua": "konte", "bas": "kaat", "bbj": "konte", "byv": "konte"},
-    "beneficiaire": {"fr": "bénéficiaire", "en": "beneficiary", "wes": "pesin weh go receive", "fub": "heɓoowo", "ewo": "mod a kos", "dua": "moto nu ma kusa", "bas": "mut a nkôs", "bbj": "we e nyam", "byv": "wo e nyam"},
-    "facture": {"fr": "facture", "en": "bill", "wes": "bill", "fub": "faktir", "ewo": "faktir", "dua": "faktir", "bas": "faktir", "bbj": "faktir", "byv": "faktir"},
+    "changer": {"fr": "changer", "en": "change", "wes": "change am", "fub": "waylude", "ewo": "sûli", "dua": "tukwa", "bas": "henha", "bbj": "shang", "byv": "shang"},
+    "corriger": {"fr": "corriger", "en": "correct", "wes": "change am", "fub": "waylude", "ewo": "sûli", "dua": "tukwa", "bas": "henha", "bbj": "shang", "byv": "shang"},
+    "choisir": {"fr": "choisir", "en": "choose", "wes": "pick", "fub": "suɓaade", "ewo": "tob", "dua": "posa", "bas": "pohol", "bbj": "tso", "byv": "tso"},
+    "ecouter": {"fr": "écouter", "en": "listen", "wes": "listen", "fub": "heɗaade", "ewo": "vogolo", "dua": "senga", "bas": "emble", "bbj": "yu'", "byv": "yu'"},
+    "parler": {"fr": "parler", "en": "speak", "wes": "talk", "fub": "haalude", "ewo": "kobo", "dua": "bwala", "bas": "pot", "bbj": "ghɔm", "byv": "cɔ"},
+    "continuer": {"fr": "continuer", "en": "continue", "wes": "continue", "fub": "jokkude", "ewo": "kele osu", "dua": "ala oboso", "bas": "ke bisu", "bbj": "gɔ̌ ntum", "byv": "nə ntum"},
+    "retour": {"fr": "retour", "en": "back", "wes": "go back", "fub": "rutto", "ewo": "bulan", "dua": "timba", "bas": "témb", "bbj": "le'", "byv": "kə'"},
+    "terminer": {"fr": "terminer", "en": "finish", "wes": "finish", "fub": "timminde", "ewo": "mana", "dua": "bɔlɛ", "bas": "mal", "bbj": "mɛ", "byv": "mɛ"},
     "securite": {"fr": "sécurité", "en": "security", "wes": "security", "fub": "kisal", "ewo": "mvoé", "dua": "bwam", "bas": "lam", "bbj": "bwe", "byv": "bwam"},
     "insuffisant": {"fr": "insuffisant", "en": "insufficient", "wes": "no reach", "fub": "yonaa", "ewo": "ne ki tegé", "dua": "si koki", "bas": "nkola-be", "bbj": "ka kwet", "byv": "ka kwet"},
+    "disponible": {"fr": "disponible", "en": "available", "wes": "weh remain", "fub": "keddiiɗe", "ewo": "a lig ma", "dua": "ma dia", "bas": "u nkon", "bbj": "ya tse", "byv": "ya tse"},
     "gratuit": {"fr": "gratuit", "en": "free", "wes": "free", "fub": "meere", "ewo": "zezé", "dua": "zeze", "bas": "zeze", "bbj": "zeze", "byv": "zeze"},
+    "bon": {"fr": "bon", "en": "good", "wes": "fine", "fub": "moƴƴo", "ewo": "mbembe", "dua": "bwam", "bas": "lam", "bbj": "bwe", "byv": "bwam"},
+    "bien": {"fr": "bien", "en": "well", "wes": "fine", "fub": "no feewi", "ewo": "mbembe", "dua": "bwam", "bas": "longe", "bbj": "bwe", "byv": "bwam"},
 }
 
-# Alias EN -> clé canonique du glossaire
+# Alias FR (variantes orthographiques/conjuguées) & EN -> clé canonique du glossaire
 _EN_TO_GLOSSARY_KEY = {
-    "hello": "bonjour", "hi": "bonjour", "thanks": "merci", "thank you": "merci",
-    "yes": "oui", "no": "non", "balance": "solde", "money": "argent",
-    "amount": "montant", "fee": "frais", "fees": "frais", "send": "envoyer",
-    "transfer": "transfert", "pay": "payer", "verify": "verifier", "check": "verifier",
-    "confirm": "confirmer", "cancel": "annuler", "edit": "modifier", "account": "compte",
-    "beneficiary": "beneficiaire", "bill": "facture", "security": "securite",
-    "insufficient": "insuffisant", "free": "gratuit",
+    "hello": "bonjour", "hi": "salut", "hey": "salut", "coucou": "salut", "bsr": "bonsoir", "bjr": "bonjour",
+    "good morning": "bonjour", "good evening": "bonsoir", "welcome": "bienvenue",
+    "thanks": "merci", "thank you": "merci", "please": "svp", "sorry": "pardon",
+    "yes": "oui", "no": "non", "okay": "ok", "d'accord": "daccord",
+    "help": "aide", "aidez": "aider", "aidez-moi": "aider",
+    "how much": "combien", "how": "comment", "what": "quoi", "who": "qui", "where": "ou", "où": "ou", "when": "quand", "why": "pourquoi",
+    "balance": "solde", "money": "argent", "cash": "argent", "fonds": "argent",
+    "amount": "montant", "sum": "somme", "fee": "frais", "fees": "frais", "charges": "frais", "cost": "cout", "coût": "cout", "price": "prix",
+    "limit": "plafond", "maximum": "plafond", "max": "plafond",
+    "bank": "banque", "account": "compte", "customer": "client",
+    "beneficiary": "beneficiaire", "bénéficiaire": "beneficiaire", "recipient": "destinataire",
+    "name": "nom", "number": "numero", "numéro": "numero", "phone": "telephone", "téléphone": "telephone", "tel": "telephone",
+    "airtime": "credit", "crédit": "credit", "unites": "credit", "unités": "credit",
+    "bill": "facture", "bills": "facture", "factures": "facture",
+    "water": "eau", "electricity": "electricite", "électricité": "electricite", "lumiere": "electricite", "lumière": "electricite",
+    "network": "reseau", "réseau": "reseau", "operator": "operateur", "opérateur": "operateur",
+    "history": "historique", "transactions": "transaction", "operations": "operation", "opérations": "operation", "opération": "operation",
+    "receipt": "recu", "reçu": "recu", "référence": "reference",
+    "error": "erreur", "problem": "probleme", "problème": "probleme",
+    "language": "langue", "home": "accueil", "house": "maison", "today": "aujourd'hui", "tomorrow": "demain", "now": "maintenant",
+    "send": "envoyer", "envoies": "envoie", "envoyez": "envoyer", "envoyé": "envoye",
+    "transfer": "transfert", "transférer": "transferer", "transfere": "transferer", "transfère": "transferer", "virement": "transfert",
+    "receive": "recevoir", "reçois": "recevoir", "recois": "recevoir",
+    "withdraw": "retirer", "withdrawal": "retrait",
+    "pay": "payer", "payez": "payer", "payé": "paye", "paid": "paye",
+    "buy": "acheter", "achète": "achete",
+    "verify": "verifier", "vérifier": "verifier", "vérifie": "verifier", "check": "consulter", "consulte": "consulter", "see": "voir", "vois": "voir",
+    "confirm": "confirmer", "confirme": "confirmer", "confirmez": "confirmer", "validate": "valider", "valide": "valider",
+    "cancel": "annuler", "annule": "annuler", "annulez": "annuler",
+    "edit": "modifier", "modifie": "modifier", "change": "changer", "corrige": "corriger",
+    "choose": "choisir", "choisis": "choisir", "pick": "choisir",
+    "listen": "ecouter", "écouter": "ecouter", "écoute": "ecouter", "speak": "parler", "parle": "parler",
+    "back": "retour", "finish": "terminer", "done": "terminer", "terminé": "terminer",
+    "security": "securite", "sécurité": "securite", "insufficient": "insuffisant", "available": "disponible", "free": "gratuit", "good": "bon",
 }
 
 
@@ -552,12 +692,15 @@ _CONNECTORS: dict[str, dict[str, str]] = {
     "veux": {"fr": "veux", "en": "want", "wes": "wan", "fub": "yiɗi", "ewo": "yi", "dua": "pula", "bas": "nyéñ", "bbj": "kôŋ", "byv": "kô"},
     "a": {"fr": "à", "en": "to", "wes": "give", "fub": "e", "ewo": "a", "dua": "na", "bas": "í", "bbj": "a", "byv": "a"},
     "à": {"fr": "à", "en": "to", "wes": "give", "fub": "e", "ewo": "a", "dua": "na", "bas": "í", "bbj": "a", "byv": "a"},
+    "au": {"fr": "au", "en": "at", "wes": "fo", "fub": "e", "ewo": "a", "dua": "o", "bas": "i", "bbj": "a", "byv": "a"},
+    "vers": {"fr": "vers", "en": "to", "wes": "give", "fub": "e", "ewo": "a", "dua": "na", "bas": "i", "bbj": "a", "byv": "a"},
     "pour": {"fr": "pour", "en": "for", "wes": "fo", "fub": "ngam", "ewo": "asu", "dua": "onyola", "bas": "inyu", "bbj": "mba", "byv": "num"},
     "et": {"fr": "et", "en": "and", "wes": "an", "fub": "e", "ewo": "a", "dua": "na", "bas": "ni", "bbj": "na", "byv": "na"},
-    "mon": {"fr": "mon", "en": "my", "wes": "ma", "fub": "maa", "ewo": "wôé", "dua": "mongo", "bas": "won", "bbj": "po", "byv": "bu"},
-    "ma": {"fr": "ma", "en": "my", "wes": "ma", "fub": "am", "ewo": "wôé", "dua": "am", "bas": "wem", "bbj": "yà", "byv": "zà"},
+    "mon": {"fr": "mon", "en": "my", "wes": "ma", "fub": "maa", "ewo": "wom", "dua": "mongo", "bas": "won", "bbj": "po", "byv": "bu"},
+    "ma": {"fr": "ma", "en": "my", "wes": "ma", "fub": "am", "ewo": "wom", "dua": "am", "bas": "wem", "bbj": "yà", "byv": "zà"},
+    "ton": {"fr": "ton", "en": "your", "wes": "yu", "fub": "maa", "ewo": "wôé", "dua": "ango", "bas": "yon", "bbj": "po", "byv": "bu"},
     "sa": {"fr": "sa", "en": "his", "wes": "yi", "fub": "makko", "ewo": "dzé", "dua": "mao", "bas": "wé", "bbj": "yé", "byv": "zé"},
-    "votre": {"fr": "votre", "en": "your", "wes": "yu", "fub": "maa", "ewo": "wôé", "dua": "mongo", "bas": "won", "bbj": "po", "byv": "bu"},
+    "votre": {"fr": "votre", "en": "your", "wes": "yu", "fub": "maa", "ewo": "wôé", "dua": "ango", "bas": "yon", "bbj": "po", "byv": "bu"},
     "frere": {"fr": "frère", "en": "brother", "wes": "broda", "fub": "deerɗiraawo", "ewo": "manyaṅ", "dua": "muna nyango", "bas": "mankéé", "bbj": "sò'", "byv": "mènzwə"},
     "beaucoup": {"fr": "beaucoup", "en": "very much", "wes": "plenty", "fub": "sanu", "ewo": "abui", "dua": "jita", "bas": "ngandag", "bbj": "bwe", "byv": "bwam"},
 }
@@ -575,7 +718,14 @@ def translate_phrase(text: str, target_lang: str) -> dict[str, Any]:
     if key_exact in WORD_GLOSSARY:
         return {"mode": "exact_word", "translated": WORD_GLOSSARY[key_exact].get(lang, clean)}
 
-    # 2. Protection des valeurs sensibles (montants FCFA, numéros +237/6XXXXXXXX, références TRX-/SAF-)
+    # 2. Protection stricte des valeurs bancaires sensibles :
+    # - Emplacements {amount}, {name}, {phone}...
+    # - Références TRX-XXXX / SAF-XXXX
+    # - Numéros de téléphone camerounais (+237 / 6XXXXXXXX)
+    # - Montants avec devise (5 000 FCFA / XAF)
+    # - Tout nombre ou chiffre isolé (ex: 5000, 15 000, 237...)
+    # - Noms de services / facturiers / opérateurs (ENEO, CAMWATER, CANAL, CAMTEL, MTN, ORANGE, Safinum)
+    # - Noms propres des clients (mots capitalisés après Bonjour/Hello/Mbolo/Sannu ou à/pour/de/vers/give/na/e)
     protected: list[str] = []
 
     def _stash(match: re.Match) -> str:
@@ -583,11 +733,32 @@ def translate_phrase(text: str, target_lang: str) -> dict[str, Any]:
         protected.append(match.group(0))
         return f"__PROT_{idx}__"
 
+    def _stash_after_prep(match: re.Match) -> str:
+        prep = match.group(1)
+        name_part = match.group(2)
+        if name_part.lower() in WORD_GLOSSARY or name_part.lower() in _EN_TO_GLOSSARY_KEY or name_part.lower() in _CONNECTORS or name_part.lower() in _DROP_ARTICLES:
+            return match.group(0)
+        idx = len(protected)
+        protected.append(name_part)
+        return f"{prep}__PROT_{idx}__"
+
     masked = re.sub(
-        r"(?:TRX|SAF)-[A-Z0-9\-]+|(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|\b\d[\d\s\.,]*\s*(?:FCFA|XAF)\b",
+        r"\{[a-z_]+\}|"
+        r"(?:TRX|SAF)-[A-Z0-9\-]+|"
+        r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|"
+        r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
+        r"\b(?:FCFA|XAF|CFA)\b|"
+        r"\b\d+(?:[\s\.,]\d+)*\b|"
+        r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|Safinum(?:\s+Pay)?)\b",
         _stash,
         clean,
         flags=re.IGNORECASE,
+    )
+    # Protéger les noms propres de clients après prépositions ou salutations (ex: "à Jean Mbarga", "Bonjour Amina")
+    masked = re.sub(
+        r"(\b(?:[àa]|pour|de|vers|chez|give|to|from|[Bb]onjour|[Hh]ello|[Mm]bolo|[Ss]annu)\s+)([A-ZÀ-Ÿ][a-zà-ÿ'\-]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ'\-]+)*)",
+        _stash_after_prep,
+        masked,
     )
 
     # 3. Patrons de phrases naturelles complètes (avant repli mot-à-mot)
@@ -599,7 +770,7 @@ def translate_phrase(text: str, target_lang: str) -> dict[str, Any]:
             "en": "What is your available balance?",
             "wes": "How much moni remain fo yu account?",
             "fub": "Ceede maa keddiiɗe ko noye?",
-            "ewo": "Mòni wôé ma tabe a ne tân ya?",
+            "ewo": "Mòni wom a lig ma a ne tân ya?",
             "dua": "Môni mongo ma dia me nena?",
             "bas": "Moni won u nkon u yene nwaa?",
             "bbj": "Ŋkap po ya tse ba sa?",
@@ -625,6 +796,25 @@ def translate_phrase(text: str, target_lang: str) -> dict[str, Any]:
             natural_out = natural_out.replace(f"__PROT_{idx}__", val)
         return {"mode": "natural_sentence", "translated": natural_out, "words_translated": len(natural_out.split())}
 
+    # 3b. Correspondance dans le corpus parallèle Soreva (150 phrases courantes en 7 langues camerounaises)
+    try:
+        import json
+        from pathlib import Path
+
+        corpus_path = Path(__file__).resolve().parent / "data" / "cameroon_corpus_extract.json"
+        if corpus_path.is_file():
+            raw_c = json.loads(corpus_path.read_text(encoding="utf-8"))
+            for row in raw_c.get("soreva_parallel", []):
+                for _, vals in row.items():
+                    if m_low in (vals.get("aglc", "").strip().lower(), vals.get("ascii", "").strip().lower()):
+                        if lang in row and row[lang].get("aglc"):
+                            soreva_tr = row[lang]["aglc"]
+                            for idx, val in enumerate(protected):
+                                soreva_tr = soreva_tr.replace(f"__PROT_{idx}__", val)
+                            return {"mode": "soreva_corpus", "translated": soreva_tr, "words_translated": len(soreva_tr.split())}
+    except Exception:
+        pass
+
     # 4. Traduction mot-à-mot / syntagmes avec connecteurs grammaticaux et suppression des articles français
     tokens = re.findall(r"__PROT_\d+__|[A-Za-zÀ-ÿ0-9'ʼ]+|[^\w\s]+|\s+", masked)
     out: list[str] = []
@@ -648,6 +838,36 @@ def translate_phrase(text: str, target_lang: str) -> dict[str, Any]:
             out.append(tok)
 
     result = re.sub(r"\s{2,}", " ", "".join(out)).strip()
+
+    # 5. Si aucun mot n'a pu être traduit par le lexique (replaced == 0), utiliser le moteur neuronal CTranslate2 / OPUS-MT local
+    if replaced == 0 and lang != "fr" and re.search(r"[A-Za-zÀ-ÿ]", masked):
+        try:
+            import sys
+            from pathlib import Path
+
+            nmt_dir = str(Path(__file__).resolve().parents[2] / "traduction_service_google")
+            if nmt_dir not in sys.path:
+                sys.path.insert(0, nmt_dir)
+            from local_nmt import translate_neural_local
+
+            # Remplacer temporairement __PROT_i__ par un sentinelle numérique 88010i
+            nmt_in = masked
+            for idx in range(len(protected)):
+                nmt_in = nmt_in.replace(f"__PROT_{idx}__", f"88010{idx}")
+            src_guess = detect_language(clean, fallback="fr")
+            nmt_out, nmt_eng = translate_neural_local(nmt_in, src_guess, lang)
+            if nmt_out:
+                valid_restored = True
+                for idx, val in enumerate(protected):
+                    if f"88010{idx}" not in nmt_out:
+                        valid_restored = False
+                        break
+                    nmt_out = nmt_out.replace(f"88010{idx}", val)
+                if valid_restored:
+                    return {"mode": f"neural_{nmt_eng}", "translated": nmt_out, "words_translated": len(nmt_out.split())}
+        except Exception:
+            pass
+
     for idx, val in enumerate(protected):
         result = result.replace(f"__PROT_{idx}__", val)
 

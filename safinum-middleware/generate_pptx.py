@@ -198,10 +198,50 @@ def build_deck(out_path: Path):
         "10. Terminologie financière : bulles help.* & TERM_EXPLANATION pédagogiques",
     ], accent=NAVY)
 
-    # SLIDE 8 — Scalabilité & Déploiement
+    # SLIDE 8 — Interfaces Live, Studio & Voix Homme Unique
+    s_ui = prs.slides.add_slide(blank)
+    set_bg(s_ui, LIGHT_BG)
+    add_header(s_ui, "7. Studio Lingua & Écosystème Web (3000 / 3001 / 3002)", "7 langues camerounaises, voix d'homme unique (91–124 Hz), noms & FCFA protégés")
+    cap_dir = img_dir / "captures"
+    ui_shots = [
+        ("Studio Lingua (/studio)", cap_dir / "ui_studio_3000.png", 0.55, 1.45, 5.95),
+        ("Diagnostics Middleware (3000)", cap_dir / "ui_middleware_3000.png", 6.8, 1.45, 5.95),
+        ("Traducteur IA T5 + CT2 (3001)", cap_dir / "ui_google_3001.png", 0.55, 4.4, 5.95),
+        ("Mode Mot-à-Mot Lexical (3002)", cap_dir / "ui_mot_a_mot_3002.png", 6.8, 4.4, 5.95),
+    ]
+    for label, p, lx, ty, w in ui_shots:
+        tb_cap = s_ui.shapes.add_textbox(Inches(lx), Inches(ty - 0.25), Inches(w), Inches(0.28))
+        pc = tb_cap.text_frame.paragraphs[0]
+        pc.text = label
+        pc.font.size = Pt(10.5)
+        pc.font.bold = True
+        pc.font.color.rgb = NAVY
+        if p.exists():
+            s_ui.shapes.add_picture(str(p), Inches(lx), Inches(ty + 0.03), width=Inches(w), height=Inches(2.55))
+
+    # SLIDE 9 — Simulateurs Officiels du Bac à Sable SAFINUM
+    s_sbx = prs.slides.add_slide(blank)
+    set_bg(s_sbx, LIGHT_BG)
+    add_header(s_sbx, "8. Connexion aux Simulateurs Officiels SAFINUM", "USSD (*123#), Mobile Banking & Web Banking via POST /middleware")
+    sbx_shots = [
+        ("Simulateur USSD (/sandbox/ussd)", cap_dir / "sandbox_ussd.png", 0.55, 1.65, 3.85),
+        ("Simulateur Mobile (/sandbox/channel/mobile)", cap_dir / "sandbox_mobile.png", 4.72, 1.65, 3.85),
+        ("Simulateur Web (/sandbox/channel/web)", cap_dir / "sandbox_web.png", 8.9, 1.65, 3.85),
+    ]
+    for label, p, lx, ty, w in sbx_shots:
+        tb_cap = s_sbx.shapes.add_textbox(Inches(lx), Inches(ty - 0.28), Inches(w), Inches(0.3))
+        pc = tb_cap.text_frame.paragraphs[0]
+        pc.text = label
+        pc.font.size = Pt(11)
+        pc.font.bold = True
+        pc.font.color.rgb = NAVY
+        if p.exists():
+            s_sbx.shapes.add_picture(str(p), Inches(lx), Inches(ty + 0.04), width=Inches(w))
+
+    # SLIDE 10 — Scalabilité & Déploiement
     s8 = prs.slides.add_slide(blank)
     set_bg(s8, NAVY)
-    add_header(s8, "7. Scalabilité, Déploiement & Vision", "Prêt pour la production et l'inclusion financière nationale")
+    add_header(s8, "9. Scalabilité, Déploiement & Vision", "Prêt pour la production et l'inclusion financière nationale")
     add_card(s8, 0.6, 1.5, 4.0, 4.6, "Déploiement Immédiat", [
         "FastAPI + Uvicorn asynchrone (< 50 ms)",
         "Modèles IA 100 % locaux hors-ligne (CT2 int8, OPUS-MT, T5, MMS-TTS)",

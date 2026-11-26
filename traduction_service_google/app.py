@@ -34,7 +34,7 @@ if "safinum_mw" not in sys.modules:
     sys.modules["safinum_mw"] = _mw_pkg
 
 from safinum_mw.gsm7 import is_gsm7, septet_length, transliterate_to_gsm7
-from safinum_mw.languages import SUPPORTED_LANGUAGES, detect_language, normalize_language, translate_phrase
+from safinum_mw.languages import CAMEROON_NATIONAL_LANGUAGES, SUPPORTED_LANGUAGES, detect_language, normalize_language, translate_phrase
 from safinum_mw.phonetics import build_audio_payload, synthesize_wav_bytes
 from local_nmt import available_models_status, translate_neural_local
 from sentence_corrector import correct_sentence
@@ -48,10 +48,13 @@ app = FastAPI(
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 _PROT_RE = re.compile(
-    r"(?:TRX|SAF)-[A-Z0-9\-]+|"
+    r"\{[a-z_]+\}|"
+    r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
     r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|"
-    r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF)\b|"
-    r"\b(?:ENEO|CAMWATER|CANAL|CAMTEL|MTN|ORANGE|SAFINUM)\b",
+    r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
+    r"\b(?:FCFA|XAF|CFA)\b|"
+    r"\b\d+(?:[\s\.,]\d+)*\b|"
+    r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|SAFINUM(?:\s+PAY)?)\b",
     flags=re.IGNORECASE,
 )
 
@@ -256,7 +259,7 @@ async def tts_endpoint(text: str = "", language: str = "fr"):
 
 @app.get("/", response_class=HTMLResponse)
 async def ui() -> str:
-    opts = "".join(f'<option value="{k}" {"selected" if k=="ewo" else ""}>{v} ({k})</option>' for k, v in SUPPORTED_LANGUAGES.items())
+    opts = "".join(f'<option value="{k}" {"selected" if k=="ewo" else ""}>{v} ({k})</option>' for k, v in CAMEROON_NATIONAL_LANGUAGES.items())
     return f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -296,7 +299,11 @@ async def ui() -> str:
       <select id="tgt">{opts}</select>
       <textarea id="out" readonly style="margin-top:10px;" placeholder="Traduction..."></textarea>
       <div class="meta" id="meta"></div>
-      <button onclick="speak()" style="background:#38bdf8;">🔊 Écouter (Audio &amp; Phonétique)</button>
+      <div style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <button onclick="speak()" style="background:#38bdf8;margin-top:0;">🔊 Réécouter (Voix Homme)</button>
+        <label style="font-size:13px;color:#6ee7b7;"><input type="checkbox" id="autospeak" checked> 🔊 Voix générée auto selon le texte</label>
+        <audio id="autoWav3001" controls style="height:30px;"></audio>
+      </div>
     </div>
   </div>
 </div>
@@ -332,24 +339,31 @@ async function doTranslate() {{
     `<span class="pill">Moteur: ${{d.engine}}</span>` +
     `<span class="pill">GSM-7: ${{d.gsm7_septets}}/182</span><br>` +
     `<b>IPA :</b> ${{d.ipa}}<br>` +
-    `<b>Prononciation TTS :</b> ${{d.tts_script}}<br>` +
+    `<b>Prononciation TTS :</b> ${{(d.tts_engine === 'elevenlabs-male' && d.elevenlabs_native_text) ? d.elevenlabs_native_text : d.tts_script}}<br>` +
     `<b>Version Web vocale :</b> ${{d.web_phonetic}}`;
+  if (d.translated_text) {{
+    const url = `/tts?text=${{encodeURIComponent(d.translated_text)}}&language=${{encodeURIComponent(d.target_language)}}`;
+    const p = document.getElementById('autoWav3001');
+    if (p) {{
+      p.pause();
+      p.src = url;
+    }}
+    if (document.getElementById('autospeak')?.checked) {{
+      speak();
+    }}
+  }}
 }}
 async function speak() {{
   if (!lastData.translated_text) return;
-  if (lastData.neural_tts_available) {{
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  const p = document.getElementById('autoWav3001');
+  if (p) {{
     const url = `/tts?text=${{encodeURIComponent(lastData.translated_text)}}&language=${{encodeURIComponent(lastData.target_language)}}`;
-    const a = new Audio(url);
-    a.play().catch(() => fallbackSpeak());
-    return;
+    if (!p.src || !p.src.endsWith(url)) p.src = url;
+    p.pause();
+    p.currentTime = 0;
+    p.play().catch(() => {{}});
   }}
-  fallbackSpeak();
-}}
-function fallbackSpeak() {{
-  if (!lastData.tts_script) return;
-  const u = new SpeechSynthesisUtterance(lastData.tts_script);
-  u.lang = lastData.tts_voice_lang === 'en' ? 'en-US' : 'fr-FR';
-  speechSynthesis.speak(u);
 }}
 doTranslate();
 </script>

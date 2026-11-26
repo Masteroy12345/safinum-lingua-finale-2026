@@ -27,6 +27,7 @@ if "safinum_mw" not in sys.modules:
 
 from safinum_mw.gsm7 import is_gsm7, septet_length, transliterate_to_gsm7
 from safinum_mw.languages import (
+    CAMEROON_NATIONAL_LANGUAGES,
     SUPPORTED_LANGUAGES,
     WORD_GLOSSARY,
     _CONNECTORS,
@@ -43,7 +44,13 @@ app = FastAPI(
 )
 
 _PROT_RE = re.compile(
-    r"(?:TRX|SAF)-[A-Z0-9\-]+|(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|\b\d[\d\s\.,]*\s*(?:FCFA|XAF)\b",
+    r"\{[a-z_]+\}|"
+    r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
+    r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|"
+    r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
+    r"\b(?:FCFA|XAF|CFA)\b|"
+    r"\b\d+(?:[\s\.,]\d+)*\b|"
+    r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|SAFINUM(?:\s+PAY)?)\b",
     flags=re.IGNORECASE,
 )
 
@@ -120,8 +127,27 @@ def word_by_word_translate(text: str, target_lang: str) -> dict[str, Any]:
             alignments.append({"source": tok, "target": tr, "status": "translated"})
             replaced += 1
         else:
-            out_parts.append(tok)
-            alignments.append({"source": tok, "target": tok, "status": "untouched"})
+            # Repli neuronal sur mot inconnu du lexique
+            nmt_word = None
+            if lang != "fr":
+                try:
+                    nmt_dir = str(ROOT / "traduction_service_google")
+                    if nmt_dir not in sys.path:
+                        sys.path.insert(0, nmt_dir)
+                    from local_nmt import translate_neural_local
+
+                    cand_out, _ = translate_neural_local(tok, "fr", lang)
+                    if cand_out and cand_out.strip().lower() != tok.lower():
+                        nmt_word = cand_out.strip().rstrip(".")
+                except Exception:
+                    pass
+            if nmt_word:
+                out_parts.append(nmt_word)
+                alignments.append({"source": tok, "target": nmt_word, "status": "translated"})
+                replaced += 1
+            else:
+                out_parts.append(tok)
+                alignments.append({"source": tok, "target": tok, "status": "untouched"})
 
     translated = re.sub(r"\s{2,}", " ", "".join(out_parts)).strip()
     mode = "exact_word" if len(alignments) == 1 and replaced == 1 else ("word_by_word" if replaced > 0 else "passthrough")
@@ -172,7 +198,7 @@ async def tts_endpoint(text: str = "", language: str = "fr"):
 
 @app.get("/", response_class=HTMLResponse)
 async def ui() -> str:
-    opts = "".join(f'<option value="{k}" {"selected" if k=="dua" else ""}>{v} ({k})</option>' for k, v in SUPPORTED_LANGUAGES.items())
+    opts = "".join(f'<option value="{k}" {"selected" if k=="dua" else ""}>{v} ({k})</option>' for k, v in CAMEROON_NATIONAL_LANGUAGES.items())
     return f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -206,7 +232,11 @@ async def ui() -> str:
       <select id="tgt">{opts}</select>
       <textarea id="out" rows="4" readonly style="margin-top:8px;"></textarea>
       <div class="meta" id="meta"></div>
-      <button onclick="speak()" style="background:#38bdf8;">🔊 Écouter (Audio &amp; Phonétique)</button>
+      <div style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <button onclick="speak()" style="background:#38bdf8;margin-top:0;">🔊 Réécouter (Voix Homme)</button>
+        <label style="font-size:13px;color:#6ee7b7;"><input type="checkbox" id="autospeak" checked> 🔊 Voix générée auto selon le texte</label>
+        <audio id="autoWav3002" controls style="height:30px;"></audio>
+      </div>
     </div>
   </div>
   <div class="chips" id="chips"></div>
@@ -221,25 +251,33 @@ async function doTranslate() {{
   const d = await r.json();
   lastData = d;
   document.getElementById('out').value = d.translated;
-  document.getElementById('meta').innerText = `Mode: ${{d.mode}} | IPA: ${{d.ipa}} | Script TTS: ${{d.tts_script}} | GSM-7: ${{d.gsm7_septets}}/182 septets`;
+  document.getElementById('meta').innerText = `Mode: ${{d.mode}} | IPA: ${{d.ipa}} | Audio ElevenLabs/TTS: ${{(d.tts_engine === 'elevenlabs-male' && d.elevenlabs_native_text) ? d.elevenlabs_native_text : d.tts_script}} | GSM-7: ${{d.gsm7_septets}}/182 septets`;
   document.getElementById('chips').innerHTML = (d.alignments || []).map(a =>
     `<div class="chip ${{a.status}}"><b>${{a.source}}</b> → ${{a.target || '(suppr.)'}} <small style="color:#94a3b8;">[${{a.status}}]</small></div>`
   ).join('');
+  if (d.translated) {{
+    const url = `/tts?text=${{encodeURIComponent(d.translated)}}&language=${{encodeURIComponent(d.target_language)}}`;
+    const p = document.getElementById('autoWav3002');
+    if (p) {{
+      p.pause();
+      p.src = url;
+    }}
+    if (document.getElementById('autospeak')?.checked) {{
+      speak();
+    }}
+  }}
 }}
 async function speak() {{
   if (!lastData.translated) return;
-  if (lastData.neural_tts_available) {{
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  const p = document.getElementById('autoWav3002');
+  if (p) {{
     const url = `/tts?text=${{encodeURIComponent(lastData.translated)}}&language=${{encodeURIComponent(lastData.target_language)}}`;
-    const a = new Audio(url);
-    a.play().catch(() => fallbackSpeak());
-    return;
+    if (!p.src || !p.src.endsWith(url)) p.src = url;
+    p.pause();
+    p.currentTime = 0;
+    p.play().catch(() => {{}});
   }}
-  fallbackSpeak();
-}}
-function fallbackSpeak() {{
-  const u = new SpeechSynthesisUtterance(lastData.tts_script || lastData.translated);
-  u.lang = lastData.tts_voice_lang === 'en' ? 'en-US' : 'fr-FR';
-  speechSynthesis.speak(u);
 }}
 doTranslate();
 </script>

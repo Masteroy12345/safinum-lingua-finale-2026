@@ -33,7 +33,7 @@ OPERATORS = {"MTN", "ORANGE", "CAMTEL"}
 
 TERM_KEYWORDS = {
     "frais": ["frais", "fee", "fees", "charges", "njobdi", "njoɓdi", "fre", "njoa", "nsas", "commission"],
-    "solde": ["solde", "balance", "ceede keddiide", "mone ma tabe", "moni ma dia", "moni u nkon", "nkap ya tse", "nkap bwam"],
+    "solde": ["solde", "balance", "ceede keddiide", "moni wom", "mòni wom", "mòni a lig", "moni a lig", "a lig ma", "mone ma tabe", "moni ma dia", "moni u nkon", "nkap ya tse", "nkap bwam"],
     "plafond": ["plafond", "limit", "limite", "maximum", "keeri", "max"],
     "beneficiaire": ["beneficiaire", "bénéficiaire", "beneficiary", "destinataire", "heboowo", "heɓoowo", "mod a kos", "moto nu ma kusa", "mut a nkos", "we e nyam"],
     "reference": ["reference", "référence", "referaans", "referans", "recu", "reçu", "receipt"],
@@ -172,6 +172,28 @@ def _parse_rules(
     if t in {"", "*123#", "00", "menu"}:
         return NLUResult(Intent.UNKNOWN, {"menu": True, "reset_draft": True})
 
+    # 0b. Choix de langue par numéro ou code après avoir tapé "0" (awaiting_field == "language_choice")
+    if awaiting_field == "language_choice":
+        lang_order = ["dua", "ewo", "bas", "bbj", "byv", "fub", "wes", "fr", "en"]
+        if t.isdigit():
+            idx = int(t) - 1
+            if 0 <= idx < len(lang_order):
+                return NLUResult(Intent.LANGUAGE_SWITCH, {"target_language": lang_order[idx]})
+        target = extract_target_language(raw)
+        if target:
+            return NLUResult(Intent.LANGUAGE_SWITCH, {"target_language": target})
+
+    # 0c. Choix d'un bénéficiaire parmi des homonymes (awaiting_field == "candidate_choice")
+    if awaiting_field == "candidate_choice":
+        if t.isdigit() and 1 <= int(t) <= 9:
+            return NLUResult(Intent.TRANSFER, {"candidate_index": int(t) - 1})
+        ph = extract_phone(raw)
+        if ph:
+            return NLUResult(Intent.TRANSFER, {"to_phone": ph})
+        ben = extract_beneficiary_name(raw, allow_bare=True)
+        if ben:
+            return NLUResult(Intent.TRANSFER, {"beneficiary": ben})
+
     # 1. Cas USSD menu numérique ou raccourci *
     if channel.lower() == "ussd" or input_type == "menu":
         if has_pending_tx:
@@ -249,7 +271,7 @@ def _parse_rules(
 
     # 5. Consultation de solde (avec et sans le mot "solde")
     if re.search(
-        r"\b(solde|balance|combien j'ai|combien il me reste|mon argent|voir mon compte|mon compte|moni weh remain|ceede keddiide|ceede maa|mone ma tabe|mone woe|moni ma dia|moni mongo|moni u nkon|moni won|nkap ya tse|nkap po|nkap bu)\b",
+        r"\b(solde|balance|combien j'ai|combien il me reste|mon argent|voir mon compte|mon compte|moni weh remain|ceede keddiide|ceede maa|mòni wom|moni wom|mòni a lig|moni a lig|a lig ma|a ne va a ne tan|mone ma tabe|mone woe|moni ma dia|moni mongo|moni u nkon|moni won|nkap ya tse|nkap po|nkap bu)\b",
         t,
     ):
         return NLUResult(Intent.BALANCE_INQUIRY)

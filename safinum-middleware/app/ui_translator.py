@@ -320,7 +320,7 @@ UI_TRANSLATIONS: dict[str, dict[str, str]] = {
         "home.action_bill": "Ave faktir",
         "home.action_history": "Alom wom",
         "home.action_transfer": "Lom mone",
-        "home.balance_label": "Mone ma tabe",
+        "home.balance_label": "Mòni a lig",
         "home.empty": "Alom mone mfe a ne ki.",
         "home.quick_actions": "Dze wa ye bo?",
         "home.recent": "Alom ya nde",
@@ -874,11 +874,9 @@ def handle_ui_translation(payload: dict[str, Any], fallback_lang: str = "fr") ->
 
     lang = normalize_language(raw_lang)
     if not lang:
-        sample_text = " ".join(
-            str((entry or {}).get("text", ""))
-            for entry in list(source_strings.values())[:5]
-        )
-        lang = detect_language(sample_text, fallback=fallback_lang or "fr")
+        # Si language=null sur Mobile/Web, conserver la langue de la session cross-canal (ex: USSD -> Web)
+        # sans analyser les clés source (toujours en français) afin d'éviter un faux repli vers "fr".
+        lang = normalize_language(fallback_lang) or "fr"
 
     if lang not in SUPPORTED_LANGUAGES:
         lang = "fr"

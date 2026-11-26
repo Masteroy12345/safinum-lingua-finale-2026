@@ -20,10 +20,13 @@ MODELS_DIR = Path(os.getenv("SAFINUM_MODELS_DIR", str(ROOT_DIR / "models")))
 ENABLE_AI_CORRECTOR = os.getenv("ENABLE_AI_CORRECTOR", "1") == "1"
 
 _SENSITIVE_RE = re.compile(
-    r"(?:TRX|SAF)-[A-Z0-9\-]+|"
+    r"\{[a-z_]+\}|"
+    r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
     r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|"
-    r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF)\b|"
-    r"\b(?:ENEO|CAMWATER|CANAL|CAMTEL|MTN|ORANGE|SAFINUM)\b",
+    r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
+    r"\b(?:FCFA|XAF|CFA)\b|"
+    r"\b\d+(?:[\s\.,]\d+)*\b|"
+    r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|SAFINUM(?:\s+PAY)?)\b",
     flags=re.IGNORECASE,
 )
 

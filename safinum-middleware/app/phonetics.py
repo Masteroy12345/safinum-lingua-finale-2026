@@ -6,11 +6,15 @@ import os
 import re
 import unicodedata
 import wave
+from collections import OrderedDict
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+import httpx
 import numpy as np
+
+from .config import settings
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 MODELS_DIR = Path(os.getenv("SAFINUM_MODELS_DIR", str(ROOT_DIR / "models")))
@@ -54,6 +58,7 @@ GRAMMAR_RULES: dict[str, dict[str, Any]] = {
             "state_be": "ne (je suis), oe (tu es), 'e (il/elle est)",
         },
         "tts_voice_lang": "fr",
+        "mms_tts_dir": "mms-tts-fra",
     },
     "bas": {
         "name": "Ɓasaá",
@@ -66,6 +71,7 @@ GRAMMAR_RULES: dict[str, dict[str, Any]] = {
             "state_be_have": "yé (être), ngwé (avoir)",
         },
         "tts_voice_lang": "fr",
+        "mms_tts_dir": "mms-tts-fra",
     },
     "bbj": {
         "name": "Ghɔmálá'",
@@ -77,6 +83,7 @@ GRAMMAR_RULES: dict[str, dict[str, Any]] = {
             "negation": "morphèmes discontinus + modification tonale",
         },
         "tts_voice_lang": "fr",
+        "mms_tts_dir": "mms-tts-fra",
     },
     "byv": {
         "name": "Mə̀dûmbà",
@@ -88,6 +95,7 @@ GRAMMAR_RULES: dict[str, dict[str, Any]] = {
             "negation": "particule négative + variation tonale sur le radical",
         },
         "tts_voice_lang": "fr",
+        "mms_tts_dir": "mms-tts-fra",
     },
     "wes": {
         "name": "Pidgin camerounais (Kamtok)",
@@ -142,14 +150,15 @@ _UI_WEB_PHONETIC_REPLACEMENTS: list[tuple[str, str]] = [
     ("ʼ", "'"),
 ]
 
-# Règles phonétiques étendues pour script TTS pur (prononciation exacte par voix fr-FR)
+# Règles phonétiques étendues pour lecture syllabe par syllabe fluide (voix fr-FR)
 _TTS_FR_RULES: list[tuple[str, str]] = [
     ("ɛ", "è"), ("Ɛ", "È"),
     ("ɔ", "o"), ("Ɔ", "O"),
     ("ɑ", "a"), ("Ɑ", "A"),
-    ("ŋk", "n'k"), ("Ŋk", "N'k"),
+    ("ŋk", "nk"), ("Ŋk", "Nk"),
+    ("ŋg", "ng"), ("Ŋg", "Ng"),
     ("ŋ", "ng"), ("Ŋ", "Ng"),
-    ("ə", "eu"), ("Ə", "Eu"),
+    ("ə", "e"), ("Ə", "E"),
     ("ʉ", "ou"), ("Ʉ", "Ou"),
     ("ɓ", "b"), ("Ɓ", "B"),
     ("ɗ", "d"), ("Ɗ", "D"),
@@ -157,20 +166,120 @@ _TTS_FR_RULES: list[tuple[str, str]] = [
     ("ny", "gn"), ("Ny", "Gn"),
     ("ch", "tch"), ("Ch", "Tch"),
     ("sh", "ch"), ("Sh", "Ch"),
-    ("ʼ", ""),
+    ("ʼ", ""), ("'", " "),
 ]
 
-_PROTECTED_RE = re.compile(r"(\{[a-z_]+\}|(?:TRX|SAF)-[A-Z0-9\-]+|\b(?:FCFA|XAF|ENEO|CAMWATER|CANAL|CAMTEL|MTN|ORANGE|Safinum)\b|\d+)")
+_FR_ONES = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize"]
+_FR_TENS = ["", "dix", "vingt", "trente", "quarante", "cinquante", "soixante", "soixante", "quatre-vingt", "quatre-vingt"]
+
+
+def _int_to_fr_words(n: int) -> str:
+    """Convertit un entier en toutes lettres en français pour que MMS-TTS lise les montants en syllabes."""
+    if n == 0:
+        return "zéro"
+    if n < 0:
+        return "moins " + _int_to_fr_words(-n)
+    parts: list[str] = []
+    if n >= 1_000_000:
+        m = n // 1_000_000
+        parts.append(("un million" if m == 1 else f"{_int_to_fr_words(m)} millions"))
+        n %= 1_000_000
+    if n >= 1000:
+        k = n // 1000
+        parts.append("mille" if k == 1 else f"{_int_to_fr_words(k)} mille")
+        n %= 1000
+    if n >= 100:
+        c = n // 100
+        parts.append("cent" if c == 1 else f"{_FR_ONES[c]} cent")
+        n %= 100
+    if n > 0:
+        if n <= 16:
+            parts.append(_FR_ONES[n])
+        elif n < 20:
+            parts.append(f"dix-{_FR_ONES[n - 10]}")
+        else:
+            t, u = n // 10, n % 10
+            if t in (7, 9):
+                sub = 10 + u
+                sep = " et " if (t == 7 and u == 1) else "-"
+                parts.append(f"{_FR_TENS[t]}{sep}{_int_to_fr_words(sub)}")
+            else:
+                if u == 0:
+                    parts.append(_FR_TENS[t])
+                elif u == 1 and t != 8:
+                    parts.append(f"{_FR_TENS[t]} et un")
+                else:
+                    parts.append(f"{_FR_TENS[t]}-{_FR_ONES[u]}")
+    return " ".join(parts)
+
+
+def _expand_numbers_for_tts(text: str) -> str:
+    """Transforme les montants (15 000 -> quinze mille) et numéros (677000002) en mots prononçables en syllabes."""
+    # 1. Numéros de téléphone camerounais (9 ou 12 chiffres) -> lus par paires/chiffres en mots
+    def _phone_to_words(m: re.Match) -> str:
+        digits = re.sub(r"\D", "", m.group(0))
+        return " ".join(_FR_ONES[int(d)] for d in digits)
+
+    out = re.sub(r"(?:\+?237[\s\-\.]?)?6(?:[\s\-\.]?\d){8}\b", _phone_to_words, text)
+
+    # 2. Montants formatés avec espaces (ex: "15 000", "250 000", "5000")
+    def _num_to_words(m: re.Match) -> str:
+        raw_digits = re.sub(r"[\s\.,]", "", m.group(0))
+        if not raw_digits.isdigit():
+            return m.group(0)
+        val = int(raw_digits)
+        if val <= 999_999_999:
+            return _int_to_fr_words(val)
+        return " ".join(_FR_ONES[int(d)] for d in raw_digits)
+
+    out = re.sub(r"\b\d{1,3}(?:[\s\.]\d{3})+\b|\b\d+\b", _num_to_words, out)
+    return out
+
+_PROTECTED_MULTI_NAME_RE = re.compile(
+    r"\{[a-z_]+\}|"
+    r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
+    r"(?:\+?237[\s\-\.]?)?6(?:[\s\-\.]?\d){8}\b|"
+    r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
+    r"\b(?:FCFA|XAF|CFA|ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|Safinum(?:\s+Pay)?)\b|"
+    r"\b\d+(?:[\s\.,]\d+)*\b|"
+    r"\b[A-ZÀ-Ÿ][a-zà-ÿ'\-]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ'\-]+)+\b"
+)
+_PREP_SINGLE_NAME_RE = re.compile(
+    r"(\b(?:[àa]|pour|de|vers|chez|give|to|from|na|o|i|e|[Bb]onjour|[Hh]ello|[Mm]bolo|[Ss]annu|[Ii]dib'a|[Kk]ɛl)\s+)([A-ZÀ-Ÿ][a-zà-ÿ'\-]+)\b"
+)
+
+
+def _find_protected_spans(text: str) -> list[tuple[int, int]]:
+    """Identifie les plages (start, end) protégées : montants, numéros, FCFA, noms propres simples et composés."""
+    spans: list[tuple[int, int]] = [m.span() for m in _PROTECTED_MULTI_NAME_RE.finditer(text)]
+    for m in _PREP_SINGLE_NAME_RE.finditer(text):
+        ns, ne = m.span(2)
+        if not any(s <= ns and ne <= e for s, e in spans):
+            spans.append((ns, ne))
+    spans.sort()
+    # Fusionner les plages qui se chevauchent
+    merged: list[tuple[int, int]] = []
+    for s, e in spans:
+        if merged and s <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], e))
+        else:
+            merged.append((s, e))
+    return merged
 
 
 def _apply_outside_protected(text: str, fn) -> str:
-    parts = _PROTECTED_RE.split(text)
+    spans = _find_protected_spans(text)
+    if not spans:
+        return fn(text)
     out: list[str] = []
-    for i, part in enumerate(parts):
-        if i % 2 == 1:
-            out.append(part)
-        else:
-            out.append(fn(part))
+    pos = 0
+    for s, e in spans:
+        if pos < s:
+            out.append(fn(text[pos:s]))
+        out.append(text[s:e])
+        pos = e
+    if pos < len(text):
+        out.append(fn(text[pos:]))
     return "".join(out)
 
 
@@ -217,7 +326,7 @@ def to_web_phonetic_safe(text: str, lang: str = "fr") -> str:
 
 
 def to_tts_script(text: str, lang: str = "fr") -> str:
-    """Transforme un texte en script phonétique optimisé pour la synthèse vocale (TTS `fr-FR` / `en`)."""
+    """Transforme un texte en script phonétique fluide lu syllabe par syllabe (noms propres, chiffres bruts et FCFA lus en français)."""
     t = unicodedata.normalize("NFC", text)
     if lang == "wes":
         def _wes(seg: str) -> str:
@@ -227,46 +336,63 @@ def to_tts_script(text: str, lang: str = "fr") -> str:
             s = re.sub(r"\bfo\b", "for", s, flags=re.IGNORECASE)
             s = re.sub(r"\byu\b", "you", s, flags=re.IGNORECASE)
             s = re.sub(r"\babeg\b", "a beg", s, flags=re.IGNORECASE)
+            s = re.sub(r"\bwuna\b", "wouna", s, flags=re.IGNORECASE)
+            s = re.sub(r"\bwetin\b", "wétin", s, flags=re.IGNORECASE)
             return s
-        return _apply_outside_protected(t, _wes).replace("FCFA", "francs C F A")
+        res = _apply_outside_protected(t, _wes)
+    elif lang in ("en", "fr"):
+        res = t
+    else:
+        def _fr_phon(seg: str) -> str:
+            s = unicodedata.normalize("NFC", seg)
+            for src, dst in _TTS_FR_RULES:
+                s = s.replace(src, dst)
+            # 'ee' -> 'é', 'aa' -> 'a', 'ii' -> 'i', 'oo' -> 'o', 'uu' -> 'ou'
+            s = re.sub(r"ee+", "é", s, flags=re.IGNORECASE)
+            s = re.sub(r"uu+", "ou", s, flags=re.IGNORECASE)
+            s = re.sub(r"([aioAIO])\1+", r"\1", s)
+            # 'u' isolé en orthographe camerounaise = /u/ ('ou')
+            s = re.sub(r"(?<![aeouAEOU])u", "ou", s)
+            s = re.sub(r"(?<![aeouAEOU])U", "Ou", s)
+            # Groupes consonantiques initiaux africains sans voyelle d'appui -> 'e' muet léger pour lecture syllabique
+            s = re.sub(r"\b([MmNn])([bpdtkgcsz])", r"\1e\2", s)
+            nfd = unicodedata.normalize("NFD", s)
+            cleaned = "".join(c for c in nfd if unicodedata.category(c) != "Mn" or c in {"\u0301", "\u0300", "\u0302"})
+            return unicodedata.normalize("NFC", cleaned)
 
-    if lang == "en":
-        return t.replace("FCFA", "francs C F A")
+        res = _apply_outside_protected(t, _fr_phon)
+        # Nettoyer les apostrophes internes hors noms propres pour éviter l'épellation
+        res = _apply_outside_protected(res, lambda seg: re.sub(r"['ʼ`]", " ", seg))
 
-    if lang == "fr":
-        return t.replace("FCFA", "francs C F A")
-
-    def _fr_phon(seg: str) -> str:
-        s = unicodedata.normalize("NFC", seg)
-        for src, dst in _TTS_FR_RULES:
-            s = s.replace(src, dst)
-        # 'ee' -> 'é', 'aa' -> 'a', 'ii' -> 'i', 'oo' -> 'o', 'uu' -> 'ou'
-        s = re.sub(r"ee+", "é", s, flags=re.IGNORECASE)
-        s = re.sub(r"uu+", "ou", s, flags=re.IGNORECASE)
-        s = re.sub(r"([aioAIO])\1+", r"\1", s)
-        # 'u' isolé en orthographe africaine = /u/ ('ou') mais préserver les digrammes FR (eu, ou, au)
-        s = re.sub(r"(?<![aeouAEOU])u", "ou", s)
-        s = re.sub(r"(?<![aeouAEOU])U", "Ou", s)
-        nfd = unicodedata.normalize("NFD", s)
-        cleaned = "".join(c for c in nfd if unicodedata.category(c) != "Mn" or c in {"\u0301", "\u0300", "\u0302"})
-        return unicodedata.normalize("NFC", cleaned)
-
-    return _apply_outside_protected(t, _fr_phon).replace("FCFA", "francs C F A")
+    # Sigles/devises prononcés en français sans traduire FCFA dans l'écrit
+    res = re.sub(r"\bFCFA\b", "francs céfa", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bXAF\b", "francs céfa", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bCFA\b", "céfa", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bENEO\b", "énéo", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bCAMWATER\b", "camouateur", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bCAMTEL\b", "camtel", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bORANGE\b", "orange", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bMTN\b", "èm té èn", res, flags=re.IGNORECASE)
+    res = re.sub(r"\bTRX-([A-Za-z0-9]+)\b", r"référence \1", res, flags=re.IGNORECASE)
+    return re.sub(r"\s{2,}", " ", res).strip()
 
 
 def build_audio_payload(text: str, lang: str) -> dict[str, Any]:
     """Retourne le texte original, la transcription IPA, le texte Web phonétique et le script TTS."""
     rule = GRAMMAR_RULES.get(lang, {})
     tts_lang = rule.get("tts_voice_lang", "en" if lang in ("en", "wes") else "fr")
-    has_neural = bool(rule.get("mms_tts_dir") and (MODELS_DIR / str(rule.get("mms_tts_dir"))).is_dir())
+    has_neural = bool(settings.elevenlabs_api_key) or bool(rule.get("mms_tts_dir") and (MODELS_DIR / str(rule.get("mms_tts_dir"))).is_dir())
+    use_eleven = bool((settings.elevenlabs_api_key or "").strip())
     return {
         "language": lang,
         "text": text,
         "web_phonetic": to_web_phonetic_safe(text, lang),
         "ipa": to_ipa(text, lang),
         "tts_script": to_tts_script(text, lang),
+        "elevenlabs_native_text": _prepare_elevenlabs_native_text(text, lang) if use_eleven else "",
         "tts_voice_lang": tts_lang,
         "neural_tts_available": has_neural,
+        "tts_engine": "elevenlabs-male" if use_eleven else "mms-tts-fra-male",
     }
 
 
@@ -285,13 +411,163 @@ def _load_mms_tts(model_dir_name: str):
         return None, None
 
 
-def synthesize_wav_bytes(text: str, lang: str) -> tuple[bytes | None, str]:
-    """Génère de l'audio WAV local via Meta MMS-TTS (ewo, fub, wes, fr) si le modèle est présent."""
-    rule = GRAMMAR_RULES.get(lang, {})
-    model_dir = rule.get("mms_tts_dir")
-    if not model_dir:
-        return None, "no_neural_tts_for_lang"
+def _estimate_median_f0(waveform: np.ndarray, sr: int) -> float:
+    """Estime la fréquence fondamentale médiane (F0 en Hz) sur les trames voisées."""
+    frame_len = 512
+    pitches: list[float] = []
+    min_lag, max_lag = max(1, int(sr / 350)), max(2, int(sr / 70))
+    for i in range(0, len(waveform) - frame_len, frame_len):
+        frame = waveform[i : i + frame_len]
+        if float(np.sqrt(np.mean(frame**2))) < 0.03:
+            continue
+        corr = np.correlate(frame, frame, mode="full")[frame_len - 1 :]
+        if len(corr) <= max_lag:
+            continue
+        lag = int(np.argmax(corr[min_lag:max_lag]) + min_lag)
+        if corr[lag] > 0.3 * corr[0]:
+            pitches.append(float(sr) / lag)
+    return float(np.median(pitches)) if pitches else 120.0
 
+
+def _ensure_male_timbre(waveform: np.ndarray, sr: int) -> np.ndarray:
+    """Garantit une voix 100% masculine (~120 Hz) en supprimant tout timbre féminin (> 150 Hz)."""
+    f0 = _estimate_median_f0(waveform, sr)
+    if f0 <= 148.0:
+        return waveform
+    # Conversion vers timbre masculin naturel (~120 Hz) + maintien du débit via ffmpeg
+    target_f0 = 122.0
+    ratio = target_f0 / min(f0, 260.0)  # ex: 122 / 225 = 0.542
+    tempo = min(1.85, max(1.0, 1.0 / ratio))
+    try:
+        import subprocess
+
+        max_v = float(np.max(np.abs(waveform))) or 1.0
+        pcm_in = np.int16((waveform / max_v) * 32767.0).tobytes()
+        shifted_rate = max(8000, int(round(sr * ratio)))
+        af_filter = f"asetrate={shifted_rate},aresample={sr},atempo={tempo:.3f},lowpass=f=3800"
+        out_bytes = subprocess.check_output(
+            [
+                "ffmpeg", "-v", "error",
+                "-f", "s16le", "-ar", str(sr), "-ac", "1", "-i", "pipe:0",
+                "-af", af_filter,
+                "-f", "s16le", "-ar", str(sr), "-ac", "1", "pipe:1",
+            ],
+            input=pcm_in,
+        )
+        return np.frombuffer(out_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+    except Exception:
+        # Repli numpy : abaissement direct de la hauteur tonale
+        idx = np.arange(0, len(waveform), ratio)
+        idx = idx[idx < len(waveform) - 1]
+        return np.interp(idx, np.arange(len(waveform)), waveform).astype(np.float32)
+
+
+_ELEVENLABS_WAV_CACHE: OrderedDict[tuple[str, str, str, str], bytes] = OrderedDict()
+_ELEVENLABS_CACHE_MAX = 96
+
+
+def _prepare_elevenlabs_native_text(text: str, lang: str = "fr") -> str:
+    """Prépare le texte natif pour une lecture UNIQUE ElevenLabs en copiant la tonalité du dataset SOREVA.
+
+    - Applique les tons et voyelles natives extraits de SOREVA (sans toucher aux noms propres, chiffres ni FCFA).
+    - Aucun découpage ni mélange de deux fichiers audio : génère un seul texte fluide lu d'une seule traite.
+    - Évite seulement l'épellation robotique des sigles (FCFA -> francs CFA, TRX- -> référence ).
+    """
+    t = unicodedata.normalize("NFC", text or "").strip()
+    if not t:
+        return ""
+    try:
+        from .native_voice_bank import apply_native_tonality
+
+        t = _apply_outside_protected(t, lambda seg: apply_native_tonality(seg, lang))
+    except Exception:
+        pass
+    t = re.sub(r"\bFCFA\b", "francs CFA", t, flags=re.IGNORECASE)
+    t = re.sub(r"\bXAF\b", "francs CFA", t, flags=re.IGNORECASE)
+    t = re.sub(r"\bTRX-([A-Za-z0-9]+)\b", r"référence \1", t, flags=re.IGNORECASE)
+    return re.sub(r"\s{2,}", " ", t).strip()
+
+
+def _synthesize_elevenlabs_wav(native_text: str, lang: str = "fr") -> bytes | None:
+    """Synthèse studio unique via ElevenLabs avec tonalité et prosodie calibrées sur le dataset SOREVA."""
+    api_key = (settings.elevenlabs_api_key or "").strip()
+    if not api_key or not native_text.strip():
+        return None
+    voice_id = (settings.elevenlabs_voice_id or "nPczCjzI2devNBz1zQrb").strip()
+    model_id = (settings.elevenlabs_model_id or "eleven_multilingual_v2").strip()
+    # "fr" garantit que les chiffres bruts, noms propres et "francs CFA" sont lus en français même au milieu d'une phrase camerounaise
+    lang_code = "fr" if lang != "en" else "en"
+    cache_key = (native_text, voice_id, model_id, lang_code)
+    cached = _ELEVENLABS_WAV_CACHE.get(cache_key)
+    if cached is not None:
+        _ELEVENLABS_WAV_CACHE.move_to_end(cache_key)
+        return cached
+
+    try:
+        from .native_voice_bank import get_language_voice_settings
+
+        voice_settings = get_language_voice_settings(lang)
+    except Exception:
+        voice_settings = {
+            "stability": 0.55,
+            "similarity_boost": 0.78,
+            "style": 0.12,
+            "use_speaker_boost": True,
+        }
+
+    try:
+        resp = httpx.post(
+            f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}?output_format=pcm_24000",
+            headers={"xi-api-key": api_key, "Content-Type": "application/json"},
+            json={
+                "text": native_text,
+                "model_id": model_id,
+                "language_code": lang_code,
+                "voice_settings": voice_settings,
+            },
+            timeout=15.0,
+        )
+        if resp.status_code != 200 or len(resp.content) < 64:
+            return None
+
+        raw = resp.content[: len(resp.content) - (len(resp.content) % 2)]
+        waveform = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
+        sr = 24000
+        waveform = _ensure_male_timbre(waveform, sr)
+        max_val = float(np.max(np.abs(waveform))) or 1.0
+        pcm = np.int16(np.clip(waveform / max_val, -1.0, 1.0) * 32767.0)
+        buf = io.BytesIO()
+        with wave.open(buf, "wb") as wf:
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(sr)
+            wf.writeframes(pcm.tobytes())
+        wav_bytes = buf.getvalue()
+
+        _ELEVENLABS_WAV_CACHE[cache_key] = wav_bytes
+        if len(_ELEVENLABS_WAV_CACHE) > _ELEVENLABS_CACHE_MAX:
+            _ELEVENLABS_WAV_CACHE.popitem(last=False)
+        return wav_bytes
+    except Exception:
+        return None
+
+
+def synthesize_wav_bytes(text: str, lang: str) -> tuple[bytes | None, str]:
+    """Génère UN SEUL flux audio WAV unifié via ElevenLabs en transférant la tonalité native SOREVA.
+
+    - Aucun mélange de deux audios ni lecture des clips bruts du dataset : la tonalité et les accents SOREVA
+      sont injectés dans le texte et les paramètres prosodiques d'ElevenLabs pour une lecture unique et homogène.
+    - Noms propres, chiffres bruts et 'francs CFA' sont lus en français dans le même flux vocal masculin.
+    """
+    # 1. Lecture unifiée ElevenLabs enrichie de la tonalité et de la prosodie natives SOREVA
+    native_text = _prepare_elevenlabs_native_text(text, lang)
+    eleven_wav = _synthesize_elevenlabs_wav(native_text, lang)
+    if eleven_wav:
+        return eleven_wav, "elevenlabs-brian-male"
+
+    # 2. Repli 100% hors-ligne : MMS-TTS français calibré en timbre masculin
+    spoken = _expand_numbers_for_tts(to_tts_script(text, lang))
+    model_dir = "mms-tts-fra"
     tok, mod = _load_mms_tts(model_dir)
     if not tok or not mod:
         return None, "model_not_downloaded"
@@ -299,10 +575,32 @@ def synthesize_wav_bytes(text: str, lang: str) -> tuple[bytes | None, str]:
     try:
         import torch
 
-        clean = text.replace("FCFA", "francs").replace("XAF", "francs")
+        # Normaliser en minuscules (le tokenizer MMS-TTS n'a que des lettres minuscules ; les majuscules tombaient en <unk> et hachaient les mots)
+        vocab = tok.get_vocab()
+        lowered = unicodedata.normalize("NFC", spoken).lower()
+        # Remplacer la ponctuation par des espaces simples et filtrer uniquement les caractères supportés par le modèle
+        cleaned_chars: list[str] = []
+        for ch in lowered:
+            if ch in vocab:
+                cleaned_chars.append(ch)
+            elif ch in {",", ".", ";", ":", "!", "?", "(", ")", "[", "]", "/", "\\", '"', "’", "'"}:
+                cleaned_chars.append(" ")
+            else:
+                # Si caractère accentué non présent dans ce vocabulaire précis, replier sur sa lettre de base
+                base = "".join(c for c in unicodedata.normalize("NFD", ch) if unicodedata.category(c) != "Mn")
+                if base and base in vocab:
+                    cleaned_chars.append(base)
+                else:
+                    cleaned_chars.append(" ")
+        clean = re.sub(r"\s{2,}", " ", "".join(cleaned_chars)).strip()
+        if not clean:
+            clean = "bonjour"
+
         inputs = tok(clean, return_tensors="pt")
         with torch.no_grad():
             waveform = mod(**inputs).waveform[0].cpu().numpy()
+        sr = int(getattr(mod.config, "sampling_rate", 16000))
+        waveform = _ensure_male_timbre(waveform, sr)
         # Normaliser en PCM 16-bit WAV
         max_val = float(np.max(np.abs(waveform))) or 1.0
         pcm = np.int16((waveform / max_val) * 32767.0)
@@ -310,8 +608,8 @@ def synthesize_wav_bytes(text: str, lang: str) -> tuple[bytes | None, str]:
         with wave.open(buf, "wb") as wf:
             wf.setnchannels(1)
             wf.setsampwidth(2)
-            wf.setframerate(int(getattr(mod.config, "sampling_rate", 16000)))
+            wf.setframerate(sr)
             wf.writeframes(pcm.tobytes())
-        return buf.getvalue(), model_dir
+        return buf.getvalue(), f"{model_dir}-male"
     except Exception as exc:
         return None, f"tts_error:{exc}"

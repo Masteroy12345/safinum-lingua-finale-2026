@@ -494,12 +494,18 @@
     loadVoices();
     TTS.addEventListener("voiceschanged", loadVoices);
   }
-  // Région préférée par langue, puis voix de base (sans variante « +Adam » d'espeak).
+  // Région préférée par langue, uniquement voix d'homme (exclusion stricte des voix de femme).
   const PREFERRED = { fr: "fr-fr", en: "en-gb" };
+  const FEMALE_VOICE_RE = /female|femme|hortense|julie|amelie|amélie|aurelie|aurélie|denise|eloise|éloïse|brigitte|celeste|céleste|claire|virginie|samantha|victoria|zira|hazel|susan|linda|karen|moira|tessa|fiona/i;
+  const MALE_VOICE_RE = /male|homme|thomas|paul|henri|nicolas|alain|claude|jerome|jérôme|bernard|antoine|remy|rémy|mathieu|daniel|david|mark|james|george|richard|guy|eric|alex|oliver|fred/i;
   function pickVoice(want) {
-    const ok = localVoices.filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith(want));
+    const ok = localVoices.filter(
+      (v) => v.lang.toLowerCase().replace("_", "-").startsWith(want) && !FEMALE_VOICE_RE.test(v.name)
+    );
     const score = (v) =>
-      (v.lang.toLowerCase().replace("_", "-") === PREFERRED[want] ? 2 : 0) + (v.name.includes("+") ? 0 : 1);
+      (MALE_VOICE_RE.test(v.name) ? 4 : 0) +
+      (v.lang.toLowerCase().replace("_", "-") === PREFERRED[want] ? 2 : 0) +
+      (v.name.includes("+") ? 0 : 1);
     return ok.sort((a, b) => score(b) - score(a))[0] || null;
   }
 
@@ -576,6 +582,7 @@
       const u = new SpeechSynthesisUtterance(text);
       u.voice = voice;
       u.lang = voice.lang;
+      u.pitch = 0.72; // Voix masculine grave
       u.rate = settings.rate;
       u.onend = u.onerror = () => resolve();
       TTS.speak(u);

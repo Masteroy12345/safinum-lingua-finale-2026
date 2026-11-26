@@ -1142,13 +1142,5 @@ globalThis.SAFINUM_DICT = {
    "ewondo": "Yen mbembe: kalara mvoé ba ngé ki kobola. Sili mod a vole wo ôsusua ô ne kele ôsu."
   }
  },
- "audio": {
-  "fulfulde": {
-   "F12": "F12.wav",
-   "S02": "S02.wav"
-  },
-  "ewondo": {
-   "F12": "F12.wav"
-  }
- }
+ "audio": {}
 };

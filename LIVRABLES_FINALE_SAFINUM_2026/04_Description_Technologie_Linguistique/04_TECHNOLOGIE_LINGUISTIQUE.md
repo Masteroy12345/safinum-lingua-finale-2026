@@ -24,13 +24,13 @@
 - **`michsethowusu/english-cameroon-pidgin_sentence-pairs_mt560`** (28 159 paires) : phrases parallèles Anglais ↔ Cameroonian Pidgin.
 - **`safinum-middleware/app/data/cameroon_corpus_extract.json`** : index léger compilé (194 Ko) utilisé en local par la traduction et le mode mot-à-mot.
 
-## Traitement Phonétique & Prononciation Vocale (Sandbox Web/Mobile & TTS)
-Le simulateur Web/Mobile du bac à sable utilise la synthèse vocale du navigateur (`Google français fr-FR`) pour lire directement les textes retournés à l'écran :
-- Les glyphes AGLC purs (`ɛ`, `ɔ`, `ŋ`, `ə`, `ɓ`, `ɗ`, `ɑ`, `ʼ`) et les tons combinants rares sont ignorés ou déformés par les voix `fr-FR` standard.
+## Traitement Phonétique & Prononciation Vocale (Voix Homme Unique & TTS)
+Le simulateur Web/Mobile du bac à sable et notre Studio (`/studio`) garantissent une lecture audio naturelle, syllabique et sans ambiguïté financière :
+- Les glyphes AGLC purs (`ɛ`, `ɔ`, `ŋ`, `ə`, `ɓ`, `ɗ`, `ɑ`, `ʼ`) et les tons combinants rares sont déformés ou épelés lettre par lettre par les voix standard.
 - Notre module `phonetics.py` intervient à trois niveaux :
-  1. **Adaptation Web/Mobile (`to_web_phonetic_safe`)** : convertit `ɛ→è`, `ɔ→o`, `ɑ→a`, `ŋ→ng/nk`, `ɓ→b`, `ɗ→d`, `ə→e`, `ʉ→ou` tout en conservant les emplacements `{amount}`, `{name}` et les limites `max_chars`.
-  2. **Script vocal guidé (`to_tts_script`)** : adapte la phonétique (`u→ou`, `ny→gn`, `ch→tch`, `FCFA→francs C F A`) sans casser les digrammes `eu`/`ou`/`au`.
-  3. **Transcription IPA (`to_ipa`) & Audio WAV (`synthesize_wav_bytes`)** : fournit l'alphabet phonétique international et la lecture neurale MMS-TTS.
+  1. **Adaptation Web/Mobile (`to_web_phonetic_safe`)** : convertit `ɛ→è`, `ɔ→o`, `ɑ→a`, `ŋ→ng/nk`, `ɓ→b`, `ɗ→d`, `ə→e`, `ʉ→ou` tout en conservant intacts `{amount}`, `{name}`, `FCFA` et les limites `max_chars`.
+  2. **Script vocal guidé (`to_tts_script`)** : lit les noms propres (ex. `Amina`, `Jean Mbarga`) et les chiffres bruts (`15 000`) en français sans aucune traduction, transforme `FCFA` en `"francs céfa"` (jamais traduit ni épelé lettre par lettre), et assure une lecture fluide syllabe par syllabe.
+  3. **Synthèse Voix d'Homme Unique (`synthesize_wav_bytes` + `ffmpeg`)** : génère un flux audio WAV unique en timbre grave masculin calibré (`91–124 Hz`, `mms-tts-fra`, zéro voix féminine ni superposition de deux voix).
 
 ## Sécurité financière & Validation linguistique
 - **Protection sentinelle** : montants (`FCFA`/`XAF`), téléphones (`+237`/`6XXXXXXXX`), références (`TRX-`/`SAF-`) et facturiers sont masqués par sentinelles numériques avant tout appel IA puis restaurés avec vérification stricte d'unicité.

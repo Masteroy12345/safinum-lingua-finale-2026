@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 from app.bank_client import BankApiError
 from app.gsm7 import is_gsm7, septet_length, transliterate_to_gsm7
 from app.main import app, bank_client
-from app.phonetics import to_ipa, to_tts_script, to_web_phonetic_safe
+from app.phonetics import _estimate_median_f0, _expand_numbers_for_tts, _prepare_elevenlabs_native_text, synthesize_wav_bytes, to_ipa, to_tts_script, to_web_phonetic_safe
 from app.session_store import store
 from app.ui_translator import UI_TRANSLATIONS
 
@@ -59,6 +59,16 @@ def test_scenario_1_balance_ussd_ewondo_and_without_word_solde():
         "language": "fr", "input": {"type": "text", "text": "combien il me reste"},
     })
     assert r_free.json()["interpretation"]["intent"] == "BALANCE_INQUIRY"
+
+    r_ewo = client.post("/middleware", json={
+        "trace_id": "tr-1c", "channel": "ussd", "phone": "237677000001",
+        "language": "ewo", "input": {"type": "text", "text": "Mòni wom a lig ma a ne tân ya?"},
+    })
+    assert r_ewo.json()["interpretation"]["intent"] == "BALANCE_INQUIRY"
+
+    r_tr_ewo = client.post("/api/translate", json={"language": "ewo", "text": "Quel est mon solde disponible ?"})
+    assert r_tr_ewo.status_code == 200
+    assert r_tr_ewo.json()["translated"] == "Mòni wom a lig ma a ne tân ya?"
 
 
 def test_scenario_2_and_9_two_turn_cross_channel_transfer_and_options_strings():
@@ -214,7 +224,7 @@ def test_phonetics_web_tts_and_ipa():
 
     p = client.post("/api/phonetics", json={"language": "bas", "text": "Kɛl i lam. U nlémèl 5 000 FCFA."})
     assert p.status_code == 200
-    assert "francs C F A" in p.json()["tts_script"] or "francs CFA" in p.json()["tts_script"]
+    assert "francs céfa" in p.json()["tts_script"] or "francs séfa" in p.json()["tts_script"]
 
 
 def test_fee_inquiry_asks_amount_without_guessing_and_uses_bank_fee():
@@ -282,3 +292,143 @@ def test_cross_channel_confirm_recovers_pending_tx_from_bank(monkeypatch):
     assert b["transaction"]["id"] == "TRX-EXT-77"
     assert b["transaction"]["status"] == "confirmed"
     assert "15 000" in b["response"]["text"]
+
+
+def test_banking_security_numbers_client_names_and_studio_endpoints(monkeypatch):
+    # 1. Les chiffres, montants, téléphones, références et noms propres de clients ne sont jamais traduits
+    r_tr = client.post("/api/translate", json={
+        "language": "dua",
+        "text": "Bonjour Amina, envoyer 15 000 FCFA à Jean Mbarga au 677000002 (TRX-9042)",
+    })
+    assert r_tr.status_code == 200
+    body = r_tr.json()
+    tr = body["translated"]
+    assert "15 000 FCFA" in tr
+    assert "Amina" in tr
+    assert "Jean Mbarga" in tr
+    assert "677000002" in tr
+    assert "TRX-9042" in tr
+
+    # 2. Studio web type Google Traduction + comparateur 9 langues + 89 clés UI + 18 enregistrements natifs
+    assert client.get("/studio").status_code == 200
+    assert client.post("/api/translate-all", json={"text": "Bonjour Amina, envoyer 5 000 FCFA"}).status_code == 200
+    ui_k = client.get("/api/ui-keys?language=ewo")
+    assert ui_k.status_code == 200
+    assert ui_k.json()["count"] == 89
+    nat = client.get("/api/native-recordings")
+    assert nat.status_code == 200
+    assert nat.json()["count"] >= 1
+
+    # 3. Sélection d'homonymes par numéro ("1" ou "2") en USSD sans déclencher Solde/Transfert
+    monkeypatch.setattr(
+        bank_client,
+        "search_beneficiaries",
+        AsyncMock(return_value={"beneficiaries": [
+            {"name": "Jean Mbarga", "phone": "237677000010"},
+            {"name": "Jean Atangana", "phone": "237677000011"},
+        ]}),
+    )
+    r_amb = client.post("/middleware", json={
+        "trace_id": "tr-amb-1", "channel": "ussd", "phone": "237677000001",
+        "language": "fr", "input": {"type": "text", "text": "envoyer 5000 FCFA à Jean"},
+    })
+    assert r_amb.json()["interpretation"]["intent"] == "CLARIFICATION_NEEDED"
+    r_pick = client.post("/middleware", json={
+        "trace_id": "tr-amb-2", "channel": "ussd", "phone": "237677000001",
+        "language": "fr", "input": {"type": "menu", "text": "2"},
+    })
+    b_pick = r_pick.json()
+    assert b_pick["interpretation"]["intent"] == "TRANSFER"
+    assert b_pick["transaction"]["status"] == "pending"
+    assert b_pick["interpretation"]["parameters"]["to"] == "237677000011"
+
+
+def test_audio_french_proper_nouns_raw_numbers_fcfa_and_cross_channel_ui_lang():
+    # 1. Noms propres (Jean Mbarga, Amina) intacts (jamais Mebarga), FCFA lu en français fluide (jamais épellation C F A)
+    script = to_tts_script("Bonjour Amina, envoyer 15 000 FCFA à Jean Mbarga", "dua")
+    assert "Jean Mbarga" in script
+    assert "Mebarga" not in script
+    assert "Amina" in script
+    assert "francs céfa" in script.lower()
+    assert "C F A" not in script
+    assert "15 000" in script
+    assert "quinze mille" in _expand_numbers_for_tts(script).lower()
+
+    # 1b. Le flux natif ElevenLabs conserve le texte natif (sans réécriture syllabique)
+    native_el = _prepare_elevenlabs_native_text("Idib'a bwam Amina, lóma 15 000 FCFA na Jean Mbarga o 677000002")
+    assert "Idib'a bwam Amina" in native_el
+    assert "15 000 francs CFA" in native_el
+    assert "Jean Mbarga" in native_el
+    assert "677000002" in native_el
+
+    # 2. Synthèse WAV homme uniquement (F0 <= 150 Hz) via endpoint et module phonetics
+    wav, model_name = synthesize_wav_bytes("Amina envoie 5 000 FCFA à Jean Mbarga.", "ewo")
+    assert wav is not None and wav[:4] == b"RIFF"
+    assert model_name == "elevenlabs-brian-male" or model_name.startswith("mms-tts-fra")
+    import io
+    import wave
+    import numpy as np
+    with wave.open(io.BytesIO(wav), "rb") as wf:
+        sr = wf.getframerate()
+        pcm = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
+    f0 = _estimate_median_f0(pcm, sr)
+    assert f0 is None or f0 <= 150.0, f"F0 trop aigu ({f0} Hz) : doit être une voix d'homme"
+
+    r_wav = client.post("/api/audio/tts", json={"text": "Bonjour Jean Mbarga, 5 000 FCFA", "language": "bas"})
+    assert r_wav.status_code == 200
+    assert r_wav.headers["content-type"].startswith("audio/wav")
+    assert r_wav.content[:4] == b"RIFF"
+
+    # 3. Continuité multicanal (ui_translation avec language=None conserve la langue USSD de session)
+    r_ussd = client.post("/middleware", json={
+        "trace_id": "tr-cross-1", "channel": "ussd", "phone": "237677000099",
+        "language": "dua", "input": {"type": "text", "text": "solde"},
+    })
+    assert r_ussd.status_code == 200
+    assert r_ussd.json()["interpretation"]["language"] == "dua"
+
+    r_mob = client.post("/middleware", json={
+        "trace_id": "tr-cross-2",
+        "channel": "mobile",
+        "type": "ui_translation",
+        "phone": "237677000099",
+        "language": None,
+        "screen": "home",
+        "strings": {
+            "nav.home": {"text": "Accueil", "max_chars": 12},
+            "home.balance_label": {"text": "Solde disponible"},
+        },
+    })
+    assert r_mob.status_code == 200
+    mob_body = r_mob.json()
+    assert mob_body["language"] == "dua"
+    assert mob_body["strings"]["nav.home"] != "Accueil"
+
+
+def test_soreva_native_voice_bank_all_7_cameroonian_languages_and_male_sts():
+    from app.native_voice_bank import apply_native_tonality, get_language_voice_settings
+
+    r_bank = client.get("/api/native-bank?language=ewo")
+    assert r_bank.status_code == 200
+    b_data = r_bank.json()
+    stats = b_data["stats"]
+    for lang_code in ("ewo", "dua", "bas", "bbj", "byv", "fub", "wes"):
+        assert stats.get(lang_code, 0) == 150, f"Dataset SOREVA incomplet pour {lang_code}"
+    assert b_data["count"] == 150
+
+    # 1. Transfert de la tonalité SOREVA sur le texte (sans mélanger deux audios ni jouer les WAV du dataset)
+    toned_ewo = apply_native_tonality("mbembe kidi", "ewo")
+    assert "mbəmbə" in toned_ewo and "kídí" in toned_ewo
+    vs = get_language_voice_settings("ewo")
+    assert 0.45 <= vs["stability"] <= 0.65
+
+    # 2. Protection des noms propres, chiffres et FCFA lors de l'injection de tonalité
+    el_txt = _prepare_elevenlabs_native_text("Idib'a bwam Amina, lóma 15 000 FCFA na Jean Mbarga o 677000002", "dua")
+    assert "Amina" in el_txt and "Jean Mbarga" in el_txt
+    assert "15 000 francs CFA" in el_txt and "677000002" in el_txt
+
+    # 3. Flux audio 100% unique (jamais deux audios mélangés)
+    wav_nat, eng_nat = synthesize_wav_bytes("mbembe kidi", "ewo")
+    assert wav_nat is not None and wav_nat[:4] == b"RIFF"
+    assert eng_nat == "elevenlabs-brian-male" or eng_nat.startswith("mms-tts-fra")
+    assert "mix" not in eng_nat and "soreva-native" not in eng_nat

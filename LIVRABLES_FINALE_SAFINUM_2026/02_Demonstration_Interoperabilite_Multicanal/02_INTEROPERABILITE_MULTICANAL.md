@@ -23,6 +23,6 @@
 |---|---|---|
 | ![Simulateur USSD](sandbox_ussd.png) | ![Simulateur Mobile](sandbox_mobile.png) | ![Simulateur Web](sandbox_web.png) |
 
-| Dashboard Middleware (Port 3000) | Traducteur IA & Correction T5 (Port 3001) | Mode Mot-à-Mot Lexical (Port 3002) |
-|---|---|---|
-| ![Middleware 3000](ui_middleware_3000.png) | ![Service IA 3001](ui_google_3001.png) | ![Mot a Mot 3002](ui_mot_a_mot_3002.png) |
+| Dashboard Middleware (Port 3000) | Studio Lingua & Voix Homme (/studio) | Traducteur IA & Correction T5 (Port 3001) | Mode Mot-à-Mot Lexical (Port 3002) |
+|---|---|---|---|
+| ![Middleware 3000](ui_middleware_3000.png) | ![Studio 3000](ui_studio_3000.png) | ![Service IA 3001](ui_google_3001.png) | ![Mot a Mot 3002](ui_mot_a_mot_3002.png) |

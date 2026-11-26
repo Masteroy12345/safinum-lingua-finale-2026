@@ -61,6 +61,7 @@ def main() -> None:
 
         targets = [
             ("http://127.0.0.1:3100/", CAP_DIR / "ui_middleware_3000.png"),
+            ("http://127.0.0.1:3100/studio", CAP_DIR / "ui_studio_3000.png"),
             ("http://127.0.0.1:3101/", CAP_DIR / "ui_google_3001.png"),
             ("http://127.0.0.1:3102/", CAP_DIR / "ui_mot_a_mot_3002.png"),
         ]

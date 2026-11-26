@@ -19,9 +19,10 @@ class UserSession:
     pending_tx_id: str | None = None
     pending_tx_trace_id: str | None = None
     pending_op: dict[str, Any] = field(default_factory=dict)
-    awaiting_field: str | None = None
-    draft_op_type: str | None = None  # "transfer", "airtime", "bill"
+    awaiting_field: str | None = None  # "amount", "beneficiary", "candidate_choice", "language_choice"
+    draft_op_type: str | None = None  # "transfer", "airtime", "bill", "fee"
     draft_transfer: dict[str, Any] = field(default_factory=dict)
+    candidate_choices: list[dict[str, Any]] = field(default_factory=list)
     last_channel: str = "ussd"
 
 
@@ -49,6 +50,7 @@ class SessionStore:
         session.awaiting_field = None
         session.draft_op_type = None
         session.draft_transfer = {}
+        session.candidate_choices = []
 
 
 store = SessionStore()
