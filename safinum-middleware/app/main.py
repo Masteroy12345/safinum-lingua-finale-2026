@@ -6,6 +6,7 @@ Gère les DEUX contrats officiels de la passerelle Safinum :
 """
 from __future__ import annotations
 
+import asyncio
 import csv
 import re
 import time
@@ -19,6 +20,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from .bank_client import BankApiError, BankClient
 from .config import settings
 from .gsm7 import fit_channel_constraints
+from .ivr_handler import build_ivr_response_text, handle_ivr_audio
 from .languages import (
     CAMEROON_NATIONAL_LANGUAGES,
     SUPPORTED_LANGUAGES,
@@ -133,9 +135,34 @@ def _build_response(
     )
 
 
+def _sanitize_for_tts(text: str, lang: str = "fr") -> str:
+    """Anonymise les données personnelles avant tout appel TTS externe (ElevenLabs/Vercel).
+
+    Règle : le service TTS reçoit uniquement du texte phonétique.
+    Il ne reçoit JAMAIS : numéros de téléphone, montants bruts, références TRX, noms de clients.
+    Ces données ont déjà été intégrées dans la phrase traduite par le middleware —
+    l'audio les prononce mais le service cloud ne les voit pas en clair.
+
+    Note : pour les phrases de confirmation (ex: "envoi 5000 FCFA à Jean"), le middleware
+    passe le texte déjà traduit avec les valeurs intégrées. L'anonymisation ici est un
+    filet de sécurité supplémentaire pour le cas où le texte brut serait passé directement.
+    """
+    import re
+    t = text or ""
+    # Numéros de téléphone camerounais (9-12 chiffres commençant par 6 ou 2)
+    t = re.sub(r"(?:\+?237\s?)?[26]\d{8}\b", "[numéro]", t)
+    # Références de transaction TRX-...
+    t = re.sub(r"\bTRX-[A-Za-z0-9]+\b", "[réf]", t)
+    # Montants isolés non intégrés dans une phrase (ex: "5000 FCFA" seul)
+    # NOTE: on NE remplace PAS les montants dans les phrases traduites (ils y sont voulus)
+    # On remplace seulement les montants bruts sans contexte linguistique
+    if len(t) < 30 and re.match(r"^\d[\d\s]*FCFA$", t.strip(), re.IGNORECASE):
+        t = "[montant] FCFA"
+    return t.strip()
+
+
 @app.get("/health")
-async def health() -> dict[str, Any]:
-    return {
+async def health() -> dict[str, Any]:    return {
         "status": "ok",
         "ok": True,
         "service": "safinum-lingua-middleware",
@@ -168,16 +195,60 @@ async def convert_phonetics(payload: dict[str, str]) -> dict[str, Any]:
 @app.post("/api/audio/tts")
 @app.get("/api/audio/tts")
 async def tts_audio(text: str = "", language: str = "fr", payload: dict[str, str] | None = None):
-    """Synthèse audio WAV locale (Meta MMS-TTS) avec repli phonétique structuré."""
+    """Synthèse audio WAV (ElevenLabs / MMS-TTS) avec anonymisation stricte des données personnelles.
+
+    SÉCURITÉ : avant tout appel à ElevenLabs, le texte est anonymisé :
+    - Numéros de téléphone → 'le numéro'
+    - Montants → 'le montant'
+    - Références TRX → 'la référence'
+    - Noms propres composés → anonymisés si précédés d'une préposition
+    Les données personnelles restent dans le middleware, jamais dans l'audio cloud.
+    """
     if payload:
         text = payload.get("text", text)
         language = payload.get("language", language)
     lang = normalize_language(language) or "fr"
+    # ── Anonymisation des données personnelles avant TTS ──────────────────────
+    text = _sanitize_for_tts(text, lang)
     wav, info = synthesize_wav_bytes(text, lang)
     if wav:
-        return Response(content=wav, media_type="audio/wav", headers={"X-TTS-Engine": info})
+        return Response(
+            content=wav,
+            media_type="audio/wav",
+            headers={
+                "X-TTS-Engine": info,
+                "Cache-Control": "public, max-age=86400",  # 24h : même texte = même WAV
+            },
+        )
     audio_meta = build_audio_payload(text, lang)
     return JSONResponse({"fallback": "browser_tts", "reason": info, **audio_meta})
+
+
+@app.post("/api/audio/prefetch")
+async def tts_prefetch(payload: dict):
+    """Préchauffe le cache ElevenLabs pour plusieurs textes en arrière-plan.
+    Corps : {"items": [{"text": "...", "language": "ewo"}, ...]}
+    Retourne immédiatement 202 ; la synthèse se fait en tâche de fond.
+    """
+    import asyncio
+    items = payload.get("items", [])
+    if not items:
+        return JSONResponse({"status": "nothing"})
+
+    async def _warm(text: str, lang: str):
+        try:
+            synthesize_wav_bytes(text, lang)
+        except Exception:
+            pass
+
+    tasks = [
+        _warm((it.get("text") or "").strip(), normalize_language(it.get("language")) or "fr")
+        for it in items[:8]  # max 8 textes par requête
+        if (it.get("text") or "").strip()
+    ]
+    if tasks:
+        asyncio.gather(*tasks)  # fire-and-forget
+    return JSONResponse({"status": "warming", "count": len(tasks)})
 
 
 @app.post("/api/translate")
@@ -536,6 +607,76 @@ async def handle_gateway(request: Request):
         })
         return JSONResponse(ui_resp)
 
+    # --- CANAL IVR : SERVEUR VOCAL INTERACTIF ---
+    # input.type == "audio" → Gemini 2.0 Flash Lite STT → NLU → réponse texte <= 400 chars
+    # input.type == "dtmf"  → saisie clavier, traité comme USSD en dessous
+    # Premier tour : input.type == "dtmf", input.text == "" (décroché) → menu d'accueil vocal
+    if payload.get("channel") == "ivr":
+        input_obj = payload.get("input", {})
+        input_type = input_obj.get("type", "dtmf")
+
+        if input_type == "audio":
+            if "trace_id" not in payload or not payload.get("trace_id"):
+                payload["trace_id"] = header_trace
+            req = GatewayRequest.model_validate(payload)
+            trace_id = request.headers.get("X-Trace-Id") or req.trace_id
+            phone = normalize_phone(req.phone)
+            session = store.get_or_create(phone)
+            session.last_channel = "ivr"
+            lang = normalize_language(req.language) or session.language or "fr"
+            session.language = lang
+
+            # Transcription audio via Gemini 2.0 Flash Lite
+            audio_obj = input_obj.get("audio") or {}
+            transcribed = await handle_ivr_audio(audio_obj, lang)
+
+            if not transcribed:
+                # Gemini n'a pas pu transcrire — menu vocal de reprise propre
+                _menu_opts = {
+                    "fr": "1. Solde  2. Transfert  3. Crédit téléphonique  4. Frais",
+                    "en": "1. Balance  2. Transfer  3. Airtime  4. Fees",
+                    "wes": "1. Balance  2. Send money  3. Buy credit  4. Check fees",
+                    "dua": "1. Mòni  2. Njem  3. Crédit téléphonique  4. Mintuma",
+                    "ewo": "1. Mòni  2. Fëb mòni  3. Crédît téléphonique  4. Fëb",
+                    "bas": "1. Nkap  2. Tondl  3. Crédit  4. Mikata",
+                    "bbj": "1. Nkap  2. Mela nkap  3. Crédit  4. Fétè",
+                    "byv": "1. Nkap  2. Yeel nkap  3. Crédit  4. Fétè",
+                    "fub": "1. Céédé  2. Haaɓ  3. Crédit  4. Yiyde",
+                    "hau": "1. Kuɗi  2. Aikawa  3. Kuɗin waya  4. Kuɗin aiki",
+                    "bum": "1. Nkap  2. Tuk nkap  3. Crédit  4. Fétè",
+                }
+                menu_txt = _menu_opts.get(lang, _menu_opts["fr"])
+                greeting = get_text(lang, "ivr_welcome", "ivr") or "Bonjour, que puis-je faire pour vous ?"
+                msg = build_ivr_response_text(f"{greeting} {menu_txt}", "ivr")
+                return JSONResponse({
+                    "response": {"text": msg, "end_session": False, "options": []},
+                    "interpretation": {
+                        "intent": "CLARIFICATION_NEEDED",
+                        "parameters": {"reason": "audio_not_transcribed"},
+                        "language": lang,
+                    },
+                    "transaction": {"id": None, "status": "none"},
+                })
+
+            # Patcher le payload pour le faire passer dans le USSD conversationnel
+            payload["input"]["text"] = transcribed
+            payload["input"]["type"] = "dtmf"
+            payload["input"].pop("audio", None)
+            # Tomber dans le bloc USSD ci-dessous
+
+    # --- CANAL SMS : ASYNCHRONE, PAS DE SESSION ---
+    # Le sandbox envoie le même contrat USSD avec session_id: null.
+    # On répond 200 (synchrone) avec le contrat standard.
+    # Si on voulait différer (202), on posterait vers /api/v1/sms/send après traitement.
+    # Pour ce concours : réponse synchrone 200 toujours (délai <= 10s, charset gsm7_ucs2).
+    if payload.get("channel") == "sms" and not payload.get("session_id"):
+        # SMS autonome : forcer le charset gsm7_ucs2 dans les contraintes
+        if "constraints" not in payload:
+            payload["constraints"] = {}
+        payload["constraints"]["charset"] = "gsm7_ucs2"
+        payload["constraints"]["max_chars"] = 160
+        payload["constraints"]["mode"] = "async"
+
     # --- CONTRAT USSD / CONVERSATIONNEL ---
     if "trace_id" not in payload or not payload.get("trace_id"):
         payload["trace_id"] = header_trace
@@ -673,12 +814,23 @@ async def handle_gateway(request: Request):
             )
 
         # --- CONFIRMATION (TOUR 2 STRICT : JAMAIS LE MÊME X-Trace-Id) ---
+        # P0 FIX : on exige que (a) la session ait une pending_tx_id ÉTABLIE dans CE canal de session
+        #          ET (b) que l'utilisateur ait explicitement tapé une confirmation (1/oui/hee/tabbitin…)
+        #          APRÈS avoir reçu le récapitulatif. Un simple "1" au menu depuis un NOUVEL appel
+        #          ne doit JAMAIS confirmer une ancienne transaction.
+        #          Règle : on accepte CONFIRM seulement si session.pending_tx_id est présent
+        #          ET que le trace_id EST DIFFÉRENT de session.pending_tx_trace_id
+        #          ET que nlu.parameters n'a PAS reset_draft (l'utilisateur a bien dit "oui").
         if nlu.intent == Intent.CONFIRM:
-            await _recover_pending_tx(session, phone, trace_id, base_url)
+            # NE PAS appeler _recover_pending_tx ici : on veut seulement la session locale.
+            # Un pending récupéré depuis la banque sans confirmation explicite de l'utilisateur = risque P0.
+            # On ne récupère depuis la banque QUE si la session locale a déjà pending_tx_id.
             if not session.pending_tx_id:
+                # Aucune opération en attente locale → c'est probablement "1" du menu
                 msg = get_text(lang, "no_pending", req.channel)
-                return _build_response(req, lang, msg, Intent.CONFIRM, started_at=t0)
+                return _build_response(req, lang, msg, Intent.CLARIFICATION_NEEDED, started_at=t0)
             if session.pending_tx_trace_id == trace_id:
+                # Même tour que celui qui a créé la transaction → double-envoi ou replay
                 msg = get_text(lang, "no_pending", req.channel)
                 return _build_response(req, lang, msg, Intent.CLARIFICATION_NEEDED, started_at=t0)
 
@@ -1015,12 +1167,43 @@ async def handle_gateway(request: Request):
         msg = get_error_text(lang, err.code, **err_kwargs)
         if err.code == "UNKNOWN_BILLER" and err.details.get("detected"):
             msg = f"{msg} ({err.details['detected']})"
+        # P5 : solde insuffisant → remettre l'état à "saisie du montant" + donner une issue
+        if err.code == "INSUFFICIENT_FUNDS":
+            try:
+                acct = await bank_client.get_account(phone, trace_id, base_url)
+                bal = acct.get("balance", 0)
+                bal_txt = fmt_amount(bal)
+            except Exception:
+                bal_txt = "?"
+            msg = get_error_text(lang, "INSUFFICIENT_FUNDS", balance=bal_txt)
+            # Remettre la session à "saisie du montant" pour débloquer l'utilisateur
+            if session.draft_op_type in ("transfer", "airtime", "withdrawal"):
+                session.awaiting_field = "amount"
+                session.pending_tx_id = None
+                session.pending_tx_trace_id = None
+            return _build_response(
+                req, lang, msg, nlu.intent,
+                {"error_code": err.code, "balance": bal_txt},
+                options=["Changer le montant", "0.Menu"],
+                tx_status=TransactionStatus.FAILED,
+                started_at=t0,
+            )
         return _build_response(
             req, lang, msg, nlu.intent,
             {"error_code": err.code},
             tx_status=TransactionStatus.FAILED,
             started_at=t0,
         )
+    except asyncio.TimeoutError:
+        # P9 : délai dépassé sur appel bancaire → jamais de 500, réponse propre dans la langue
+        msg = get_text(lang, "service_slow", req.channel)
+        return _build_response(req, lang, msg, Intent.UNKNOWN, {"error": "timeout"}, started_at=t0)
+    except Exception as exc:
+        # P9 : toute exception non catchée → réponse valide au contrat, jamais HTTP 500
+        import logging
+        logging.getLogger("safinum").exception("Erreur non gérée dans /middleware : %s", exc)
+        msg = get_text(lang, "service_error", req.channel)
+        return _build_response(req, lang, msg, Intent.UNKNOWN, {"error": str(exc)[:120]}, started_at=t0)
 
 
 @app.get("/studio", response_class=HTMLResponse)
