@@ -608,53 +608,61 @@ async def handle_gateway(request: Request):
         return JSONResponse(ui_resp)
 
     # --- CANAL IVR : SERVEUR VOCAL INTERACTIF ---
-    # input.type == "audio" → Gemini STT → NLU → réponse texte <= 400 chars
+    # input.type == "audio" → Gemini 2.0 Flash Lite STT → NLU → réponse texte <= 400 chars
     # input.type == "dtmf"  → saisie clavier, traité comme USSD en dessous
-    if payload.get("channel") == "ivr" and payload.get("input", {}).get("type") == "audio":
-        if "trace_id" not in payload or not payload.get("trace_id"):
-            payload["trace_id"] = header_trace
-        req = GatewayRequest.model_validate(payload)
-        trace_id = request.headers.get("X-Trace-Id") or req.trace_id
-        phone = normalize_phone(req.phone)
-        session = store.get_or_create(phone)
-        session.last_channel = "ivr"
-        lang = normalize_language(req.language) or session.language or "fr"
-        session.language = lang
+    # Premier tour : input.type == "dtmf", input.text == "" (décroché) → menu d'accueil vocal
+    if payload.get("channel") == "ivr":
+        input_obj = payload.get("input", {})
+        input_type = input_obj.get("type", "dtmf")
 
-        # Transcription audio via Gemini
-        audio_obj = payload.get("input", {}).get("audio") or {}
-        transcribed = await handle_ivr_audio(audio_obj, lang)
+        if input_type == "audio":
+            if "trace_id" not in payload or not payload.get("trace_id"):
+                payload["trace_id"] = header_trace
+            req = GatewayRequest.model_validate(payload)
+            trace_id = request.headers.get("X-Trace-Id") or req.trace_id
+            phone = normalize_phone(req.phone)
+            session = store.get_or_create(phone)
+            session.last_channel = "ivr"
+            lang = normalize_language(req.language) or session.language or "fr"
+            session.language = lang
 
-        if not transcribed:
-            # Gemini n'a pas pu transcrire — demander de répéter
-            msg = build_ivr_response_text(
-                get_text(lang, "ask_repeat", "ivr") or
-                "Je n'ai pas bien entendu. Pouvez-vous répéter ?", "ivr"
-            )
-            return JSONResponse({
-                "response": {"text": msg, "end_session": False, "options": []},
-                "interpretation": {"intent": "CLARIFICATION_NEEDED", "parameters": {"reason": "audio_not_transcribed"}, "language": lang},
-                "transaction": {"id": None, "status": "none"},
-            })
+            # Transcription audio via Gemini 2.0 Flash Lite
+            audio_obj = input_obj.get("audio") or {}
+            transcribed = await handle_ivr_audio(audio_obj, lang)
 
-        # Réutiliser le NLU USSD avec le texte transcrit
-        from .nlu import parse_intent as _parse
-        nlu_ivr = _parse(
-            text=transcribed,
-            channel="ivr",
-            input_type="audio",
-            ussd_text=transcribed,
-            has_pending_tx=bool(session.pending_tx_id),
-            awaiting_field=session.awaiting_field,
-            draft_op_type=session.draft_op_type,
-            language=lang,
-        )
+            if not transcribed:
+                # Gemini n'a pas pu transcrire — menu vocal de reprise propre
+                _menu_opts = {
+                    "fr": "1. Solde  2. Transfert  3. Crédit téléphonique  4. Frais",
+                    "en": "1. Balance  2. Transfer  3. Airtime  4. Fees",
+                    "wes": "1. Balance  2. Send money  3. Buy credit  4. Check fees",
+                    "dua": "1. Mòni  2. Njem  3. Crédit téléphonique  4. Mintuma",
+                    "ewo": "1. Mòni  2. Fëb mòni  3. Crédît téléphonique  4. Fëb",
+                    "bas": "1. Nkap  2. Tondl  3. Crédit  4. Mikata",
+                    "bbj": "1. Nkap  2. Mela nkap  3. Crédit  4. Fétè",
+                    "byv": "1. Nkap  2. Yeel nkap  3. Crédit  4. Fétè",
+                    "fub": "1. Céédé  2. Haaɓ  3. Crédit  4. Yiyde",
+                    "hau": "1. Kuɗi  2. Aikawa  3. Kuɗin waya  4. Kuɗin aiki",
+                    "bum": "1. Nkap  2. Tuk nkap  3. Crédit  4. Fétè",
+                }
+                menu_txt = _menu_opts.get(lang, _menu_opts["fr"])
+                greeting = get_text(lang, "ivr_welcome", "ivr") or "Bonjour, que puis-je faire pour vous ?"
+                msg = build_ivr_response_text(f"{greeting} {menu_txt}", "ivr")
+                return JSONResponse({
+                    "response": {"text": msg, "end_session": False, "options": []},
+                    "interpretation": {
+                        "intent": "CLARIFICATION_NEEDED",
+                        "parameters": {"reason": "audio_not_transcribed"},
+                        "language": lang,
+                    },
+                    "transaction": {"id": None, "status": "none"},
+                })
 
-        # Patcher le payload pour le faire passer dans le USSD conversationnel
-        payload["input"]["text"] = transcribed
-        payload["input"]["type"] = "dtmf"
-        payload["input"].pop("audio", None)
-        # On laisse tomber dans le bloc USSD ci-dessous
+            # Patcher le payload pour le faire passer dans le USSD conversationnel
+            payload["input"]["text"] = transcribed
+            payload["input"]["type"] = "dtmf"
+            payload["input"].pop("audio", None)
+            # Tomber dans le bloc USSD ci-dessous
 
     # --- CANAL SMS : ASYNCHRONE, PAS DE SESSION ---
     # Le sandbox envoie le même contrat USSD avec session_id: null.
