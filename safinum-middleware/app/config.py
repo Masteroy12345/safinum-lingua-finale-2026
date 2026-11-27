@@ -23,6 +23,8 @@ class Settings:
     elevenlabs_model_id: str = os.getenv("ELEVENLABS_MODEL_ID", "eleven_multilingual_v2")
     request_timeout_s: float = float(os.getenv("SAFINUM_HTTP_TIMEOUT", "2.0"))
     ui_phonetic_tts: bool = os.getenv("SAFINUM_UI_PHONETIC_TTS", "1") == "1"
+    gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    sms_send_url: str = os.getenv("SAFINUM_SMS_SEND_URL", "https://www.safinum.cm/api/v1/sms/send")
 
 
 settings = Settings()

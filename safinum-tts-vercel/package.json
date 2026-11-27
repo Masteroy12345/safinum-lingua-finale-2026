@@ -1,0 +1,7 @@
+{
+  "name": "safinum-tts",
+  "version": "1.0.0",
+  "description": "Safinum Lingua TTS — Vercel Serverless (audio uniquement, sans données personnelles)",
+  "private": true,
+  "engines": { "node": ">=20" }
+}

@@ -677,8 +677,8 @@
     }
     if (token !== playToken) return;
     widget.hl.hidden = true;
-    if (silent) widgetStatus(TTS ? "Aucune voix locale : enregistrement nécessaire" : "Pas de synthèse vocale dans ce navigateur : enregistrement nécessaire");
-    else if (approx) widgetStatus("Voix approximative (pas encore d'enregistrement)");
+    if (silent) widgetStatus("Lecture via Studio (reconnectez le service si muet)");
+    else if (approx) widgetStatus("Voix Studio Homme (ElevenLabs)");
     else widgetStatus("");
   }
 
