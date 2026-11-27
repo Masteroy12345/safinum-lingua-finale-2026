@@ -18,15 +18,18 @@ def test_mot_a_mot_health_and_glossary():
 
 def test_mot_a_mot_translation_and_protection():
     r = client.post("/translate", json={
-        "text": "bonjour envoyer 5 000 FCFA à 677000001",
+        "text": "bonjour Amina envoyer 5 000 FCFA à Jean Mbarga au 677000001",
         "target_language": "dua",
     })
     assert r.status_code == 200
     d = r.json()
-    assert "5 000 FCFA" in d["translated"]
-    assert "677000001" in d["translated"]
+    assert "{name}" in d["translated"] and "Amina" not in d["translated"]
+    assert "{amount}" in d["translated"] and "5 000" not in d["translated"]
+    assert "{beneficiary}" in d["translated"] and "Jean Mbarga" not in d["translated"]
+    assert "{phone}" in d["translated"] and "677000001" not in d["translated"]
     assert "idib'a bwam" in d["translated"].lower()
-    assert any(a["status"] == "protected" for a in d["alignments"])
+    assert any(a["status"] == "variable" for a in d["alignments"])
+    assert d["variables"]["amount"] == "5 000 FCFA"
     assert d["gsm7_strict"] is True
     assert d["ipa"].startswith("/")
 
@@ -38,4 +41,4 @@ def test_mot_a_mot_translation_and_protection():
     d_fub = r_fub.json()
     assert "ballal" in d_fub["translated"]
     assert "alkawal" in d_fub["translated"]
-    assert "10 000 FCFA" in d_fub["translated"]
+    assert "{amount}" in d_fub["translated"] and "10 000" not in d_fub["translated"]

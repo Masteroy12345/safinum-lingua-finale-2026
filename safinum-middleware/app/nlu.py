@@ -32,11 +32,11 @@ BILLERS = {"ENEO", "CAMWATER", "CANAL", "CAMTEL"}
 OPERATORS = {"MTN", "ORANGE", "CAMTEL"}
 
 TERM_KEYWORDS = {
-    "frais": ["frais", "fee", "fees", "charges", "njobdi", "njoɓdi", "fre", "njoa", "nsas", "commission"],
-    "solde": ["solde", "balance", "ceede keddiide", "moni wom", "mòni wom", "mòni a lig", "moni a lig", "a lig ma", "mone ma tabe", "moni ma dia", "moni u nkon", "nkap ya tse", "nkap bwam"],
-    "plafond": ["plafond", "limit", "limite", "maximum", "keeri", "max"],
-    "beneficiaire": ["beneficiaire", "bénéficiaire", "beneficiary", "destinataire", "heboowo", "heɓoowo", "mod a kos", "moto nu ma kusa", "mut a nkos", "we e nyam"],
-    "reference": ["reference", "référence", "referaans", "referans", "recu", "reçu", "receipt"],
+    "frais": ["frais", "fee", "fees", "charges", "njobdi", "njoɓdi", "kudin aiki", "kuɗin aiki", "fre", "njoa", "nsas", "commission"],
+    "solde": ["solde", "balance", "ceede keddiide", "ragowar kudi", "moni wom", "mòni wom", "mòni a lig", "moni a lig", "a lig ma", "moné a li'i", "mone a li'i", "mone ma tabe", "moni ma dia", "moni u nkon", "nkap ya tse", "nkap bwam"],
+    "plafond": ["plafond", "limit", "limite", "maximum", "keeri", "iyaka", "ndelo", "ndék", "ndek", "max"],
+    "beneficiaire": ["beneficiaire", "bénéficiaire", "beneficiary", "destinataire", "heboowo", "heɓoowo", "mai karba", "môt a nyoñ", "mot a nyon", "mod a kos", "moto nu ma kusa", "mut a nkos", "we e nyam"],
+    "reference": ["reference", "référence", "lambar shaida", "referaans", "referans", "recu", "reçu", "receipt"],
 }
 
 _CT2_REVERSE_MAP = {
@@ -90,7 +90,7 @@ def extract_phone(text: str) -> str | None:
 
 def extract_amount(text: str) -> int | None:
     """Extrait un montant en FCFA (gère espaces, points, virgules, k, mille)."""
-    without_phones = re.sub(r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}", " ", text)
+    without_phones = re.sub(r"(?:\+?237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b", " ", text)
     m_k = re.search(r"\b(\d+(?:[.,]\d+)?)\s*(?:k|mille)\b", without_phones, re.IGNORECASE)
     if m_k:
         val = float(m_k.group(1).replace(",", "."))
@@ -114,11 +114,11 @@ def extract_biller_or_operator(text: str) -> tuple[str | None, str | None]:
 def extract_beneficiary_name(text: str, allow_bare: bool = False) -> str | None:
     """Extrait un nom de bénéficiaire après prépositions ou en réponse directe."""
     patterns = [
-        r"(?:\b(?:a|à|vers|pour|to|give|for|na|e)\b)\s+([A-ZÀ-Ÿa-zà-ÿ][A-ZÀ-Ÿa-zà-ÿ\-']+(?:\s+[A-ZÀ-Ÿa-zà-ÿ][A-ZÀ-Ÿa-zà-ÿ\-']+)?)",
+        r"(?:\b(?:a|à|vers|pour|to|give|for|na|e|zuwa|be)\b)\s+([A-ZÀ-Ÿa-zà-ÿ][A-ZÀ-Ÿa-zà-ÿ\-']+(?:\s+[A-ZÀ-Ÿa-zà-ÿ][A-ZÀ-Ÿa-zà-ÿ\-']+)?)",
     ]
     stopwords = {
-        "fcfa", "xaf", "cfa", "frais", "solde", "moni", "ceede", "mone", "credit",
-        "facture", "bill", "airtime", "nkap", "njoa", "nsas", "fre", "mille",
+        "fcfa", "xaf", "cfa", "frais", "solde", "moni", "ceede", "mone", "moné", "kudi", "credit",
+        "facture", "bill", "airtime", "nkap", "njoa", "nsas", "fre", "mille", "lissafi", "katin",
     }
     for pat in patterns:
         m = re.search(pat, text, re.IGNORECASE)
@@ -149,9 +149,9 @@ def extract_target_language(text: str) -> str | None:
             continue
         if re.search(rf"\b{re.escape(alias)}\b", t):
             return code
-    # Repli sur codes courts ("fr", "en", "ff") hors préposition "passer/parler/mettre en ..."
+    # Repli sur codes courts ("fr", "en", "ff", "ha") hors préposition "passer/parler/mettre en ..."
     cleaned = re.sub(r"\b(passer|parler|mettre|traduire|changer|ecrire)\s+en\b", " ", t)
-    for alias in ("fr", "en", "ff"):
+    for alias in ("fr", "en", "ff", "ha"):
         if re.search(rf"\b{alias}\b", cleaned):
             return LANGUAGE_ALIASES[alias]
     return None
@@ -174,7 +174,7 @@ def _parse_rules(
 
     # 0b. Choix de langue par numéro ou code après avoir tapé "0" (awaiting_field == "language_choice")
     if awaiting_field == "language_choice":
-        lang_order = ["dua", "ewo", "bas", "bbj", "byv", "fub", "wes", "fr", "en"]
+        lang_order = ["dua", "ewo", "bas", "bbj", "byv", "fub", "hau", "bum", "wes", "fr", "en"]
         if t.isdigit():
             idx = int(t) - 1
             if 0 <= idx < len(lang_order):
@@ -197,9 +197,9 @@ def _parse_rules(
     # 1. Cas USSD menu numérique ou raccourci *
     if channel.lower() == "ussd" or input_type == "menu":
         if has_pending_tx:
-            if t in {"1", "oui", "yes", "ok", "confirm", "confirmer", "yebe", "tabbitin", "eme", "neebe", "hee", "timbisɛ", "timbise", "hémle", "hemle", "yôô", "yoo", "ŋ̀ŋ̂", "nng", "ŋ̂"}:
+            if t in {"1", "oui", "yes", "ok", "confirm", "confirmer", "yebe", "tabbitin", "tabbatar", "kanese", "kañese", "eme", "neebe", "hee", "timbisɛ", "timbise", "hémle", "hemle", "yôô", "yoo", "ŋ̀ŋ̂", "nng", "ŋ̂"}:
                 return NLUResult(Intent.CONFIRM)
-            if t in {"2", "non", "no", "cancel", "annuler", "tebe", "habbit", "bwa", "tehe", "kem", "timba", "shimbɛ", "bôg", "bog", "tɔ̀", "to", "ka'", "bili", "ben", "ŋŋ̀"}:
+            if t in {"2", "non", "no", "cancel", "annuler", "tebe", "habbit", "soke", "joe", "jô'é", "bwa", "tehe", "kem", "timba", "shimbɛ", "bôg", "bog", "tɔ̀", "to", "ka'", "bili", "ben", "ŋŋ̀"}:
                 return NLUResult(Intent.CANCEL)
 
         if "*" in t and not t.startswith("*"):
@@ -230,8 +230,8 @@ def _parse_rules(
                 return NLUResult(Intent.LANGUAGE_SWITCH, {"show_options": True})
 
     # 2. Confirmation / Annulation / Correction (explicite cross-canal ou en attente)
-    if re.search(r"\b(modifier|corriger|corrige|edit)\b", t) or (
-        has_pending_tx and re.search(r"\b(changer|change|plutot|plutôt|instead|en fait|finalement|waylu|tukwa|henha|sûli|suli|shang)\b", t)
+    if re.search(r"\b(modifier|corriger|corrige|edit|gyara|canza|tyende|tyendé)\b", t) or (
+        has_pending_tx and re.search(r"\b(changer|change|plutot|plutôt|instead|en fait|finalement|waylu|tukwa|henha|sûli|suli|shang|gyara|canza|tyende|tyendé)\b", t)
     ):
         params: dict[str, Any] = {}
         amt = extract_amount(raw)
@@ -245,25 +245,25 @@ def _parse_rules(
             params["beneficiary"] = ben
         return NLUResult(Intent.CORRECTION, params)
 
-    if re.search(r"\b(annuler|cancel|habbit|timba|tebe)\b", t) or (
-        has_pending_tx and re.search(r"\b(non|no|stop|bwa|tehe|kem|bôg|bog|bili|ben|ka'|2)\b", t)
+    if re.search(r"\b(annuler|cancel|habbit|timba|tebe|soke|jô'ôé|jô'é|jo'oe)\b", t) or (
+        has_pending_tx and re.search(r"\b(non|no|stop|bwa|tehe|kem|bôg|bog|bili|ben|ka'|a'a|momo|2)\b", t)
     ):
         return NLUResult(Intent.CANCEL)
 
-    if re.search(r"\b(confirmer|confirm|valider|validate|tabbitin|timbisɛ|timbise|hémle|hemle)\b", t) or (
-        has_pending_tx and re.search(r"\b(oui|yes|yebe|eme|neebe|hee|yôô|yoo|ok|1)\b", t)
+    if re.search(r"\b(confirmer|confirm|valider|validate|tabbitin|tabbatar|kañese|kanese|timbisɛ|timbise|hémle|hemle)\b", t) or (
+        has_pending_tx and re.search(r"\b(oui|yes|yebe|eme|neebe|hee|yôô|yoo|eh|ôwé|owe|ok|1)\b", t)
     ):
         return NLUResult(Intent.CONFIRM)
 
     # 3. Changement de langue
-    if re.search(r"\b(langue|language|parler|speak|switch|demgal|nkobo|bwea|hop|passer en|change language)\b", t):
+    if re.search(r"\b(langue|language|parler|speak|switch|demgal|harshe|harshen|nkobo|nkobô|bwea|hop|ghom|passer en|change language)\b", t):
         target = extract_target_language(raw)
         if target:
             return NLUResult(Intent.LANGUAGE_SWITCH, {"target_language": target})
         return NLUResult(Intent.LANGUAGE_SWITCH, {"show_options": True})
 
     # 4. Explication de terminologie financière
-    if re.search(r"\b(c'est quoi|qu'est-ce que|explique|signifie|veut dire|definition|définition|what is|meaning|explain|wetin be|ko woni|nje e ne|dze a ne|kii ye|ka ba)\b", t):
+    if re.search(r"\b(c'est quoi|qu'est-ce que|explique|signifie|veut dire|definition|définition|what is|meaning|explain|wetin be|ko woni|menene|me nene|nje e ne|dze a ne|jé a ne|je a ne|kii ye|ka ba|kə ne)\b", t):
         for term_key, kws in TERM_KEYWORDS.items():
             if any(k in t for k in kws):
                 return NLUResult(Intent.TERM_EXPLANATION, {"term": term_key})
@@ -271,17 +271,17 @@ def _parse_rules(
 
     # 5. Consultation de solde (avec et sans le mot "solde")
     if re.search(
-        r"\b(solde|balance|combien j'ai|combien il me reste|mon argent|voir mon compte|mon compte|moni weh remain|ceede keddiide|ceede maa|mòni wom|moni wom|mòni a lig|moni a lig|a lig ma|a ne va a ne tan|mone ma tabe|mone woe|moni ma dia|moni mongo|moni u nkon|moni won|nkap ya tse|nkap po|nkap bu)\b",
+        r"\b(solde|balance|combien j'ai|combien il me reste|mon argent|voir mon compte|mon compte|moni weh remain|ceede keddiide|ceede maa|ragowar kudi|kudina|nawa ne|moné wom|mone wom|moné a li'i|mone a li'i|mòni wom|moni wom|mòni a lig|moni a lig|a lig ma|a ne va a ne tan|mone ma tabe|mone woe|moni ma dia|moni mongo|moni u nkon|moni won|nkap ya tse|nkap po|nkap bu)\b",
         t,
     ):
         return NLUResult(Intent.BALANCE_INQUIRY)
 
     # 6. Historique des transactions
-    if re.search(r"\b(historique|history|dernieres operations|dernières opérations|transactions|releve|relevé|golle ceede|alom ya nde|bola|bilon|bivul)\b", t):
+    if re.search(r"\b(historique|history|dernieres operations|dernières opérations|transactions|releve|relevé|golle ceede|tarihi|tarihina|mam me lôteya|mam me loteya|alom ya nde|bola|bilon|bivul)\b", t):
         return NLUResult(Intent.TRANSACTION_HISTORY, {"limit": 5})
 
     # 7. Demande de frais (ne jamais inventer un montant si l'utilisateur ne l'a pas fourni)
-    if re.search(r"\b(frais|fee|fees|charges|tarif|commission|njobdi|njoɓdi|fre|njoa|nsas|combien coute|combien coûte|cout|coût)\b", t):
+    if re.search(r"\b(frais|fee|fees|charges|tarif|commission|njobdi|njoɓdi|kudin aiki|kuɗin aiki|fre|njoa|nsas|combien coute|combien coûte|cout|coût)\b", t):
         amt = extract_amount(raw)
         op_type = "transfer"
         if re.search(r"\b(facture|bill|eneo|camwater|canal)\b", t):
@@ -313,19 +313,27 @@ def _parse_rules(
 
     # 9. Paiement de facture
     biller, operator = extract_biller_or_operator(raw)
-    if biller or re.search(r"\b(facture|bill|faktir|electricite|électricité|eau|abonnement)\b", t):
+    if biller or re.search(r"\b(facture|bill|lissafi|electricite|électricité|wutar lantarki|eau|abonnement)\b", t):
         amt = extract_amount(raw)
         return NLUResult(Intent.BILL_PAYMENT, {"biller": biller or "ENEO", "amount": amt})
 
     # 10. Achat de crédit téléphonique
-    if operator or re.search(r"\b(credit|crédit|airtime|recharge|unites|unités|kredit)\b", t):
+    if operator or re.search(r"\b(credit|crédit|airtime|katin waya|sayen kati|recharge|unites|unités)\b", t):
         amt = extract_amount(raw)
         ph = extract_phone(raw)
         return NLUResult(Intent.AIRTIME_PURCHASE, {"operator": operator, "amount": amt, "to_phone": ph})
 
+    # 10b. Retrait d'argent (USSD / GAB ATM — multiples de 5 000 FCFA sur ATM)
+    if (
+        re.search(r"\b(retrait|retirer|withdraw|withdrawal|comot moni|cire kudi|ittude|busa moni|pémés|pemes)\b", t)
+        or (awaiting_field and draft_op_type == "withdrawal")
+    ):
+        amt = extract_amount(raw)
+        return NLUResult(Intent.TRANSFER, {"op_subtype": "withdrawal", **({"amount": amt} if amt else {})})
+
     # 11. Transfert d'argent (ou suite multi-tour transfert)
     if (
-        re.search(r"\b(envoyer|envoie|envoies|transferer|transférer|transfere|transfère|transfert|transfer|send|virement|nel|neldude|lom|lôm|loma|lóma|lémèl|lemel|ntúm|ntum|tom)\b", t)
+        re.search(r"\b(envoyer|envoie|envoies|transferer|transférer|transfere|transfère|transfert|transfer|send|virement|aika|nel|neldude|lom|lôm|loma|lóma|lémèl|lemel|ntúm|ntum|tom)\b", t)
         or awaiting_field in ("amount", "beneficiary")
     ):
         amt = extract_amount(raw)

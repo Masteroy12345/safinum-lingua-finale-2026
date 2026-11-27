@@ -588,19 +588,78 @@
       TTS.speak(u);
     });
 
+  const TTS_ENDPOINTS = [
+    "https://maryellen-parchable-gertude.ngrok-free.dev/api/audio/tts",
+    "http://127.0.0.1:3000/api/audio/tts",
+  ];
+
+  async function tryPlayElevenLabsUnified(text, langCode, token) {
+    const clean = (text || "").replace(/\s+/g, " ").trim();
+    if (!clean) return false;
+    for (const base of TTS_ENDPOINTS) {
+      if (token !== playToken) return true;
+      try {
+        const resp = await fetch(base, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: clean, language: langCode || "fr" }),
+        });
+        if (!resp.ok || !(resp.headers.get("content-type") || "").includes("audio")) continue;
+        const blob = await resp.blob();
+        if (token !== playToken) return true;
+        const url = URL.createObjectURL(blob);
+        await new Promise((resolve) => {
+          const a = new Audio(url);
+          a.playbackRate = settings.rate || 0.95;
+          currentAudio = a;
+          a.onended = a.onerror = () => {
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          a.play().catch(() => {
+            URL.revokeObjectURL(url);
+            resolve();
+          });
+        });
+        return true;
+      } catch {
+        // Essaie l'URL suivante ou replie localement
+      }
+    }
+    return false;
+  }
+
   async function readElement(el) {
     if (!el || !el.isConnected) return;
     stopSpeaking();
     const token = playToken;
-    const segs = segmentsOf(el);
-    if (!segs.length) return;
-    const lang = LANGS[settings.lang];
-    // Mots traduits sans enregistrement : voix la plus proche. Valeurs (montants…) : voix française.
-    const vTranslated = pickVoice(lang.ttsLang || "fr") || pickVoice("fr") || pickVoice("en");
-    const vValues = pickVoice("fr") || vTranslated;
     const r = el.getBoundingClientRect();
     Object.assign(widget.hl.style, { left: r.left - 4 + "px", top: r.top - 4 + "px", width: r.width + 8 + "px", height: r.height + 8 + "px" });
     widget.hl.hidden = false;
+
+    // 1. Priorité : Audio unique unifié ElevenLabs Homme adapté au contenu dynamique affiché à l'écran
+    const liveDynamicText = (el.innerText || el.textContent || "").trim();
+    if (liveDynamicText) {
+      widgetStatus("Lecture vocale Studio Homme…");
+      const ok = await tryPlayElevenLabsUnified(liveDynamicText, settings.lang, token);
+      if (ok) {
+        if (token === playToken) {
+          widget.hl.hidden = true;
+          widgetStatus("");
+        }
+        return;
+      }
+    }
+
+    const segs = segmentsOf(el);
+    if (!segs.length) {
+      widget.hl.hidden = true;
+      return;
+    }
+    const lang = LANGS[settings.lang];
+    // Repli local si hors-ligne : voix masculine navigateur
+    const vTranslated = pickVoice(lang.ttsLang || "fr") || pickVoice("fr") || pickVoice("en");
+    const vValues = pickVoice("fr") || vTranslated;
     let approx = false;
     let silent = false;
     for (const seg of segs) {

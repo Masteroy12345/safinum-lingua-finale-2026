@@ -184,7 +184,7 @@ def test_mobile_web_ui_translation_contract_all_89_keys_9_languages():
         for k, v in fr_keys.items()
     }
 
-    for lang in ("fr", "en", "dua", "ewo", "bas", "bbj", "byv", "fub", "wes"):
+    for lang in ("fr", "en", "dua", "ewo", "bas", "bbj", "byv", "fub", "hau", "bum", "wes"):
         resp = client.post("/middleware", json={
             "trace_id": f"ui-{lang}",
             "channel": "web",
@@ -295,7 +295,9 @@ def test_cross_channel_confirm_recovers_pending_tx_from_bank(monkeypatch):
 
 
 def test_banking_security_numbers_client_names_and_studio_endpoints(monkeypatch):
-    # 1. Les chiffres, montants, téléphones, références et noms propres de clients ne sont jamais traduits
+    # 1. Confidentialité stricte : les traductions ne contiennent AUCUNE somme, nom de client ni téléphone — uniquement des {variables} changeables
+    from app.languages import FINANCIAL_TERMS, TEMPLATES, render_variables
+
     r_tr = client.post("/api/translate", json={
         "language": "dua",
         "text": "Bonjour Amina, envoyer 15 000 FCFA à Jean Mbarga au 677000002 (TRX-9042)",
@@ -303,15 +305,59 @@ def test_banking_security_numbers_client_names_and_studio_endpoints(monkeypatch)
     assert r_tr.status_code == 200
     body = r_tr.json()
     tr = body["translated"]
-    assert "15 000 FCFA" in tr
-    assert "Amina" in tr
-    assert "Jean Mbarga" in tr
-    assert "677000002" in tr
-    assert "TRX-9042" in tr
+    # Les valeurs confidentielles NE DOIVENT JAMAIS figurer dans la traduction :
+    assert "15 000" not in tr and "15000" not in tr
+    assert "Amina" not in tr
+    assert "Jean Mbarga" not in tr
+    assert "677000002" not in tr
+    assert "TRX-9042" not in tr
+    # Elles sont remplacées par des variables dynamiques modifiables :
+    assert "{name}" in tr
+    assert "{amount}" in tr
+    assert "{beneficiary}" in tr
+    assert "{phone}" in tr
+    assert "{reference}" in tr
+    assert body["variables"]["name"] == "Amina"
+    assert body["variables"]["amount"] == "15 000 FCFA"
+    assert body["variables"]["beneficiary"] == "Jean Mbarga"
+    assert body["variables"]["phone"] == "677000002"
+    assert body["variables"]["reference"] == "TRX-9042"
+    # Et elles peuvent être injectées/modifiées dynamiquement côté client/audio :
+    rendered_custom = render_variables(tr, {
+        "name": "Amadou Kamga",
+        "amount": "25 000 FCFA",
+        "beneficiary": "Paul Sali",
+        "phone": "237653633039",
+        "reference": "TRX-1111",
+    })
+    assert "Amadou Kamga" in rendered_custom and "25 000 FCFA" in rendered_custom and "Paul Sali" in rendered_custom
 
-    # 2. Studio web type Google Traduction + comparateur 9 langues + 89 clés UI + 18 enregistrements natifs
-    assert client.get("/studio").status_code == 200
-    assert client.post("/api/translate-all", json={"text": "Bonjour Amina, envoyer 5 000 FCFA"}).status_code == 200
+    # 1b. Aucun gabarit statique (UI_TRANSLATIONS, TEMPLATES hors menus 1/2/0, FINANCIAL_TERMS) ne contient de téléphone ni somme en dur
+    phone_re = re.compile(r"(?:\+?237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b")
+    sum_re = re.compile(r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b", re.IGNORECASE)
+    for lg, table in UI_TRANSLATIONS.items():
+        for k, val in table.items():
+            assert not phone_re.search(val), f"Numéro en dur interdit dans UI {lg}.{k}: {val}"
+            assert not sum_re.search(val), f"Somme en dur interdite dans UI {lg}.{k}: {val}"
+    for lg, table in TEMPLATES.items():
+        for k, val in table.items():
+            assert not phone_re.search(val), f"Numéro en dur interdit dans TEMPLATES {lg}.{k}: {val}"
+            # retire d'abord les variables {amount} FCFA légitimes avant de vérifier qu'aucun chiffre suivi de FCFA n'est codé en dur
+            assert not sum_re.search(val), f"Somme en dur interdite dans TEMPLATES {lg}.{k}: {val}"
+    for term_k, table in FINANCIAL_TERMS.items():
+        for lg, val in table.items():
+            assert not phone_re.search(val), f"Numéro en dur interdit dans FINANCIAL_TERMS {term_k}.{lg}: {val}"
+            assert not sum_re.search(val), f"Somme en dur interdite dans FINANCIAL_TERMS {term_k}.{lg}: {val}"
+
+    # 2. Studio web type Google Traduction + comparateur 9 langues + 89 clés UI + enregistrements natifs
+    st_html = client.get("/studio")
+    assert st_html.status_code == 200
+    assert "{name}" in st_html.text and "{amount}" in st_html.text
+    r_all = client.post("/api/translate-all", json={"text": "Bonjour Amina, envoyer 5 000 FCFA"})
+    assert r_all.status_code == 200
+    for lg_code, item in r_all.json()["translations"].items():
+        assert "Amina" not in item["translated"] and "5 000" not in item["translated"]
+        assert "{name}" in item["translated"] and "{amount}" in item["translated"]
     ui_k = client.get("/api/ui-keys?language=ewo")
     assert ui_k.status_code == 200
     assert ui_k.json()["count"] == 89
@@ -354,12 +400,15 @@ def test_audio_french_proper_nouns_raw_numbers_fcfa_and_cross_channel_ui_lang():
     assert "15 000" in script
     assert "quinze mille" in _expand_numbers_for_tts(script).lower()
 
-    # 1b. Le flux natif ElevenLabs conserve le texte natif (sans réécriture syllabique)
+    # 1b. Le flux natif ElevenLabs conserve le texte natif et décompose DYNAMIQUEMENT tout numéro variable sans avaler les zéros
     native_el = _prepare_elevenlabs_native_text("Idib'a bwam Amina, lóma 15 000 FCFA na Jean Mbarga o 677000002")
     assert "Idib'a bwam Amina" in native_el
     assert "15 000 francs CFA" in native_el
     assert "Jean Mbarga" in native_el
-    assert "677000002" in native_el
+    assert "6, 77, zéro zéro, zéro zéro, zéro 2" in native_el
+    native_var_phone = _prepare_elevenlabs_native_text("Compte +237 657 09 64 50 et 699050041")
+    assert "+237, 6, 57, zéro 9, 64, 50" in native_var_phone
+    assert "6, 99, zéro 5, zéro zéro, 41" in native_var_phone
 
     # 2. Synthèse WAV homme uniquement (F0 <= 150 Hz) via endpoint et module phonetics
     wav, model_name = synthesize_wav_bytes("Amina envoie 5 000 FCFA à Jean Mbarga.", "ewo")
@@ -422,13 +471,48 @@ def test_soreva_native_voice_bank_all_7_cameroonian_languages_and_male_sts():
     vs = get_language_voice_settings("ewo")
     assert 0.45 <= vs["stability"] <= 0.65
 
-    # 2. Protection des noms propres, chiffres et FCFA lors de l'injection de tonalité
+    # 2. Protection des noms propres, chiffres et FCFA + lecture normale du téléphone lors de l'injection de tonalité
     el_txt = _prepare_elevenlabs_native_text("Idib'a bwam Amina, lóma 15 000 FCFA na Jean Mbarga o 677000002", "dua")
     assert "Amina" in el_txt and "Jean Mbarga" in el_txt
-    assert "15 000 francs CFA" in el_txt and "677000002" in el_txt
+    assert "15 000 francs CFA" in el_txt and "6, 77, zéro zéro, zéro zéro, zéro 2" in el_txt
 
     # 3. Flux audio 100% unique (jamais deux audios mélangés)
     wav_nat, eng_nat = synthesize_wav_bytes("mbembe kidi", "ewo")
     assert wav_nat is not None and wav_nat[:4] == b"RIFF"
     assert eng_nat == "elevenlabs-brian-male" or eng_nat.startswith("mms-tts-fra")
     assert "mix" not in eng_nat and "soreva-native" not in eng_nat
+
+
+def test_hausa_gsm7_atm_5000_multiples_and_airtime_operator_without_to():
+    # 1. Translittération GSM-7 stricte des caractères Haoussa (ƙ, ɓ, ɗ, ƴ) et Ghomala (ʼ)
+    h_clean = transliterate_to_gsm7("Kuɗi ƙasa ɓoye ƴaʼƴa 5 000 FCFA")
+    assert is_gsm7(h_clean)
+    assert "Kudi kasa boye ya'ya" in h_clean
+
+    # 2. GAB/ATM : rejet d'un montant non multiple de 5 000 FCFA puis acceptation d'un multiple de 5 000 FCFA
+    r_atm1 = client.post("/middleware", json={
+        "trace_id": "tr-atm-1", "channel": "atm", "phone": "237657096450",
+        "language": "hau", "input": {"type": "keypad", "text": "cire kudi 3000 FCFA"},
+    })
+    assert r_atm1.status_code == 200
+    assert r_atm1.json()["interpretation"]["intent"] == "CLARIFICATION_NEEDED"
+
+    r_atm2 = client.post("/middleware", json={
+        "trace_id": "tr-atm-2", "channel": "atm", "phone": "237657096450",
+        "language": "hau", "input": {"type": "keypad", "text": "10000"},
+    })
+    b_atm2 = r_atm2.json()
+    assert b_atm2["interpretation"]["intent"] == "TRANSFER"
+    assert b_atm2["interpretation"]["parameters"]["type"] == "withdrawal"
+    assert b_atm2["transaction"]["status"] == "pending"
+
+    # 3. Crédit téléphonique avec opérateur explicite sans numéro destinataire -> envoie `operator` sans `to` contradictoire
+    r_air = client.post("/middleware", json={
+        "trace_id": "tr-air-op", "channel": "ussd", "phone": "237657096450",
+        "language": "fr", "input": {"type": "text", "text": "acheter 1000 FCFA de crédit MTN"},
+    })
+    assert r_air.status_code == 200
+    call_payload = bank_client.create_transaction.call_args[0][0]
+    assert call_payload["type"] == "airtime"
+    assert call_payload["operator"] == "MTN"
+    assert "to" not in call_payload

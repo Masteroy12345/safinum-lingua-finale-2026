@@ -1,4 +1,5 @@
 """Client asynchrone pour l'API Bancaire Simulée SAFINUM (propagation stricte de X-Trace-Id et X-Team-Key)."""
+import asyncio
 from typing import Any
 import httpx
 
@@ -25,6 +26,18 @@ class BankApiError(Exception):
 class BankClient:
     def __init__(self, timeout_s: float | None = None):
         self.timeout_s = timeout_s or settings.request_timeout_s
+        self._clients: dict[int, httpx.AsyncClient] = {}
+
+    def _get_client(self) -> httpx.AsyncClient:
+        loop_id = id(asyncio.get_running_loop())
+        client = self._clients.get(loop_id)
+        if client is None or client.is_closed:
+            client = httpx.AsyncClient(
+                timeout=self.timeout_s,
+                limits=httpx.Limits(max_keepalive_connections=20, max_connections=50),
+            )
+            self._clients[loop_id] = client
+        return client
 
     def _headers(self, trace_id: str) -> dict[str, str]:
         return {
@@ -45,14 +58,14 @@ class BankClient:
     ) -> dict[str, Any]:
         root = (base_url or settings.bank_api_url).rstrip("/")
         url = f"{root}/{path.lstrip('/')}"
-        async with httpx.AsyncClient(timeout=self.timeout_s) as client:
-            resp = await client.request(
-                method=method,
-                url=url,
-                headers=self._headers(trace_id),
-                params=params,
-                json=json_body,
-            )
+        client = self._get_client()
+        resp = await client.request(
+            method=method,
+            url=url,
+            headers=self._headers(trace_id),
+            params=params,
+            json=json_body,
+        )
         try:
             data = resp.json()
         except Exception:

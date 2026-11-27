@@ -220,7 +220,7 @@ def _expand_numbers_for_tts(text: str) -> str:
         digits = re.sub(r"\D", "", m.group(0))
         return " ".join(_FR_ONES[int(d)] for d in digits)
 
-    out = re.sub(r"(?:\+?237[\s\-\.]?)?6(?:[\s\-\.]?\d){8}\b", _phone_to_words, text)
+    out = re.sub(r"(?:\+?237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b", _phone_to_words, text)
 
     # 2. Montants formatés avec espaces (ex: "15 000", "250 000", "5000")
     def _num_to_words(m: re.Match) -> str:
@@ -238,7 +238,7 @@ def _expand_numbers_for_tts(text: str) -> str:
 _PROTECTED_MULTI_NAME_RE = re.compile(
     r"\{[a-z_]+\}|"
     r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
-    r"(?:\+?237[\s\-\.]?)?6(?:[\s\-\.]?\d){8}\b|"
+    r"(?:\+?237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b|"
     r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
     r"\b(?:FCFA|XAF|CFA|ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|Safinum(?:\s+Pay)?)\b|"
     r"\b\d+(?:[\s\.,]\d+)*\b|"
@@ -364,6 +364,8 @@ def to_tts_script(text: str, lang: str = "fr") -> str:
         # Nettoyer les apostrophes internes hors noms propres pour éviter l'épellation
         res = _apply_outside_protected(res, lambda seg: re.sub(r"['ʼ`]", " ", seg))
 
+    # Décomposition dynamique de tout numéro de téléphone variable avant lecture TTS
+    res = _format_phones_for_natural_audio(res)
     # Sigles/devises prononcés en français sans traduire FCFA dans l'écrit
     res = re.sub(r"\bFCFA\b", "francs céfa", res, flags=re.IGNORECASE)
     res = re.sub(r"\bXAF\b", "francs céfa", res, flags=re.IGNORECASE)
@@ -466,12 +468,51 @@ _ELEVENLABS_WAV_CACHE: OrderedDict[tuple[str, str, str, str], bytes] = OrderedDi
 _ELEVENLABS_CACHE_MAX = 96
 
 
+def _speak_phone_pair(pair: str) -> str:
+    """Prononce fidèlement chaque bloc de 2 chiffres sans avaler les zéros initiaux (00 -> zéro zéro, 09 -> zéro 9, 77 -> 77)."""
+    if len(pair) == 2 and pair[0] == "0":
+        return "zéro zéro" if pair == "00" else f"zéro {pair[1]}"
+    return pair
+
+
+def _format_phones_for_natural_audio(text: str) -> str:
+    """Récupère et décompose dynamiquement N'IMPORTE QUEL numéro de téléphone (variable) en blocs naturels camerounais.
+
+    Exemples :
+    - 237657096450 -> 237, 6, 57, zéro 9, 64, 50
+    - +237 6 77 00 00 02 -> +237, 6, 77, zéro zéro, zéro zéro, zéro 2
+    - 699050041 -> 6, 99, zéro 5, zéro zéro, 41
+    """
+    def _fmt(m: re.Match) -> str:
+        raw = m.group(0)
+        has_plus = raw.lstrip().startswith("+")
+        digits = re.sub(r"\D", "", raw)
+        prefix = ""
+        if digits.startswith("00237") and len(digits) == 14:
+            prefix = "+237, "
+            digits = digits[5:]
+        elif digits.startswith("237") and len(digits) == 12:
+            prefix = "+237, " if has_plus else "237, "
+            digits = digits[3:]
+        if len(digits) == 9:
+            blocks = [digits[0], digits[1:3], digits[3:5], digits[5:7], digits[7:9]]
+            spoken = [blocks[0]] + [_speak_phone_pair(b) for b in blocks[1:]]
+            return prefix + ", ".join(spoken)
+        # Repli générique pour tout autre numéro long (8-15 chiffres) : paires de 2 chiffres
+        if 8 <= len(digits) <= 15:
+            pairs = [digits[i:i + 2] for i in range(0, len(digits), 2)]
+            return (("+ " if has_plus else "") + ", ".join(_speak_phone_pair(p) for p in pairs)).strip()
+        return raw
+
+    return re.sub(r"(?:(?:\+|00)237[\s\-\.]?|237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b", _fmt, text)
+
+
 def _prepare_elevenlabs_native_text(text: str, lang: str = "fr") -> str:
     """Prépare le texte natif pour une lecture UNIQUE ElevenLabs en copiant la tonalité du dataset SOREVA.
 
     - Applique les tons et voyelles natives extraits de SOREVA (sans toucher aux noms propres, chiffres ni FCFA).
+    - Formate les numéros de téléphone en blocs naturels (6, 77, 00, 00, 02) afin qu'ils soient lus normalement sans traduction.
     - Aucun découpage ni mélange de deux fichiers audio : génère un seul texte fluide lu d'une seule traite.
-    - Évite seulement l'épellation robotique des sigles (FCFA -> francs CFA, TRX- -> référence ).
     """
     t = unicodedata.normalize("NFC", text or "").strip()
     if not t:
@@ -482,6 +523,7 @@ def _prepare_elevenlabs_native_text(text: str, lang: str = "fr") -> str:
         t = _apply_outside_protected(t, lambda seg: apply_native_tonality(seg, lang))
     except Exception:
         pass
+    t = _format_phones_for_natural_audio(t)
     t = re.sub(r"\bFCFA\b", "francs CFA", t, flags=re.IGNORECASE)
     t = re.sub(r"\bXAF\b", "francs CFA", t, flags=re.IGNORECASE)
     t = re.sub(r"\bTRX-([A-Za-z0-9]+)\b", r"référence \1", t, flags=re.IGNORECASE)

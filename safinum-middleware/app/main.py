@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 
 from .bank_client import BankApiError, BankClient
@@ -54,6 +55,13 @@ app = FastAPI(
     title="Safinum Lingua — Universal Linguistic Middleware",
     version="2.0.0",
     description="Infrastructure linguistique multicanale (USSD conversationnel + Mobile/Web ui_translation + SMS/ATM/IVR v2) pour le SAFINUM Innovate Challenge 2026.",
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["X-TTS-Engine"],
 )
 
 bank_client = BankClient()
@@ -174,30 +182,22 @@ async def tts_audio(text: str = "", language: str = "fr", payload: dict[str, str
 
 @app.post("/api/translate")
 async def translate_endpoint(payload: dict[str, str]) -> dict[str, Any]:
-    """Traduit un mot ou une phrase complète en protégeant montants/numéros/noms/références, avec sortie IPA, GSM-7 et audio."""
+    """Traduit un gabarit anonymisé : AUCUNE somme, nom de client ni téléphone dans `translated` (uniquement des {variables} changeables)."""
     text = payload.get("text", "")
     src = normalize_language(payload.get("source_language")) or detect_language(text, fallback="fr")
     lang = normalize_language(payload.get("language")) or "fr"
     res = translate_phrase(text, lang)
     audio = build_audio_payload(res["translated"], lang)
     fitted_ussd, gsm_meta = fit_channel_constraints(res["translated"], channel="ussd", max_chars=182, charset="gsm7")
-    # Extraire les entités bancaires protégées visibles
     import re as _re
-    protected_found = _re.findall(
-        r"\{[a-z_]+\}|(?:TRX|SAF)-[A-Za-z0-9\-]+|(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|\b\d+(?:[\s\.,]\d+)*\b|\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|Safinum(?:\s+Pay)?)\b",
-        text,
-        flags=_re.IGNORECASE,
-    )
-    client_names = [
-        m.group(2)
-        for m in _re.finditer(
-            r"(\b(?:[àa]|pour|de|vers|chez|give|to|from|[Bb]onjour|[Hh]ello|[Mm]bolo|[Ss]annu)\s+)([A-ZÀ-Ÿ][a-zà-ÿ'\-]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ'\-]+)*)",
-            text,
+    protected_found = list(dict.fromkeys(
+        ["{" + k + "}" for k in (res.get("variables") or {}).keys()]
+        + _re.findall(
+            r"\{[a-z0-9_]+\}|\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|Safinum(?:\s+Pay)?|FCFA|XAF|CFA)\b",
+            res["source_template"],
+            flags=_re.IGNORECASE,
         )
-    ]
-    for cn in client_names:
-        if cn not in protected_found:
-            protected_found.append(cn)
+    ))
     return {
         "source_language": src,
         "target_language": lang,
@@ -211,18 +211,23 @@ async def translate_endpoint(payload: dict[str, str]) -> dict[str, Any]:
 
 @app.post("/api/translate-all")
 async def translate_all_endpoint(payload: dict[str, str]) -> dict[str, Any]:
-    """Traduit une phrase dans toutes les 7 langues camerounaises (dont le Pidgin Camerounais) simultanément."""
+    """Traduit une phrase dans toutes les 9 langues nationales camerounaises simultanément (avec {variables} dynamiques sans données confidentielles)."""
     text = payload.get("text", "")
     src = normalize_language(payload.get("source_language")) or detect_language(text, fallback="fr")
     results: dict[str, Any] = {}
+    shared_vars: dict[str, str] = {}
+    source_template = text
     for code, label in CAMEROON_NATIONAL_LANGUAGES.items():
         res = translate_phrase(text, code)
+        shared_vars = res.get("variables") or shared_vars
+        source_template = res.get("source_template") or source_template
         audio = build_audio_payload(res["translated"], code)
         fitted_ussd, gsm_meta = fit_channel_constraints(res["translated"], channel="ussd", max_chars=182, charset="gsm7")
         results[code] = {
             "label": label,
             "translated": res["translated"],
             "mode": res["mode"],
+            "variables": res.get("variables") or {},
             "ipa": audio["ipa"],
             "web_phonetic": audio["web_phonetic"],
             "tts_script": audio["tts_script"],
@@ -231,7 +236,7 @@ async def translate_all_endpoint(payload: dict[str, str]) -> dict[str, Any]:
             "gsm7_preview": fitted_ussd,
             "gsm7_septets": gsm_meta["septets"],
         }
-    return {"source_language": src, "text": text, "translations": results}
+    return {"source_language": src, "text": text, "source_template": source_template, "variables": shared_vars, "translations": results}
 
 
 @app.get("/api/ui-keys")
@@ -283,7 +288,7 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "language": "dua",
             "description": "Tour 1 : Initiation du transfert en Duálá (statut pending + relecture). Tour 2 (nouveau X-Trace-Id) : Confirmation explicite.",
             "steps": [
-                {"channel": "ussd", "language": "dua", "text": "loma 5000 FCFA na 677000002", "label": "Tour 1 : Initier 5 000 FCFA (pending)"},
+                {"channel": "ussd", "language": "dua", "text": "loma 5000 FCFA na 237653633039", "label": "Tour 1 : Initier 5 000 FCFA vers Paul Sali (pending)"},
                 {"channel": "ussd", "language": "dua", "text": "1", "label": "Tour 2 : Confirmer (Hee / Timbisɛ)"},
             ],
         },
@@ -304,7 +309,7 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "title": "4. Historique des opérations",
             "channel": "ussd",
             "language": "bbj",
-            "description": "Consultation des dernières transactions en Ghɔmálá' formatée <= 182 septets GSM-7.",
+            "description": "Consultation des dernières transactions réelles d'Amadou Kamga en Ghɔmálá' <= 182 septets GSM-7.",
             "steps": [
                 {"channel": "ussd", "language": "bbj", "text": "bivul bi nkap", "label": "Demande historique en Ghɔmálá'"}
             ],
@@ -317,7 +322,7 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "language": "fub",
             "description": "L'utilisateur lance un envoi de 5 000 FCFA (frais 50), corrige le montant à 10 000 FCFA avant de confirmer (frais recalculés à 150), puis valide.",
             "steps": [
-                {"channel": "ussd", "language": "fub", "text": "nel 5000 FCFA e 677000002", "label": "Tour 1 : Envoi 5 000 FCFA"},
+                {"channel": "ussd", "language": "fub", "text": "nel 5000 FCFA e 237653633039", "label": "Tour 1 : Envoi 5 000 FCFA vers Paul Sali"},
                 {"channel": "ussd", "language": "fub", "text": "waylu 10000 FCFA", "label": "Tour 2 : Corriger à 10 000 FCFA (POST /update)"},
                 {"channel": "ussd", "language": "fub", "text": "tabbitin", "label": "Tour 3 : Confirmer 10 000 FCFA"},
             ],
@@ -331,7 +336,7 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "description": "Envoi sans préciser le destinataire en Mə̀dûmbà : le middleware retourne CLARIFICATION_NEEDED sans jamais deviner.",
             "steps": [
                 {"channel": "ussd", "language": "byv", "text": "ntum 5000 FCFA", "label": "Tour 1 : Montant sans destinataire -> CLARIFICATION_NEEDED"},
-                {"channel": "ussd", "language": "byv", "text": "677000002", "label": "Tour 2 : Préciser le destinataire"},
+                {"channel": "ussd", "language": "byv", "text": "237653633039", "label": "Tour 2 : Préciser le destinataire (Paul Sali)"},
             ],
         },
         {
@@ -340,9 +345,9 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "title": "7. Solde insuffisant (traduit sans code brut INSUFFICIENT_FUNDS)",
             "channel": "ussd",
             "language": "wes",
-            "description": "Tentative d'envoi supérieur au solde en Pidgin Camerounais : explication claire dans la langue, jamais le code brut.",
+            "description": "Tentative d'envoi supérieur au solde sur le compte d'Achille Kamga (286 FCFA) en Pidgin Camerounais.",
             "steps": [
-                {"channel": "ussd", "language": "wes", "text": "send 450000 FCFA give 677000002", "label": "Envoi > Solde en Pidgin Camerounais"}
+                {"channel": "ussd", "phone": "237658473555", "language": "wes", "text": "send 50000 FCFA give 237653633039", "label": "Envoi > Solde (Achille Kamga) en Pidgin Camerounais"}
             ],
         },
         {
@@ -353,7 +358,7 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "language": "ewo",
             "description": "Commencer un transfert en Ewondo, basculer en Duálá au milieu du parcours sans perdre l'opération.",
             "steps": [
-                {"channel": "ussd", "language": "ewo", "text": "lom 5000 FCFA a 677000002", "label": "Tour 1 : Initier en Ewondo"},
+                {"channel": "ussd", "language": "ewo", "text": "lom 5000 FCFA a 237653633039", "label": "Tour 1 : Initier en Ewondo"},
                 {"channel": "ussd", "language": None, "text": "bwea duala", "label": "Tour 2 : Basculer en Duálá (session préservée)"},
                 {"channel": "ussd", "language": "dua", "text": "timbise", "label": "Tour 3 : Confirmer en Duálá"},
             ],
@@ -364,9 +369,9 @@ async def get_jury_scenarios() -> dict[str, Any]:
             "title": "9. Parcours multicanal (USSD -> Mobile/Web sans double exécution)",
             "channel": "ussd",
             "language": "fub",
-            "description": "Initier en USSD avec le numéro 237677000001, puis reprendre et confirmer sur Mobile avec le même numéro.",
+            "description": "Initier en USSD avec Amadou Kamga (237657096450), puis reprendre et confirmer sur Mobile avec le même numéro.",
             "steps": [
-                {"channel": "ussd", "language": "fub", "text": "nel 5000 FCFA e 677000002", "label": "Tour 1 (Canal USSD) : Créer transaction pending"},
+                {"channel": "ussd", "language": "fub", "text": "nel 5000 FCFA e 237653633039", "label": "Tour 1 (Canal USSD) : Créer transaction pending"},
                 {"channel": "mobile", "language": "fub", "text": "tabbitin", "label": "Tour 2 (Canal Mobile) : Retrouver & Confirmer sans doublon"},
             ],
         },
@@ -381,6 +386,41 @@ async def get_jury_scenarios() -> dict[str, Any]:
                 {"channel": "ussd", "language": "dua", "text": "nje e ne njoa ?", "label": "Expliquer « frais (njoa) » en Duálá"},
                 {"channel": "ussd", "language": "ewo", "text": "dze a ne plafon ?", "label": "Expliquer « plafond » en Ewondo"},
                 {"channel": "ussd", "language": "wes", "text": "wetin be beneficiary ?", "label": "Expliquer « bénéficiaire » en Pidgin Camerounais"},
+            ],
+        },
+        {
+            "id": 11,
+            "code": "atm_withdrawal",
+            "title": "11. [Canal v2] GAB / ATM — Retrait en multiples de 5 000 FCFA",
+            "channel": "atm",
+            "language": "hau",
+            "description": "Validation de la contrainte cassettes ATM (multiples stricts de 5 000 FCFA) et retrait sur POST /transactions (type=withdrawal) en Haoussa.",
+            "steps": [
+                {"channel": "atm", "language": "hau", "text": "cire kudi 3000 FCFA", "label": "Montant non-multiple (3 000 FCFA) -> CLARIFICATION_NEEDED"},
+                {"channel": "atm", "language": "hau", "text": "10000", "label": "Multiple valide (10 000 FCFA) -> pending withdrawal"},
+                {"channel": "atm", "language": "hau", "text": "1", "label": "Confirmer le retrait ATM"},
+            ],
+        },
+        {
+            "id": 12,
+            "code": "sms_segments",
+            "title": "12. [Canal v2] SMS Asynchrone — Comptage exact segments GSM-7 (160/153)",
+            "channel": "sms",
+            "language": "bum",
+            "description": "Requête SMS autonome en Bulu avec calcul exact du nombre de segments facturés (160/153 septets GSM-7).",
+            "steps": [
+                {"channel": "sms", "language": "bum", "text": "Moné wom a li'i a ne tañ ya?", "label": "Solde par SMS en Bulu"}
+            ],
+        },
+        {
+            "id": 13,
+            "code": "ivr_voice",
+            "title": "13. [Canal v2] Serveur Vocal Interactif (IVR 16/8 kHz)",
+            "channel": "ivr",
+            "language": "ewo",
+            "description": "Traitement d'une interaction vocale sur le canal IVR avec réponse textuelle idiomatique prête pour la synthèse téléphonique.",
+            "steps": [
+                {"channel": "ivr", "language": "ewo", "text": "Mòni wom a lig ma a ne tân ya?", "label": "Interaction vocale IVR en Ewondo"}
             ],
         },
     ]
@@ -535,13 +575,34 @@ async def handle_gateway(request: Request):
         session.candidate_choices = []
 
     try:
-        # --- CHANGEMENT DE LANGUE ---
+        # --- CHANGEMENT DE LANGUE (préserve intégralement l'opération en cours — Scénario 8) ---
         if nlu.intent == Intent.LANGUAGE_SWITCH:
             target = nlu.parameters.get("target_language")
             if target and target in SUPPORTED_LANGUAGES:
                 session.language = target
                 if session.awaiting_field == "language_choice":
                     session.awaiting_field = None
+                if session.pending_tx_id and session.pending_op:
+                    pop = session.pending_op
+                    p_amt = fmt_amount(pop.get("amount", 0))
+                    p_ben = pop.get("beneficiary") or pop.get("biller") or pop.get("operator") or pop.get("to", "")
+                    msg = get_text(
+                        target, "confirm_transfer", req.channel,
+                        amount=p_amt, beneficiary=p_ben, to_phone=pop.get("to", ""),
+                        fee=fmt_amount(pop.get("fee", 0)), total=fmt_amount(pop.get("total", pop.get("amount", 0))),
+                    )
+                    return _build_response(
+                        req, target, msg, Intent.LANGUAGE_SWITCH,
+                        {"language": target, "pending_tx_id": session.pending_tx_id},
+                        options=["Confirmer", "Annuler"],
+                        tx_id=session.pending_tx_id, tx_status=TransactionStatus.PENDING, started_at=t0,
+                    )
+                if session.awaiting_field == "beneficiary" and session.draft_transfer.get("amount"):
+                    msg = get_text(target, "ask_beneficiary", req.channel, amount=fmt_amount(session.draft_transfer["amount"]))
+                    return _build_response(req, target, msg, Intent.LANGUAGE_SWITCH, {"language": target}, started_at=t0)
+                if session.awaiting_field == "amount":
+                    msg = get_text(target, "ask_amount", req.channel)
+                    return _build_response(req, target, msg, Intent.LANGUAGE_SWITCH, {"language": target}, started_at=t0)
                 msg = get_text(target, "lang_switched", req.channel)
                 return _build_response(req, target, msg, Intent.LANGUAGE_SWITCH, {"language": target}, started_at=t0)
             session.awaiting_field = "language_choice"
@@ -558,7 +619,7 @@ async def handle_gateway(request: Request):
         # --- CONSULTATION DE SOLDE ---
         if nlu.intent == Intent.BALANCE_INQUIRY:
             acct = await bank_client.get_account(phone, trace_id, base_url)
-            name = acct.get("holder_name") or acct.get("name") or phone
+            name = acct.get("holder") or acct.get("holder_name") or acct.get("name") or phone
             bal = acct.get("balance", 0)
             msg = get_text(lang, "balance", req.channel, name=name, balance=fmt_amount(bal), phone=phone)
             return _build_response(
@@ -580,7 +641,7 @@ async def handle_gateway(request: Request):
                 for tx in txs[:3 if req.channel.lower() == "ussd" else 5]:
                     amt = fmt_amount(tx.get("amount", 0))
                     ttype = tx.get("type", "tx")
-                    to_acc = tx.get("to") or tx.get("beneficiary") or ""
+                    to_acc = tx.get("beneficiary") or tx.get("biller") or tx.get("operator") or tx.get("to") or ""
                     lines.append(f"- {ttype}: {amt} FCFA {to_acc}".strip())
                 msg = "\n".join(lines)
             return _build_response(req, lang, msg, Intent.TRANSACTION_HISTORY, {"count": len(txs)}, started_at=t0)
@@ -668,8 +729,18 @@ async def handle_gateway(request: Request):
                 session.pending_op["to"] = nlu.parameters["to_phone"]
                 session.pending_op["beneficiary"] = nlu.parameters["to_phone"]
             elif "beneficiary" in nlu.parameters:
-                ben_res = await bank_client.search_beneficiaries(nlu.parameters["beneficiary"], None, trace_id, base_url)
+                ben_res = await bank_client.search_beneficiaries(nlu.parameters["beneficiary"], phone, trace_id, base_url)
                 cands = ben_res.get("beneficiaries") or ben_res.get("candidates") or ben_res.get("data") or []
+                if not cands:
+                    ben_res_all = await bank_client.search_beneficiaries(nlu.parameters["beneficiary"], None, trace_id, base_url)
+                    raw_cands = ben_res_all.get("beneficiaries") or ben_res_all.get("candidates") or ben_res_all.get("data") or []
+                    seen_ph = set()
+                    cands = []
+                    for c in raw_cands:
+                        cp = c.get("phone")
+                        if cp and cp not in seen_ph:
+                            seen_ph.add(cp)
+                            cands.append(c)
                 if len(cands) == 1:
                     update_payload["to"] = cands[0].get("phone")
                     session.pending_op["to"] = cands[0].get("phone")
@@ -682,6 +753,9 @@ async def handle_gateway(request: Request):
             amt = updated.get("amount", session.pending_op.get("amount", 0))
             fee_val = updated.get("fee", 0)
             total_val = updated.get("total", amt + fee_val)
+            session.pending_op["amount"] = amt
+            session.pending_op["fee"] = fee_val
+            session.pending_op["total"] = total_val
             ben = session.pending_op.get("beneficiary") or session.pending_op.get("to", "")
             to_phone = session.pending_op.get("to", "")
             msg = get_text(
@@ -701,21 +775,28 @@ async def handle_gateway(request: Request):
             session.draft_op_type = "airtime"
             amt = nlu.parameters.get("amount") or session.draft_transfer.get("amount")
             operator = nlu.parameters.get("operator") or session.draft_transfer.get("operator")
-            to_phone = nlu.parameters.get("to_phone") or session.draft_transfer.get("to_phone") or phone
+            explicit_to = nlu.parameters.get("to_phone") or session.draft_transfer.get("to_phone")
+            to_phone = explicit_to or phone
             if amt:
                 session.draft_transfer["amount"] = amt
             if operator:
                 session.draft_transfer["operator"] = operator
-            if nlu.parameters.get("to_phone"):
-                session.draft_transfer["to_phone"] = to_phone
+            if explicit_to:
+                session.draft_transfer["to_phone"] = explicit_to
             if not amt:
                 session.awaiting_field = "amount"
                 msg = get_text(lang, "ask_amount", req.channel)
                 return _build_response(req, lang, msg, Intent.CLARIFICATION_NEEDED, {"operator": operator or "auto"}, started_at=t0)
 
-            tx_payload: dict[str, Any] = {"type": "airtime", "from": phone, "to": to_phone, "amount": amt}
-            if operator:
+            # Règle officielle Sandbox Docs : `to` est facultatif pour le crédit (sans lui, envoyer `operator` seul
+            # pour ne jamais contredire le préfixe du compte émetteur `from`).
+            tx_payload: dict[str, Any] = {"type": "airtime", "from": phone, "amount": amt}
+            if explicit_to:
+                tx_payload["to"] = explicit_to
+            elif operator:
                 tx_payload["operator"] = operator
+            else:
+                tx_payload["to"] = phone
             tx = await bank_client.create_transaction(tx_payload, trace_id, base_url)
             tx_id = tx.get("id") or tx.get("transaction_id")
             amt_val = tx.get("amount") if tx.get("amount") is not None else amt
@@ -723,7 +804,7 @@ async def handle_gateway(request: Request):
             fee_val = tx.get("fee") if tx.get("fee") is not None else 0
             session.pending_tx_id = tx_id
             session.pending_tx_trace_id = trace_id
-            session.pending_op = {"type": "airtime", "amount": amt_val, "to": to_phone, "operator": resolved_op}
+            session.pending_op = {"type": "airtime", "amount": amt_val, "to": to_phone, "operator": resolved_op, "fee": fee_val, "total": amt_val + fee_val}
             session.awaiting_field = None
             session.draft_op_type = None
             session.draft_transfer = {}
@@ -761,7 +842,7 @@ async def handle_gateway(request: Request):
             total_val = tx.get("total") if tx.get("total") is not None else (amt_val + fee_val)
             session.pending_tx_id = tx_id
             session.pending_tx_trace_id = trace_id
-            session.pending_op = {"type": "bill", "amount": amt_val, "biller": biller}
+            session.pending_op = {"type": "bill", "amount": amt_val, "biller": biller, "fee": fee_val, "total": total_val}
             session.awaiting_field = None
             session.draft_op_type = None
             session.draft_transfer = {}
@@ -776,8 +857,53 @@ async def handle_gateway(request: Request):
                 tx_id=tx_id, tx_status=TransactionStatus.PENDING, started_at=t0,
             )
 
-        # --- TRANSFERT D'ARGENT (TOUR 1 : INITIATION + RÉCAPITULATIF) ---
+        # --- TRANSFERT D'ARGENT & RETRAIT GAB/ATM (TOUR 1 : INITIATION + RÉCAPITULATIF) ---
         if nlu.intent == Intent.TRANSFER:
+            is_withdrawal = (
+                nlu.parameters.get("op_subtype") == "withdrawal"
+                or session.draft_op_type == "withdrawal"
+            )
+            if is_withdrawal:
+                session.draft_op_type = "withdrawal"
+                amt = nlu.parameters.get("amount") or session.draft_transfer.get("amount")
+                if not amt:
+                    session.awaiting_field = "amount"
+                    msg = get_text(lang, "ask_amount", req.channel)
+                    return _build_response(req, lang, msg, Intent.CLARIFICATION_NEEDED, {"type": "withdrawal"}, started_at=t0)
+                if req.channel.lower() == "atm" and int(amt) % 5000 != 0:
+                    session.awaiting_field = "amount"
+                    msg = f"{get_error_text(lang, 'INVALID_AMOUNT')} (ATM: multiple 5 000 FCFA)"
+                    return _build_response(
+                        req, lang, msg, Intent.CLARIFICATION_NEEDED,
+                        {"type": "withdrawal", "amount": int(amt), "atm_multiple": 5000},
+                        started_at=t0,
+                    )
+                tx = await bank_client.create_transaction(
+                    {"type": "withdrawal", "from": phone, "amount": int(amt)},
+                    trace_id, base_url,
+                )
+                tx_id = tx.get("id") or tx.get("transaction_id")
+                amt_val = tx.get("amount") if tx.get("amount") is not None else int(amt)
+                fee_val = tx.get("fee") if tx.get("fee") is not None else 0
+                total_val = tx.get("total") if tx.get("total") is not None else (amt_val + fee_val)
+                session.pending_tx_id = tx_id
+                session.pending_tx_trace_id = trace_id
+                session.pending_op = {"type": "withdrawal", "amount": amt_val, "fee": fee_val, "total": total_val}
+                session.awaiting_field = None
+                session.draft_op_type = None
+                session.draft_transfer = {}
+                msg = get_text(
+                    lang, "confirm_transfer", req.channel,
+                    amount=fmt_amount(amt_val), beneficiary="GAB/ATM", to_phone=phone,
+                    fee=fmt_amount(fee_val), total=fmt_amount(total_val),
+                )
+                return _build_response(
+                    req, lang, msg, Intent.TRANSFER,
+                    {"type": "withdrawal", "amount": amt_val, "fee": fee_val, "total": total_val, "currency": "XAF"},
+                    options=["Confirmer", "Annuler"],
+                    tx_id=tx_id, tx_status=TransactionStatus.PENDING, started_at=t0,
+                )
+
             session.draft_op_type = "transfer"
             cand_idx = nlu.parameters.get("candidate_index")
             if cand_idx is not None and session.candidate_choices and 0 <= cand_idx < len(session.candidate_choices):
@@ -813,8 +939,18 @@ async def handle_gateway(request: Request):
 
             resolved_name = ben_name or to_phone
             if not to_phone and ben_name:
-                ben_res = await bank_client.search_beneficiaries(ben_name, None, trace_id, base_url)
+                ben_res = await bank_client.search_beneficiaries(ben_name, phone, trace_id, base_url)
                 cands = ben_res.get("beneficiaries") or ben_res.get("candidates") or ben_res.get("data") or []
+                if not cands:
+                    ben_res_all = await bank_client.search_beneficiaries(ben_name, None, trace_id, base_url)
+                    raw_cands = ben_res_all.get("beneficiaries") or ben_res_all.get("candidates") or ben_res_all.get("data") or []
+                    seen_ph = set()
+                    cands = []
+                    for c in raw_cands:
+                        cp = c.get("phone")
+                        if cp and cp not in seen_ph:
+                            seen_ph.add(cp)
+                            cands.append(c)
                 if len(cands) == 0:
                     msg = get_error_text(lang, "UNKNOWN_BENEFICIARY")
                     return _build_response(req, lang, msg, Intent.CLARIFICATION_NEEDED, {"beneficiary": ben_name}, started_at=t0)
@@ -836,9 +972,10 @@ async def handle_gateway(request: Request):
             amt_val = tx.get("amount") if tx.get("amount") is not None else amt
             fee_val = tx.get("fee") if tx.get("fee") is not None else 0
             total_val = tx.get("total") if tx.get("total") is not None else (amt_val + fee_val)
+            resolved_name = tx.get("beneficiary") or resolved_name
             session.pending_tx_id = tx_id
             session.pending_tx_trace_id = trace_id
-            session.pending_op = {"type": "transfer", "amount": amt_val, "to": to_phone, "beneficiary": resolved_name}
+            session.pending_op = {"type": "transfer", "amount": amt_val, "to": to_phone, "beneficiary": resolved_name, "fee": fee_val, "total": total_val}
             session.awaiting_field = None
             session.draft_op_type = None
             session.draft_transfer = {}
@@ -873,7 +1010,11 @@ async def handle_gateway(request: Request):
             cand_str = ", ".join(f"{i+1}.{c.get('name', c.get('phone', ''))}" for i, c in enumerate(session.candidate_choices))
             msg = get_text(lang, "ask_clarify_candidates", req.channel, candidates=cand_str)
             return _build_response(req, lang, msg, Intent.CLARIFICATION_NEEDED, {"error_code": err.code, "candidates": err.candidates}, options=cand_opts, started_at=t0)
-        msg = get_error_text(lang, err.code)
+        raw_max = err.details.get("max_amount") or err.details.get("limit") or err.details.get("max")
+        err_kwargs = {"max": f"{fmt_amount(raw_max)} FCFA"} if raw_max is not None else {}
+        msg = get_error_text(lang, err.code, **err_kwargs)
+        if err.code == "UNKNOWN_BILLER" and err.details.get("detected"):
+            msg = f"{msg} ({err.details['detected']})"
         return _build_response(
             req, lang, msg, nlu.intent,
             {"error_code": err.code},
@@ -975,13 +1116,24 @@ async def translate_studio() -> str:
   <!-- ONGLET 1 : GOOGLE TRADUCTION & AUDIO LAB -->
   <div id="tab-gt" class="tab-pane active">
     <div class="presets">
-      <span style="font-size:12px;color:var(--muted);align-self:center;">Exemples rapides (avec protection bancaire) :</span>
-      <button class="preset-chip" onclick="setSource('Bonjour Amina, envoyer 15 000 FCFA à Jean Mbarga au 677000002')">Transfert + Nom + Téléphone</button>
+      <span style="font-size:12px;color:var(--muted);align-self:center;">Exemples rapides (100% variables dynamiques sans données confidentielles) :</span>
+      <button class="preset-chip" onclick="setSource('Bonjour {{name}}, envoyer {{amount}} à {{beneficiary}} au {{phone}}')">Transfert + Variables ({{name}}, {{amount}}, {{phone}})</button>
       <button class="preset-chip" onclick="setSource('Quel est mon solde disponible ?')">Consultation de solde</button>
-      <button class="preset-chip" onclick="setSource('Solde insuffisant pour payer la facture ENEO de 25 000 FCFA (Réf TRX-9042)')">Solde insuffisant + ENEO + Réf</button>
+      <button class="preset-chip" onclick="setSource('Solde insuffisant pour payer la facture ENEO de {{amount}} (Réf {{reference}})')">Solde insuffisant + ENEO + {{reference}}</button>
       <button class="preset-chip" onclick="setSource('confirmer')">Mot isolé : Confirmer</button>
       <button class="preset-chip" onclick="setSource('bénéficiaire')">Mot isolé : Bénéficiaire</button>
       <button class="preset-chip" onclick="setSource('Merci beaucoup')">Merci beaucoup</button>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:12px;color:#6ee7b7;font-weight:700;margin-bottom:8px;">🔒 Variables Confidentielles Dynamiques (Modifiables — absentes de la traduction, injectées uniquement à l'affichage/audio) :</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+        <div><label style="font-size:11px;color:var(--muted);display:block;">{{name}} (Client)</label><input id="varName" value="Amadou Kamga" oninput="refreshStudioAudioPreview()" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">{{amount}} (Somme)</label><input id="varAmount" value="15 000 FCFA" oninput="refreshStudioAudioPreview()" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">{{beneficiary}} (Destinataire)</label><input id="varBenef" value="Paul Sali" oninput="refreshStudioAudioPreview()" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">{{phone}} (Téléphone)</label><input id="varPhone" value="237653633039" oninput="refreshStudioAudioPreview()" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">{{reference}} (Réf)</label><input id="varRef" value="TRX-9042" oninput="refreshStudioAudioPreview()" style="width:100%;"></div>
+      </div>
     </div>
 
     <div class="gt-bar">
@@ -1005,7 +1157,7 @@ async def translate_studio() -> str:
     <div class="gt-grid">
       <!-- Boîte Source -->
       <div class="gt-box">
-        <textarea id="srcText" class="gt-input" oninput="debouncedTranslate()" placeholder="Saisissez un mot, une phrase bancaire, un montant en FCFA, un nom de client...">Bonjour Amina, envoyer 15 000 FCFA à Jean Mbarga au 677000002</textarea>
+        <textarea id="srcText" class="gt-input" oninput="debouncedTranslate()" placeholder="Saisissez un gabarit avec variables ({{name}}, {{amount}}, {{phone}}) ou une phrase (anonymisée automatiquement)...">Bonjour {{name}}, envoyer {{amount}} à {{beneficiary}} au {{phone}}</textarea>
         <div class="gt-footer">
           <div style="display:flex;gap:8px;align-items:center;">
             <button class="btn secondary" onclick="dictateSource()" id="micBtn">🎤 Dicter</button>
@@ -1055,17 +1207,44 @@ async def translate_studio() -> str:
     <div id="scenariosGrid" class="cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(400px,1fr));"></div>
   </div>
 
-  <!-- ONGLET 2 : COMPARATEUR 7 LANGUES CAMEROUNAISES -->
+  <!-- ONGLET 2 : COMPARATEUR 9 LANGUES CAMEROUNAISES -->
   <div id="tab-all9" class="tab-pane">
     <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
-      <input type="text" id="all9Input" value="Bonjour Amina, envoyer 5 000 FCFA à Jean Mbarga au 677000001" style="flex:1;font-size:15px;">
+      <input type="text" id="all9Input" value="Bonjour {{name}}, envoyer {{amount}} à {{beneficiary}} au {{phone}}" style="flex:1;font-size:15px;">
       <button class="btn" onclick="runTranslateAll9()">Traduire dans toutes les langues camerounaises</button>
     </div>
     <div id="all9Grid" class="cards-grid"></div>
   </div>
 
-  <!-- ONGLET 3 : 89 CLÉS UI MOBILE & WEB -->
+  <!-- ONGLET 3 : 89 CLÉS UI MOBILE & WEB + SIMULATEUR DYNAMIQUE AUDIO VARIABLE -->
   <div id="tab-uikeys" class="tab-pane">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:18px;">
+      <h3 style="margin:0 0 6px;">📱💻 Simulateur Dynamique Web &amp; Mobile Sandbox (Audio ElevenLabs variable selon vos saisies)</h3>
+      <p style="margin:0 0 12px;font-size:13px;color:var(--muted);">Modifiez le client, le montant, le destinataire, le téléphone ou le facturier : l'écran Web/Mobile est traduit via <code>POST /middleware (ui_translation)</code>, les variables sont injectées et l'audio unique masculin ElevenLabs s'adapte automatiquement.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px;">
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Écran Sandbox</label>
+          <select id="dynScreen" onchange="renderDynamicSandboxScreen()" style="width:100%;">
+            <option value="home">Accueil (home)</option>
+            <option value="transfer">Envoi (transfer)</option>
+            <option value="review" selected>Relecture avant confirmation (review)</option>
+            <option value="receipt">Reçu de transfert (receipt)</option>
+            <option value="bill_receipt">Reçu Facture (ENEO/CAMWATER)</option>
+            <option value="airtime_receipt">Reçu Crédit (MTN/ORANGE)</option>
+          </select>
+        </div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Client connecté</label><input id="dynHolder" value="Amadou Kamga" oninput="renderDynamicSandboxScreen(false)" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Bénéficiaire ({{name}})</label><input id="dynBenef" value="Paul Sali" oninput="renderDynamicSandboxScreen(false)" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Téléphone ({{phone}})</label><input id="dynPhone" value="237653633039" oninput="renderDynamicSandboxScreen(false)" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Montant ({{amount}})</label><input id="dynAmount" value="15 000 FCFA" oninput="renderDynamicSandboxScreen(false)" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Frais ({{fee}}) / Service</label><input id="dynFee" value="150 FCFA" oninput="renderDynamicSandboxScreen(false)" style="width:100%;"></div>
+        <div><label style="font-size:11px;color:var(--muted);display:block;">Facturier / Opérateur</label><input id="dynBiller" value="ENEO" oninput="renderDynamicSandboxScreen(false)" style="width:100%;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:#0f172a;padding:12px 14px;border-radius:10px;border:1px solid #1e293b;">
+        <div id="dynScreenText" style="font-size:15px;color:#6ee7b7;font-weight:600;white-space:pre-line;flex:1;">Chargement...</div>
+        <button class="btn" onclick="renderDynamicSandboxScreen(true)">🔊 Écouter cet écran dynamique (ElevenLabs Homme)</button>
+      </div>
+    </div>
+
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
       <div>
         <h3 style="margin:0;">Inspection &amp; Test Audio des 89 Clés UI (Contrat Mobile &amp; Web `ui_translation`)</h3>
@@ -1086,8 +1265,8 @@ async def translate_studio() -> str:
   <div id="tab-native" class="tab-pane">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
       <div>
-        <h3 style="margin:0 0 4px;">1. Banque Vocale Native SOREVA (1 050 clips • 150 phrases × 7 langues camerounaises • Voix Homme ElevenLabs STS)</h3>
-        <p style="margin:0;font-size:13px;color:var(--muted);">Prononciation, tons et prosodie authentiques de locuteurs natifs (Goethe-Institut / CC-BY-4.0), convertis en voix d'homme grave unique (Brian ~110 Hz via Speech-to-Speech).</p>
+        <h3 style="margin:0 0 4px;">1. Banque Tonale &amp; Prosodique SOREVA (1 050 références • 150 phrases × 7 langues • Voix Homme ElevenLabs unique)</h3>
+        <p style="margin:0;font-size:13px;color:var(--muted);">Tons diacritiques AGLC et prosodie de locuteurs natifs (Goethe-Institut / CC-BY-4.0), synthétisés d'un seul bloc par la voix masculine ElevenLabs (Brian ~110 Hz).</p>
       </div>
       <div style="display:flex;gap:10px;align-items:center;">
         <select id="sorevaLangSelect" onchange="loadSorevaBank()">{tgt_lang_options}</select>
@@ -1141,8 +1320,16 @@ async def translate_studio() -> str:
           <h3 style="margin:0 0 12px;">Paramètres de la session USSD</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <div>
-              <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Numéro de compte</label>
-              <input type="text" id="ussdPhone" value="237677000001" style="width:100%;">
+              <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Numéro de compte (Sandbox Dev space ICT)</label>
+              <input type="text" id="ussdPhone" value="237657096450" list="sandboxAccountsList" style="width:100%;">
+              <datalist id="sandboxAccountsList">
+                <option value="237657096450">Amadou Kamga (302 859 FCFA)</option>
+                <option value="237658473555">Achille Kamga (286 FCFA - Solde faible)</option>
+                <option value="237653633039">Paul Sali #1 (183 077 FCFA)</option>
+                <option value="237653159224">Paul Sali #2 (362 950 FCFA - Homonyme)</option>
+                <option value="237693384043">Rodrigue Mbarga (151 674 FCFA)</option>
+                <option value="237696411096">Serge Tchoupo (454 031 FCFA)</option>
+              </datalist>
             </div>
             <div>
               <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Langue de session</label>
@@ -1201,6 +1388,28 @@ function debouncedTranslate() {{
 }}
 
 let lastAutoSpokenKey = "";
+function renderStudioVars(tpl) {{
+  return (tpl || '')
+    .replace(/\\{{name\\}}/g, document.getElementById('varName')?.value || '')
+    .replace(/\\{{amount\\}}/g, document.getElementById('varAmount')?.value || '')
+    .replace(/\\{{beneficiary\\}}/g, document.getElementById('varBenef')?.value || '')
+    .replace(/\\{{phone\\}}/g, document.getElementById('varPhone')?.value || '')
+    .replace(/\\{{reference\\}}/g, document.getElementById('varRef')?.value || '');
+}}
+
+function refreshStudioAudioPreview() {{
+  if (!currentTr.translated) return;
+  const tgtLang = document.getElementById('tgtLang').value;
+  const spoken = renderStudioVars(currentTr.translated);
+  document.getElementById('ttsScriptOut').innerText = spoken;
+  const player = document.getElementById('autoWavPlayer');
+  if (player) {{
+    const wavUrl = `/api/audio/tts?text=${{encodeURIComponent(spoken)}}&language=${{encodeURIComponent(tgtLang)}}`;
+    player.dataset.srcKey = `${{tgtLang}}:${{spoken}}`;
+    player.src = wavUrl;
+  }}
+}}
+
 async function runTranslate(fromTyping = false) {{
   const text = document.getElementById('srcText').value;
   const srcLang = document.getElementById('srcLang').value;
@@ -1212,25 +1421,33 @@ async function runTranslate(fromTyping = false) {{
   }});
   const d = await r.json();
   currentTr = d;
+  if (d.variables) {{
+    if (d.variables.name && document.getElementById('varName')) document.getElementById('varName').value = d.variables.name;
+    if (d.variables.amount && document.getElementById('varAmount')) document.getElementById('varAmount').value = d.variables.amount;
+    if (d.variables.beneficiary && document.getElementById('varBenef')) document.getElementById('varBenef').value = d.variables.beneficiary;
+    if (d.variables.phone && document.getElementById('varPhone')) document.getElementById('varPhone').value = d.variables.phone;
+    if (d.variables.reference && document.getElementById('varRef')) document.getElementById('varRef').value = d.variables.reference;
+  }}
   document.getElementById('outText').innerText = d.translated || '';
   document.getElementById('detectedBadge').innerText = 'Source: ' + (d.source_language || 'fr');
   document.getElementById('modeBadge').innerText = 'Moteur: ' + (d.mode || 'local');
   document.getElementById('ipaOut').innerText = d.ipa || '';
-  document.getElementById('ttsScriptOut').innerText = (d.tts_engine === 'elevenlabs-male' && d.elevenlabs_native_text) ? d.elevenlabs_native_text : (d.tts_script || '');
+  const spokenText = renderStudioVars(d.translated || '');
+  document.getElementById('ttsScriptOut').innerText = spokenText || (d.tts_script || '');
   document.getElementById('gsmOut').innerText = d.gsm7_preview || '';
   const septets = (d.gsm_meta && d.gsm_meta.septets) || 0;
   document.getElementById('gsmCount').innerText = septets + '/182 septets';
   const protDiv = document.getElementById('protectedPills');
   const ents = d.protected_entities || [];
   protDiv.innerHTML = ents.length
-    ? ents.map(e => `<span class="pill warn" title="Protégé contre toute altération">🔒 ${{e}}</span>`).join('')
-    : '<span style="font-size:12px;color:var(--muted);">🔒 Chiffres &amp; noms protégés</span>';
+    ? ents.map(e => `<span class="pill warn" title="Variable dynamique sans donnée confidentielle">🔒 ${{e}}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--muted);">🔒 Zéro donnée confidentielle figée</span>';
 
-  // Mise à jour automatique de l'unique lecteur WAV Homme en fonction du texte et de la langue
+  // Mise à jour automatique de l'unique lecteur WAV Homme avec injection dynamique côté client
   if (d.translated) {{
-    const wavUrl = `/api/audio/tts?text=${{encodeURIComponent(d.translated)}}&language=${{encodeURIComponent(tgtLang)}}`;
+    const wavUrl = `/api/audio/tts?text=${{encodeURIComponent(spokenText)}}&language=${{encodeURIComponent(tgtLang)}}`;
     const player = document.getElementById('autoWavPlayer');
-    const speakKey = `${{tgtLang}}:${{d.translated}}`;
+    const speakKey = `${{tgtLang}}:${{spokenText}}`;
     if (player && player.dataset.srcKey !== speakKey) {{
       player.pause();
       player.dataset.srcKey = speakKey;
@@ -1277,10 +1494,11 @@ async function playTargetAudio() {{
   stopAllAudio();
   const lang = document.getElementById('tgtLang').value;
   const rate = parseFloat(document.getElementById('ttsRate')?.value || '0.95');
+  const spoken = renderStudioVars(currentTr.translated);
   const domPlayer = document.getElementById('autoWavPlayer');
   if (domPlayer) {{
-    const wavUrl = `/api/audio/tts?text=${{encodeURIComponent(currentTr.translated)}}&language=${{encodeURIComponent(lang)}}`;
-    const speakKey = `${{lang}}:${{currentTr.translated}}`;
+    const wavUrl = `/api/audio/tts?text=${{encodeURIComponent(spoken)}}&language=${{encodeURIComponent(lang)}}`;
+    const speakKey = `${{lang}}:${{spoken}}`;
     if (domPlayer.dataset.srcKey !== speakKey) {{
       domPlayer.dataset.srcKey = speakKey;
       domPlayer.src = wavUrl;
@@ -1290,7 +1508,7 @@ async function playTargetAudio() {{
     domPlayer.play().catch(() => {{}});
     return;
   }}
-  speakText(currentTr.translated, lang, currentTr.tts_script);
+  speakText(spoken, lang, currentTr.tts_script);
 }}
 
 function copyTranslation() {{
@@ -1325,9 +1543,74 @@ async function runTranslateAll9() {{
       <div style="font-size:17px;color:#6ee7b7;font-weight:600;margin:8px 0;">${{item.translated}}</div>
       <div style="font-size:12px;color:var(--muted);"><b>IPA:</b> <code>${{item.ipa}}</code></div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:10px;"><b>TTS:</b> ${{item.tts_script}}</div>
-      <button class="btn secondary" onclick="speakText(${{JSON.stringify(item.translated)}}, '${{code}}', ${{JSON.stringify(item.tts_script)}})">🔊 Écouter</button>
+      <button class="btn secondary" onclick="speakText(renderStudioVars(${{JSON.stringify(item.translated)}}), '${{code}}', ${{JSON.stringify(item.tts_script)}})">🔊 Écouter</button>
     </div>
   `).join('');
+}}
+
+async function renderDynamicSandboxScreen(autoSpeak = false) {{
+  const lang = document.getElementById('uiKeysLang')?.value || 'dua';
+  const screen = document.getElementById('dynScreen')?.value || 'review';
+  const holder = document.getElementById('dynHolder')?.value || 'Amadou Kamga';
+  const benef = document.getElementById('dynBenef')?.value || 'Paul Sali';
+  const phone = document.getElementById('dynPhone')?.value || '237653633039';
+  const amount = document.getElementById('dynAmount')?.value || '15 000 FCFA';
+  const fee = document.getElementById('dynFee')?.value || '150 FCFA';
+  const biller = document.getElementById('dynBiller')?.value || 'ENEO';
+
+  const map = Object.fromEntries((allUiItems || []).map(x => [x.key, x.translated]));
+  const fill = (tpl) => (tpl || '')
+    .replace(/\\{{name\\}}/g, benef)
+    .replace(/\\{{phone\\}}/g, phone)
+    .replace(/\\{{amount\\}}/g, amount)
+    .replace(/\\{{fee\\}}/g, fee)
+    .replace(/\\{{biller\\}}/g, biller)
+    .replace(/\\{{operator\\}}/g, biller)
+    .replace(/\\{{max\\}}/g, '500 000 FCFA');
+
+  let lines = [];
+  if (screen === 'home') {{
+    lines = [
+      (map['shell.greeting'] || 'Bonjour {{name}}').replace(/\\{{name\\}}/g, holder),
+      `${{map['home.balance_label'] || 'Solde'}} : 302 859 FCFA (${{fill(map['home.account'] || 'Compte {{phone}}')}})`,
+      `${{map['home.action_transfer'] || 'Envoyer'}}, ${{map['home.action_bill'] || 'Facture'}}, ${{map['home.action_airtime'] || 'Crédit'}}`
+    ];
+  }} else if (screen === 'transfer') {{
+    lines = [
+      map['transfer.title'] || 'Envoyer',
+      `${{map['transfer.to_label'] || 'Destinataire'}} : ${{benef}} (${{phone}})`,
+      `${{map['transfer.amount_label'] || 'Montant'}} : ${{amount}} (${{fill(map['transfer.fee_preview'] || 'Frais: {{fee}}')}})`
+    ];
+  }} else if (screen === 'review') {{
+    lines = [
+      map['review.title'] || 'Vérifier avant confirmation',
+      `${{map['review.to'] || 'Destinataire'}} : ${{benef}} (${{phone}})`,
+      `${{map['review.amount'] || 'Montant'}} : ${{amount}} | ${{map['review.fee'] || 'Frais'}} : ${{fee}}`,
+      map['review.warning'] || ''
+    ];
+  }} else if (screen === 'bill_receipt') {{
+    lines = [
+      map['receipt.success'] || 'Succès',
+      fill(map['receipt.bill'] || 'Facture {{biller}} de {{amount}} payée.'),
+      `${{map['receipt.reference'] || 'Référence'}} : TRX-9042`
+    ];
+  }} else if (screen === 'airtime_receipt') {{
+    lines = [
+      map['receipt.success'] || 'Succès',
+      fill(map['receipt.airtime'] || 'Crédit {{operator}} de {{amount}} envoyé au {{phone}}.'),
+      `${{map['receipt.reference'] || 'Référence'}} : TRX-9042`
+    ];
+  }} else {{
+    lines = [
+      map['receipt.success'] || 'Succès',
+      fill(map['receipt.transfer'] || '{{amount}} envoyé à {{name}}.'),
+      `${{map['receipt.reference'] || 'Référence'}} : TRX-9042`
+    ];
+  }}
+  const fullText = lines.filter(Boolean).join('. ');
+  const out = document.getElementById('dynScreenText');
+  if (out) out.innerText = lines.filter(Boolean).join('\\n');
+  if (autoSpeak && fullText) speakText(fullText, lang, fullText);
 }}
 
 async function loadUiKeys() {{
@@ -1336,6 +1619,7 @@ async function loadUiKeys() {{
   const d = await r.json();
   allUiItems = d.items || [];
   renderUiKeys(allUiItems, lang);
+  renderDynamicSandboxScreen(false);
 }}
 
 function renderUiKeys(items, lang) {{
@@ -1468,7 +1752,7 @@ async function runScenarioStep(sIdx, stIdx) {{
     body: JSON.stringify({{
       trace_id: traceId,
       channel: st.channel,
-      phone: '237677000001',
+      phone: st.phone || '237657096450',
       language: st.language,
       input: {{ type: 'text', text: st.text }},
       constraints: {{ max_chars: 182, charset: 'gsm7', mode: 'menu', timeout_ms: 3000 }}

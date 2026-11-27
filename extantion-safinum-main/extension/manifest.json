@@ -7,7 +7,9 @@
     "storage"
   ],
   "host_permissions": [
-    "https://api.anthropic.com/*"
+    "https://api.anthropic.com/*",
+    "https://maryellen-parchable-gertude.ngrok-free.dev/*",
+    "http://127.0.0.1:3000/*"
   ],
   "background": {
     "service_worker": "background.js",
@@ -20,6 +22,17 @@
     "default_title": "Safinum Lingua"
   },
   "content_scripts": [
+    {
+      "matches": [
+        "https://www.safinum.cm/*",
+        "https://safinum.cm/*"
+      ],
+      "js": [
+        "voice_bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
     {
       "matches": [
         "<all_urls>"

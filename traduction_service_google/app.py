@@ -34,7 +34,14 @@ if "safinum_mw" not in sys.modules:
     sys.modules["safinum_mw"] = _mw_pkg
 
 from safinum_mw.gsm7 import is_gsm7, septet_length, transliterate_to_gsm7
-from safinum_mw.languages import CAMEROON_NATIONAL_LANGUAGES, SUPPORTED_LANGUAGES, detect_language, normalize_language, translate_phrase
+from safinum_mw.languages import (
+    CAMEROON_NATIONAL_LANGUAGES,
+    SUPPORTED_LANGUAGES,
+    anonymize_to_variables,
+    detect_language,
+    normalize_language,
+    translate_phrase,
+)
 from safinum_mw.phonetics import build_audio_payload, synthesize_wav_bytes
 from local_nmt import available_models_status, translate_neural_local
 from sentence_corrector import correct_sentence
@@ -48,14 +55,18 @@ app = FastAPI(
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
 _PROT_RE = re.compile(
-    r"\{[a-z_]+\}|"
+    r"\{[a-z0-9_]+\}|"
     r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
-    r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|"
+    r"(?:\+?237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b|"
     r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
     r"\b(?:FCFA|XAF|CFA)\b|"
     r"\b\d+(?:[\s\.,]\d+)*\b|"
-    r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|SAFINUM(?:\s+PAY)?)\b",
+    r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|SAFINUM(?:\s+PAY)?)\b|"
+    r"\b(?:internet|télévision|television|téléphone|telephone|service|connexion|code)\b",
     flags=re.IGNORECASE,
+)
+_PREP_NAME_RE = re.compile(
+    r"(\b(?:[àa]|pour|de|vers|chez|give|to|from|[Bb]onjour|[Hh]ello|[Mm]bolo|[Ss]annu)\s+)([A-ZÀ-Ÿ][a-zà-ÿ'\-]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ'\-]+)*)"
 )
 
 
@@ -84,6 +95,17 @@ def _mask_sensitive(text: str) -> tuple[str, list[tuple[str, str]]]:
         return sentinel
 
     masked = _PROT_RE.sub(_stash, text)
+
+    def _stash_name(m: re.Match) -> str:
+        prep, name_part = m.group(1), m.group(2)
+        idx = len(pairs)
+        sentinel = f"88010{idx}"
+        while sentinel in text or sentinel in masked:
+            sentinel = f"88{idx}10{idx}"
+        pairs.append((sentinel, name_part))
+        return f"{prep}{sentinel}"
+
+    masked = _PREP_NAME_RE.sub(_stash_name, masked)
     return masked, pairs
 
 
@@ -143,7 +165,8 @@ async def health() -> dict[str, Any]:
 @app.post("/correct")
 async def correct_endpoint(req: CorrectRequest) -> dict[str, Any]:
     lang = normalize_language(req.language) or detect_language(req.text)
-    return {"language": lang, **correct_sentence(req.text, lang)}
+    template_req, vars_dict = anonymize_to_variables(req.text)
+    return {"language": lang, "variables": vars_dict, **correct_sentence(template_req, lang)}
 
 
 def _translate_chunked_preserving_entities(work_text: str, src: str, tgt: str) -> tuple[str | None, str]:
@@ -184,17 +207,20 @@ async def translate_text(req: TextTranslateRequest) -> dict[str, Any]:
     src = normalize_language(req.source_language) or detect_language(req.text)
     tgt = normalize_language(req.target_language) or "fr"
 
-    # 1. Inspection & correction grammaticale/orthographique de la phrase entière
-    corr = correct_sentence(req.text, src) if req.auto_correct else {
-        "original": req.text,
-        "corrected": req.text.strip(),
+    # 0. Anonymisation stricte des données confidentielles (sommes, noms clients, téléphones, réf) en {variables}
+    template_req, extracted_vars = anonymize_to_variables(req.text)
+
+    # 1. Inspection & correction grammaticale/orthographique du gabarit anonymisé
+    corr = correct_sentence(template_req, src) if req.auto_correct else {
+        "original": template_req,
+        "corrected": template_req.strip(),
         "changed": False,
         "engine": "disabled",
         "protected_entities": [],
     }
-    work_text = corr["corrected"] or req.text
+    work_text = corr["corrected"] or template_req
 
-    # 2. Masquage strict des entités financières avant traduction neuronale
+    # 2. Masquage strict des {variables} et sigles publics avant traduction neuronale
     masked, pairs = _mask_sensitive(work_text)
 
     # 3. Priorité aux gabarits financiers naturels vérifiés si la phrase correspond exactement à un patron critique
@@ -203,7 +229,7 @@ async def translate_text(req: TextTranslateRequest) -> dict[str, Any]:
         translated = local_check["translated"]
         engine = f"verified_financial_{local_check['mode']}"
     else:
-        # 4. Traduction neuronale locale (phrase entière puis repli segmenté autour des entités)
+        # 4. Traduction neuronale locale (phrase entière puis repli segmenté autour des variables)
         nmt_raw, nmt_engine = translate_neural_local(masked, src, tgt)
         restored = _unmask_sensitive(nmt_raw, pairs) if nmt_raw else None
         if restored:
@@ -230,6 +256,8 @@ async def translate_text(req: TextTranslateRequest) -> dict[str, Any]:
         "source_language": src,
         "target_language": tgt,
         "source_text": req.text,
+        "source_template": template_req,
+        "variables": extracted_vars,
         "corrected_text": work_text,
         "correction_applied": corr["changed"],
         "correction_engine": corr["engine"],
@@ -282,14 +310,14 @@ async def ui() -> str:
   <h1 style="margin:0;">Safinum Lingua Translate Pro <span style="color:#10b981;font-size:15px;">• Modèles IA &amp; Correction Complète</span></h1>
   <p style="color:#94a3b8;">Corrige d'abord les phrases entières (T5), protège les montants/numéros/références, traduit hors-ligne (CTranslate2 / OPUS-MT) et génère IPA + Audio.</p>
   <div style="margin-top:10px;">
-    <button onclick="preset('bonjor je veu envoye 5 000 FCFA a 677000001 sil vou plait')" style="background:#334155;color:#e2e8f0;">Ex. FR avec fautes</button>
-    <button onclick="preset('Combien coutent les frais pour envoyer 25 000 FCFA ?')" style="background:#334155;color:#e2e8f0;">Ex. Frais</button>
-    <button onclick="preset('I wants to checks my account balance before sending 10 000 FCFA.')" style="background:#334155;color:#e2e8f0;">Ex. EN avec fautes</button>
+    <button onclick="preset('bonjor {{name}} je veu envoye {{amount}} a {{beneficiary}} au {{phone}} sil vou plait')" style="background:#334155;color:#e2e8f0;">Ex. FR avec fautes + Variables</button>
+    <button onclick="preset('Combien coutent les frais pour envoyer {{amount}} ?')" style="background:#334155;color:#e2e8f0;">Ex. Frais ({{amount}})</button>
+    <button onclick="preset('I wants to checks my account balance before sending {{amount}}.')" style="background:#334155;color:#e2e8f0;">Ex. EN avec fautes ({{amount}})</button>
   </div>
   <div class="grid">
     <div>
-      <label>Texte source (auto-détecté + correction T5)</label>
-      <textarea id="src">bonjor je veu envoye 5 000 FCFA a 677000001 sil vou plait</textarea>
+      <label>Texte source (gabarit avec variables dynamiques ou anonymisé automatiquement)</label>
+      <textarea id="src">bonjor {{name}} je veu envoye {{amount}} a {{beneficiary}} au {{phone}} sil vou plait</textarea>
       <label style="display:block;margin-top:8px;font-size:13px;"><input type="checkbox" id="autocorr" checked> Corriger la phrase entière automatiquement avant traduction</label>
       <button onclick="doTranslate()">Corriger &amp; Traduire</button>
       <div class="corr" id="corr"></div>

@@ -22,13 +22,16 @@ def test_service_health_and_models_present():
 
 def test_sentence_correction_fr_and_en_preserves_financial_entities():
     r_fr = client.post("/correct", json={
-        "text": "bonjor je veu envoye 5 000 FCFA a 677000001",
+        "text": "bonjor Amina je veu envoye 5 000 FCFA a 677000001",
         "language": "fr",
     })
     assert r_fr.status_code == 200
     d_fr = r_fr.json()
-    assert "5 000 FCFA" in d_fr["corrected"]
-    assert "677000001" in d_fr["corrected"]
+    assert "{amount}" in d_fr["corrected"] and "5 000" not in d_fr["corrected"]
+    assert "{phone}" in d_fr["corrected"] and "677000001" not in d_fr["corrected"]
+    assert "{name}" in d_fr["corrected"] and "Amina" not in d_fr["corrected"]
+    assert d_fr["variables"]["amount"] == "5 000 FCFA"
+    assert d_fr["variables"]["phone"] == "677000001"
     assert "envoyer" in d_fr["corrected"].lower()
     assert "t5-spell-fr" in d_fr["engine"]
 
@@ -38,22 +41,26 @@ def test_sentence_correction_fr_and_en_preserves_financial_entities():
     })
     assert r_en.status_code == 200
     d_en = r_en.json()
-    assert "10 000 FCFA" in d_en["corrected"]
+    assert "{amount}" in d_en["corrected"] and "10 000" not in d_en["corrected"]
+    assert d_en["variables"]["amount"] == "10 000 FCFA"
     assert "t5-grammar-en" in d_en["engine"]
 
 
 def test_full_sentence_translation_all_models_and_phonetics():
-    for lang in ("ewo", "fub", "bbj", "byv", "dua", "bas", "wes", "en"):
+    for lang in ("ewo", "fub", "bbj", "byv", "dua", "bas", "hau", "bum", "wes", "en"):
         r = client.post("/translate", json={
-            "text": "Je veux envoyer 5 000 FCFA à mon frère aujourd'hui pour payer sa facture ENEO.",
+            "text": "Je veux envoyer 5 000 FCFA à Jean Mbarga au 677000001 aujourd'hui pour payer sa facture ENEO.",
             "source_language": "fr",
             "target_language": lang,
             "auto_correct": True,
         })
         assert r.status_code == 200
         d = r.json()
-        assert "5 000 FCFA" in d["translated_text"]
+        assert "{amount}" in d["translated_text"] and "5 000" not in d["translated_text"]
+        assert "{beneficiary}" in d["translated_text"] and "Jean Mbarga" not in d["translated_text"]
+        assert "{phone}" in d["translated_text"] and "677000001" not in d["translated_text"]
         assert "ENEO" in d["translated_text"]
+        assert d["variables"]["amount"] == "5 000 FCFA"
         assert d["ipa"].startswith("/")
         assert d["tts_script"]
         assert d["gsm7_strict"] is True

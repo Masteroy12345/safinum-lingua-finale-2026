@@ -33,6 +33,7 @@ from safinum_mw.languages import (
     _CONNECTORS,
     _DROP_ARTICLES,
     _EN_TO_GLOSSARY_KEY,
+    anonymize_to_variables,
     normalize_language,
 )
 from safinum_mw.phonetics import build_audio_payload, synthesize_wav_bytes
@@ -44,14 +45,17 @@ app = FastAPI(
 )
 
 _PROT_RE = re.compile(
-    r"\{[a-z_]+\}|"
+    r"\{[a-z0-9_]+\}|"
     r"(?:TRX|SAF)-[A-Za-z0-9\-]+|"
-    r"(?:\+?237[\s\-\.]?)?6[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}[\s\-\.]?\d{2}|"
+    r"(?:\+?237[\s\-\.]?)?[26](?:[\s\-\.]?\d){8}\b|"
     r"\b\d[\d\s\.,]*\s*(?:FCFA|XAF|CFA)\b|"
     r"\b(?:FCFA|XAF|CFA)\b|"
     r"\b\d+(?:[\s\.,]\d+)*\b|"
     r"\b(?:ENEO|CAMWATER|CANAL\+?|CAMTEL|MTN|ORANGE|SAFINUM(?:\s+PAY)?)\b",
     flags=re.IGNORECASE,
+)
+_PREP_NAME_RE = re.compile(
+    r"(\b(?:[àa]|pour|de|vers|chez|give|to|from|[Bb]onjour|[Hh]ello|[Mm]bolo|[Ss]annu)\s+)([A-ZÀ-Ÿ][a-zà-ÿ'\-]+(?:\s+[A-ZÀ-Ÿ][a-zà-ÿ'\-]+)*)"
 )
 
 
@@ -75,6 +79,7 @@ class TranslateRequest(BaseModel):
 def word_by_word_translate(text: str, target_lang: str) -> dict[str, Any]:
     lang = normalize_language(target_lang) or "fr"
     clean = text.strip()
+    template_clean, extracted_vars = anonymize_to_variables(clean)
     protected: list[str] = []
 
     def _stash(m: re.Match) -> str:
@@ -82,7 +87,7 @@ def word_by_word_translate(text: str, target_lang: str) -> dict[str, Any]:
         protected.append(m.group(0))
         return f"__PROT_{idx}__"
 
-    masked = _PROT_RE.sub(_stash, clean)
+    masked = _PROT_RE.sub(_stash, template_clean)
     tokens = re.findall(r"__PROT_\d+__|[A-Za-zÀ-ÿ0-9'ʼ]+|[^\w\s]+|\s+", masked)
 
     alignments: list[dict[str, str]] = []
@@ -97,7 +102,8 @@ def word_by_word_translate(text: str, target_lang: str) -> dict[str, Any]:
             idx = int(tok.replace("__PROT_", "").replace("__", ""))
             orig_val = protected[idx]
             out_parts.append(orig_val)
-            alignments.append({"source": orig_val, "target": orig_val, "status": "protected"})
+            st = "variable" if (orig_val.startswith("{") and orig_val.endswith("}")) else "protected"
+            alignments.append({"source": orig_val, "target": orig_val, "status": st})
             continue
         if not re.match(r"^[A-Za-zÀ-ÿ'ʼ]+$", tok):
             out_parts.append(tok)
@@ -154,6 +160,8 @@ def word_by_word_translate(text: str, target_lang: str) -> dict[str, Any]:
     return {
         "mode": mode,
         "translated": translated,
+        "source_template": template_clean,
+        "variables": extracted_vars,
         "words_translated": replaced,
         "alignments": alignments,
     }
@@ -223,8 +231,8 @@ async def ui() -> str:
   <p style="color:#94a3b8;">Traduction lexicale mot-par-mot avec alignement visible, protection des montants/téléphones et phonétique IPA/TTS.</p>
   <div class="grid">
     <div>
-      <label>Texte source</label>
-      <textarea id="src" rows="4">bonjour envoyer 5 000 FCFA à 677000001</textarea>
+      <label>Texte source (gabarit avec variables dynamiques ou anonymisé automatiquement)</label>
+      <textarea id="src" rows="4">bonjour {{name}} envoyer {{amount}} à {{beneficiary}} au {{phone}}</textarea>
       <button onclick="doTranslate()">Traduire mot-à-mot</button>
     </div>
     <div>
