@@ -677,6 +677,41 @@ async def handle_gateway(request: Request):
         payload["constraints"]["max_chars"] = 160
         payload["constraints"]["mode"] = "async"
 
+        # Détection du premier message / message d'accueil
+        # Mots déclencheurs d'un menu de bienvenue (vide, salutation, aide, menu)
+        _sms_text = (payload.get("input", {}).get("text") or "").strip().lower()
+        _WELCOME_TRIGGERS = {
+            "", "bonjour", "bonsoir", "salut", "hi", "hello", "hey", "aide",
+            "help", "menu", "start", "debut", "demarrer", "demarrage",
+            "mbolo", "sannu", "jam", "idib'a", "mbolô", "o zi à", "kɛl i lam",
+            "1", "0", "00",
+        }
+        # Normaliser : retirer accents et espaces pour comparaison large
+        import unicodedata as _ud
+        def _norm(t): return _ud.normalize("NFKD", t).encode("ascii","ignore").decode().lower().strip()
+        _is_welcome = _sms_text in _WELCOME_TRIGGERS or _norm(_sms_text) in {_norm(w) for w in _WELCOME_TRIGGERS}
+
+        if _is_welcome:
+            # Résoudre la langue dès maintenant pour le message de bienvenue
+            _sms_lang = normalize_language(payload.get("language")) or "fr"
+            _welcome_msg = get_text(_sms_lang, "sms_welcome", "sms")
+            # S'assurer que la réponse tient en 1 SMS GSM-7
+            from .gsm7 import fit_channel_constraints
+            _welcome_msg, _ = fit_channel_constraints(_welcome_msg, channel="sms", max_chars=160, charset="gsm7_ucs2")
+            return JSONResponse({
+                "response": {
+                    "text": _welcome_msg,
+                    "end_session": False,
+                    "options": [],
+                },
+                "interpretation": {
+                    "intent": "UNKNOWN",
+                    "parameters": {},
+                    "language": _sms_lang,
+                },
+                "transaction": {"id": None, "status": "none"},
+            })
+
     # --- CONTRAT USSD / CONVERSATIONNEL ---
     if "trace_id" not in payload or not payload.get("trace_id"):
         payload["trace_id"] = header_trace
