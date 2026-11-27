@@ -3,7 +3,7 @@
 Contrat :
 - input.type == "dtmf"  → saisie clavier (chiffre ou vide au décroché)
 - input.type == "audio" → WAV PCM 16 bits mono base64 (8 ou 16 kHz, max 30s)
-  → transcription via Gemini 2.0 Flash Lite  → NLU → réponse texte <= 400 chars
+  → transcription via Gemini 3.1 Flash Lite  → NLU → réponse texte <= 400 chars
 - Réponse : même contrat USSD (response.text, interpretation.intent, transaction)
   mais max_chars = 400, charset = utf8, mode = voice
 """
@@ -25,8 +25,8 @@ from .languages import normalize_language
 
 logger = logging.getLogger(__name__)
 
-# Gemini 2.0 Flash Lite — transcription audio + compréhension
-_GEMINI_MODEL = "gemini-2.0-flash-lite"
+# Gemini 3.1 Flash Lite — transcription audio + compréhension
+_GEMINI_MODEL = "gemini-3.1-flash-lite"
 _GEMINI_URL = (
     f"https://generativelanguage.googleapis.com/v1beta/models/"
     f"{_GEMINI_MODEL}:generateContent"
