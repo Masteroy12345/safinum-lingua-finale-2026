@@ -1,0 +1,23 @@
+# S10 — Terminologie financière · USSD · Ghɔmálá'
+
+## Saisies
+
+```
+c'est quoi les frais
+```
+ou
+```
+explique beneficiaire
+```
+ou
+```
+kesquoi plafond
+```
+
+**Réponse attendue (frais) :**
+```
+Fétè : nkap ye bé payer a fëb / frais de transfert.
+Ex : 5 000 FCFA → 50 FCFA de frais.
+```
+
+**Intent :** `TERM_EXPLANATION` · Aucun appel bancaire.
